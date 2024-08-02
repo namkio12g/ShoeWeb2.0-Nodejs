@@ -1,0 +1,12 @@
+extends ../../page/user/index.pug
+include ../../mixins/order_item.pug
+block user_content 
+    p.fs-2 Orders
+    hr.mx-auto(style="width:100%")
+    .mt-3.d-flex.flex-column
+        .d-flex.flex-row.justify-content-between
+        .information-content.my-5
+            .my-3
+                .d-flex.justify-content-between.flex-wrap
+                    for order in orders
+                        +order_item(order,user)

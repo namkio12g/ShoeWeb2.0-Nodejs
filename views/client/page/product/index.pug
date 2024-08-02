@@ -1,0 +1,60 @@
+extends ../../layout/default.pug
+include ../../mixins/product_item.pug
+include ../../mixins/header_product.pug
+include ../../mixins/pagination.pug
+
+
+block main_content
+  section.breadcrumb-product
+    +product_title(listRoute)
+  section.products.container
+    .filter
+      .row.filter__item
+        .col-12.topCategoriesProduct
+          nav 
+            p1 Top Categories 
+            ul
+              li Nike Air
+              li Puma
+              li a
+              li b
+              li c
+
+      .row.filter__item
+        .col-12.rangePriceProduct
+          nav
+            div.titleRange
+              p1 Price Range
+            .double-slider-box
+              .range-slider
+                span.slider-track
+                input.min-val(type='range' name='min_val' min='0' max='1200000' value='0' )
+                input.max-val(type='range' name='max_val' min='0' max='1200000' value='1200000')
+                .tooltip1.min-tooltip
+                .tooltip1.max-tooltip
+      .row.filter__item
+        .col-12.size-option
+          nav 
+            p1 Size
+            ul
+              li
+                .inner-size-option 37
+              li
+                .inner-size-option 38
+              li
+                .inner-size-option 39
+              li
+                .inner-size-option 40
+              li
+                .inner-size-option 41            
+    section.listProducts
+        nav.row.flex-wrap
+          each item in product
+            +product_item(item.thumbnail,item.title,item.price,item.priceNew,item.discountPercentage,item._id)
+        +pagination(pagination)
+  script(src="/build/product_client.bundle.js")
+
+
+        
+
+

@@ -1,0 +1,63 @@
+body {
+  background: linear-gradient(90deg, #d9b3fd 0%, #c58ffd 35%, #8a4bf4 100%);
+}
+
+.icon-home {
+  color: #8a4bf4;
+  cursor: pointer;
+}
+
+.icon-home:hover {
+  color: #58309c;
+}
+
+.warning-text {
+  color: red;
+  display: none;
+}
+
+.display-block {
+  display: block;
+}
+
+.input-section input {
+  width: 90%;
+  height: 40px;
+  border: 1px solid rgb(185, 181, 181);
+}
+
+.remember-check {
+  accent-color: #8a4bf4;
+}
+
+.signIn-btn {
+  background-color: #8a4bf4;
+  border: 1px solid #d9b3fd;
+  width: 40%;
+  height: 40px;
+  color: white;
+}
+
+.signIn-btn:hover {
+  background-color: #58309c;
+}
+
+.featured-image img {
+  height: 650px;
+}
+
+.verification-button:disabled {
+  background-color: #c58ffd;
+}
+
+.verification-button {
+  width: 30%;
+  height: 50px;
+  color: white;
+  background-color: #58309c;
+  border: 1px solid #d9b3fd;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+/*# sourceMappingURL=login.css.map */

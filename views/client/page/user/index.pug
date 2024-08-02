@@ -1,0 +1,24 @@
+extends ../../layout/default.pug
+
+
+block main_content
+    .container.px-5
+        .row.mt-5.px-5.justify-content-center.d-flex
+            .col-3.px-0.pb-5.me-3(style="background-color:white;height:fit-content;border-radius:15px")
+                p.mt-3.mx-5.fs-1.fw-bold Profile
+
+                .d-flex.flex-row.px-4.my-5 
+                    img.rounded-circle(src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp" alt="avatar1" style="width:80px    ")
+                    .d-flex.flex-column.justify-content-center.ms-3
+                        p.fs-3.my-0 Hello
+                        p.fs-2.my-0 Kazi Rudo
+                .d-flex.flex-column(style="width:100%;") 
+                    a.profile-selection.fs-3.py-4.ps-5.selected(href="/user/" style="width:100%;border-bottom:1px solid #E6E6E6;border-top:1px solid #E6E6E6;text-decoration:none") Your Profile
+                    a.orders-selection.fs-3.py-4.ps-5(href="/user/orders/" style="width:100%;border-bottom:1px solid #E6E6E6;text-decoration:none") My orders
+                    a.address-selection.fs-3.py-4.ps-5(href="/user/address/" style="width:100%;border-bottom:1px solid #E6E6E6;text-decoration:none") Address
+            .col-8.ms-5.px-5.py-5(style="background-color:white;border-radius:15px;height:fit-content")
+                block user_content
+           
+    script(src="/build/profile.bundle.js")            
+        
+                

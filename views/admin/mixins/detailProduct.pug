@@ -1,0 +1,47 @@
+mixin detailProduct(detailProduct) 
+  if(detailProduct)
+    .detail_wrapper(style='display:flex')
+        .titleDetailProduct
+            h3 Thông Tin Sản Phẩm:  #{detailProduct.title}
+        .detail_wrapper_infor(style='display:flex')
+            nav.nav_item.imageProduct
+                img(src=detailProduct.thumbnail alt='' srcset='')
+            nav.nav_item.inforProduct
+                .itemInfor Title:
+                    span #{detailProduct.title}
+                .itemInfor Price: 
+                    span #{detailProduct.price}
+                .itemInfor discountPercentage:
+                    span #{detailProduct.discountPercentage}
+                .itemInfor rating:
+                    span #{detailProduct.rating}
+                .itemInfor stock:
+                    span #{detailProduct.stock}
+            nav.nav_item.inforProduct
+                .itemInfor brand:
+                    span #{detailProduct.brand}
+                .itemInfor category:
+                    span #{detailProduct.category}
+                .itemInfor brand:
+                    span #{detailProduct.brand}
+                .itemInfor status:
+                    span #{detailProduct.status}
+                .itemInfor delete:
+                    span #{detailProduct.delete}
+            nav.nav_item.inforProduct
+                table.tableDetailProduct
+                    thead
+                        tr
+                            th(scope='col') SIZE
+                            each item in detailProduct.size
+                                th(scope='col') #{item.Value}
+                    tbody.table-group-divider
+                        tr
+                            th(scope='row') STOCK
+                            each item in detailProduct.size
+                                th(scope='col') #{item.stock}
+                           
+        i#closeFormDetail.fa-solid.fa-circle-xmark.btnCloseDetail
+
+        
+

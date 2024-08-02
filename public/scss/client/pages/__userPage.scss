@@ -1,0 +1,49 @@
+.selected{
+    background-color: #562C9D;
+    color:white;
+}
+.userInfo-selection{
+    color:black
+
+}
+.addAddress-btn{
+    color:#000000;
+    background-color:#aa86d0;
+    border-radius: 8px;
+    border: 1px solid #d9bcf4;
+    transition: background-color 300ms linear ;
+}
+.addAddress-btn:hover{
+    background-color:#531f8a;
+    color:white;
+
+
+}
+.warning-addAddress{
+    color:rgb(243, 80, 80)
+}
+.address-text{  
+    color: rgb(101, 101, 101);
+}
+.updateAddress-btn{
+    background-color: transparent;
+    border: 0px;
+    color: #8163a1;
+    text-decoration: underline;
+}
+.setDefault-btn{
+    background-color: #6b4d9f;
+    color:white;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+.default-tag{
+    border: 1px solid #5204d8;
+    color:#5204d8;
+    width: fit-content;
+}
+.address-modal input{
+    border:1px solid rgb(172, 170, 170);
+    border-radius:2px;
+    width:50%
+}

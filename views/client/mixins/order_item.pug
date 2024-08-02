@@ -1,0 +1,58 @@
+mixin order_item(order,user)
+    .order-item.d-flex.flex-column.mb-4
+                        .d-flex.flex-row.justify-content-between.mx-5.my-2    
+                            div.d-flex.flex-column
+                                span.fs-4 Order Id
+                                span.fs-4.fw-bold ##{order._id}
+                            
+                            div.d-flex.flex-row.align-items-center
+                                .me-5
+                                    i.fa-regular.fs-4.fa-calendar-days
+                                    span.fs-4.ms-2 #{order.formattedDate}
+                                if order.status===1
+                                    span.order-status.fs-4.px-2.py-2 Đang xử lý
+
+                                else if order.status===2
+                                    span.order-status.fs-4.px-2.py-2 Đã xác nhận
+
+                                else if order.status===3
+                                    span.order-status.fs-4.px-2.py-2 Đang vận chuyển
+
+                                else
+                                    span.order-status.fs-4.px-2.py-2 Hủy bỏ
+                        .d-flex.flex-column.orderContent-section.px-2.mx-4 
+                            .d-flex.flex-row.justify-content-between.ps-3.my-2
+                                
+                                .ms-1.fs-5.d-flex.flex-column
+                                    .d-flex.flex-row.align-items-center
+                                        i.fs-4.fa-solid.fa-user
+                                        | :
+                                        span.ms-2.fs-4 #{user.name}
+                                    .d-flex.flex-row.align-items-center
+                                        i.fs-4.fa-solid.fa-mobile
+                                        | :
+                                        span.ms-2.fs-4.fw-bold #{order.phoneNumber}
+                                .ms-1.fs-5.d-flex.flex-row.align-items-center(style="width:40%;color:black")
+                                    hr(style="width:100%")
+                                .me-1.fs-5.d-flex.align-items-center
+                                    i.fs-5.fa-solid.fa-location-dot.mx-2
+                                    span.fs-4.fw-bold #{order.address}
+                            .product-section.d-flex.flex-wrap.justify-content-between.px-3
+                                for product in order.productArray
+                                    .product-item.d-flex.flex-row
+                                        img(src=product.thumbnail, alt="")
+                                        .productInfo-item.d-flex.flex-column.justify-content-center.ms-3 
+                                            span.fs-4.fw-bold #{product.name}
+                                            .d-flex.flex-row
+                                                span.fs-4 total: 
+                                                span.fs-4.fw-bold #{product.total}
+                                            .d-flex.flex-row
+                                                span.fs-4 size: 
+                                                span.fs-4.fw-bold #{product.size}
+                         
+                           
+                        .button-section.d-flex.flex-row.justify-content-between.align-items-center.px-5
+                            span.fs-3.total-text Total:
+                                span #{order.priceTotal-order.coupponTotal}
+                            .ms-2
+                                a(href=`/order/detail/${order._id}`).fs-4.px-5.py-2 Detail 

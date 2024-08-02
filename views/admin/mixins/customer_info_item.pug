@@ -1,0 +1,18 @@
+
+
+mixin customer_infor_item(item,index) 
+    tr.text-start
+                    th(class="stt_tableProduct",scope='row') #{index+1}
+                    th(class="_tableProduct",scope='row') #{item.name}
+                    td(class="_tableProduct") #{item.phoneNumbers}
+                    td(class="_tableProduct") #{item.score}
+                    td(class="text-wrap") 
+                        button.btnStatus(status =item.status, id_product =item._id style=`${item.status==="active"? "color:var(--bs-success)":"color:var(--bs-danger)"}`) #{item.status}
+                    td
+                            i.fa-solid.fa-eye(btn_detail, id_customer =item._id)
+ 
+                    td
+                        button.btn.btn-warning(type='button' data-toggle="modal" data-target="#exampleModal" ) Edit
+                        if item.delete == "false"
+                            button.btn.btn-danger.ml-1.openConfirm(type='button' btn_delete id_customer=item._id ) Delete
+

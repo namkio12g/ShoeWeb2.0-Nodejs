@@ -1,0 +1,30 @@
+mixin detailCustomer(customer) 
+  if(customer)
+    .detail_wrapper(style='display:flex')
+        .titleDetailProduct(style='background:blue')
+            h3 Thông tin khách hàng:  #{customer.name}
+        .detail_wrapper_infor(style='display:flex')
+            nav.nav_item.inforProduct
+                .itemInfor Name:
+                    span #{customer.name}
+                .itemInfor Phone numbers: 
+                    span #{customer.phoneNumbers}
+                .itemInfor Citizen ID:
+                    span #{customer.citizenId}
+                .itemInfor Address:
+                    span #{customer.address}
+                .itemInfor Email:
+                    span #{customer.email}
+            nav.nav_item.inforProduct
+                .itemInfor Date created:
+                    span #{customer.dateCreated}
+                .itemInfor Birthday:
+                    span #{customer.birthDays}
+            nav.nav_item.inforProduct
+                .itemInfor Score:
+                    span #{customer.score}
+                                
+        i#closeFormDetail.fa-solid.fa-circle-xmark.btnCloseDetail
+
+        
+

@@ -1,0 +1,10 @@
+mixin addressMixin(address)
+     .my-3.d-flex.flex-row.justify-content-between
+            .d-flex.flex-column
+                p.fs-4.fw-bold #{address.name}
+                p.address-text.fs-4.mt-0  #{address.location}
+                if(address.defaultSetting==="true")
+                    p.px-3.fs-4.default-tag Default
+            .d-flex.flex-column.justify-content-center
+                button.fs-3.updateAddress-btn(type="button" data-address-id=address._id data-address-location=address.location) Update
+                button.mt-3.fs-3.setDefault-btn(type="button" data-address-id=address._id) Set Default

@@ -1,0 +1,105 @@
+extends ../../layout/default.pug
+include ../../mixins/product_item.pug
+include ../../mixins/header_product.pug
+include ../../mixins/pagination.pug
+
+
+block main_content
+  .headerListProduct
+    +product_title(listRoute)
+  .wrapperListProduct.container
+    .optionProductType
+      .row
+        .col-12.topCategoriesProduct
+          nav 
+            p1 Top Categories 
+            ul
+              li Nike Air
+              li Puma
+              li a
+              li b
+              li c
+
+      .row
+        .col-12.rangePriceProduct
+          nav
+            div.titleRange
+              p1 Price Range
+            .double-slider-box
+              .range-slider
+                span.slider-track
+                input.min-val(type='range' name='min_val' min='0' max='1200000' value='0' )
+                input.max-val(type='range' name='max_val' min='0' max='1200000' value='1200000')
+                .tooltip1.min-tooltip
+                .tooltip1.max-tooltip
+      .row
+        .col-12.size-option
+          nav 
+            p1 Size
+            ul
+              li
+                .inner-size-option 37
+              li
+                .inner-size-option 38
+              li
+                .inner-size-option 39
+              li
+                .inner-size-option 40
+              li
+                .inner-size-option 41             
+            //- .input-box
+            //-   .min-box
+            //-     .input-wrap
+            //-       span.input-addon $
+            //-       input.input-field.min-input(type='text' name='min_input')
+            //-   .max-box
+            //-     .input-wrap
+            //-       span.input-addon $
+            //-       input.input-field.max-input(type='text' name='max_input')
+
+
+          //- nav
+          //-   p1 Mức giá
+          //-   for item in listRangePrice
+          //-       if item.value == rangePrice
+          //-         .form-check
+          //-           input.form-check-input(checked=true id=`${item.id}` type='radio' name='flexRadioDefault' radioRangePrice value=`${item.text}`  )
+          //-           label.form-check-label(for=`${item.id}`)
+          //-             | #{item.text}
+          //-       else 
+          //-         .form-check
+          //-           input.form-check-input( id=`${item.id}` type='radio' name='flexRadioDefault' radioRangePrice value=`${item.text}`  )
+          //-           label.form-check-label(for=`${item.id}`)
+          //-             | #{item.text}
+
+
+      //- div 
+      //-   p1 Thương hiệu
+      //-   .form-check
+      //-     input#brand1.form-check-input(type='radio' name='flexRadioDefault1')
+      //-     label.form-check-label(for='brand1')
+      //-       | Adidas
+      //-   .form-check
+      //-     input#brand2.form-check-input(type='radio' name='flexRadioDefault1')
+      //-     label.form-check-label(for='brand2')
+      //-       | Nike
+      //-   .form-check
+      //-     input#brand3.form-check-input(type='radio' name='flexRadioDefault1')
+      //-     label.form-check-label(for='brand3')
+      //-       | Puma
+      //-   .form-check
+      //-     input#brand4.form-check-input(type='radio' name='flexRadioDefault1')
+      //-     label.form-check-label(for='brand4')
+      //-       | Vans
+
+    section.listProducts
+        nav.row.flex-wrap
+          each item in product
+            +product_item(item.thumbnail,item.title,item.price,item.priceNew,item.discountPercentage,item._id)
+        +pagination(pagination)
+  script(src="./js/scripts.js")
+
+
+        
+
+

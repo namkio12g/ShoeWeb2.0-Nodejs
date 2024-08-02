@@ -1,0 +1,188 @@
+.order-item{
+    border: 1px solid #844a97;
+    border-radius: 15px;
+    width: 98%;
+    height: fit-content;
+}
+.product-section{
+    height: 130px;
+    overflow: scroll;
+}
+
+.order-status{
+    border: 1px solid #31e089;
+    color: #36fb98;
+    border-radius: 20px;
+}
+.product-item{
+    width: 49%;
+    border: 1px solid rgb(234, 233, 233);
+    margin-bottom: 10px;
+    border-radius: 10px;
+
+    
+}
+.order-item img{
+    width: 90px;
+    height: 90px;
+    border-radius:10px;
+}
+.orderContent-section{
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 10px;
+}
+.button-section{
+    height: 50px;
+    background-color: #8e75a3;
+    border-radius:0 0 15px 15px;
+    
+    // border-bottom: 1px solid #7f0ea4;
+}
+.button-section a{
+    border: 1px solid #9477b0 ;
+    background-color: #F78C9B;
+    color:white;
+    text-decoration: none;
+    border-radius: 10px;
+}
+.total-text{
+    color: #ffffff;
+}
+.orderDetail-header{
+    background-color: #f6f6f6;
+    border-radius: 10px;
+}
+.orderProduct-content{
+    width: 60%;
+}
+.orderProduct-item{
+    border: 1px solid #dad9d9;
+    border-radius: 10px;
+}
+.orderProduct-item img{
+    border-radius: 10px;
+    height: 100px;
+    width: 100px;
+
+}
+.orderInfo-content{
+    width: 35%;
+
+}
+.address-section{
+    height:100px;
+    border:1px solid #e8e6e6;
+    border-radius: 10px;
+}
+.order-line{
+    width: 80%;
+}
+.paymentDetail-section{
+    border:1px solid #e8e6e6;
+    border-radius: 10px;
+    background-color: #eadffa;
+}
+.order-couppon-text{
+    color:#55dc1b;
+}
+.orderInfo-content a{
+     width: 100%;
+     border-radius: 10px;
+     border:1px solid rgb(255, 250, 250);
+     background-color:#9d6de4 ;
+     color:white;
+     text-decoration: none;
+     cursor: pointer;
+} 
+.orderInfo-content a:hover{
+     background-color:#6f1de9 ;
+    
+} 
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: #455A64;
+    padding-left: 0px;
+    margin-top: 30px
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 13px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+    color: #455A64 !important;
+    
+}
+
+#progressbar #step1:before {
+    content: "1";
+    color: #fff;
+    width: 29px;
+    margin-left: 15px !important;
+    padding-left: 11px !important;
+}
+
+
+#progressbar #step2:before {
+    content: "2";
+    color: #fff;
+    width: 29px;
+    
+
+}
+
+#progressbar #step3:before {
+    content: "3";
+    color: #fff;
+    width: 29px;
+    margin-right: 15px !important;
+    padding-right: 11px !important;
+}
+
+#progressbar li:before {
+    line-height: 29px;
+    display: block;
+    font-size: 12px;
+    background: #455A64 ;
+    border-radius: 50%;
+    margin: auto;
+    
+}
+
+ #progressbar li:after {
+    content: '';
+    width: 121%;
+    height: 2px;
+    background: #455A64;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 15px;
+
+} 
+
+#progressbar li:nth-child(2):after {
+    left: 59%;
+}
+
+#progressbar li:nth-child(1):after {
+    left: 29%;
+    width: 121%;
+}
+#progressbar li:nth-child(3):after {
+    left: 25% !important;
+    width: 50% !important;
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #4bb8a9; 
+
+}
+#progressbar li.state:before{
+    background: #4bb8a9;
+}
+

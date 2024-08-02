@@ -1,0 +1,5 @@
+{
+  "watch": ["public/scss"],
+  "ext": "scss",
+  "exec": "node compile-scss.js"
+}

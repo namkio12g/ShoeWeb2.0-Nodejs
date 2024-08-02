@@ -1,0 +1,134 @@
+extends ../../layout/default.pug
+include ../../mixins/product_infor.pug
+include ../../mixins/pagination.pug
+include ../../mixins/detailProduct.pug
+
+block main
+  .wrapper
+    include ../../partials/sider.pug
+    .main
+      include ../../partials/header.pug
+      +product_infor(products,listOption,keyword,detailProduct1)
+      +pagination(pagination)
+
+      //-------------add new products----------------
+      section.category-section
+          //- button.btn.btn-primary.add_Product(type='button') Add new product
+          #productModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+              .modal-dialog
+                    form#cat_form(method='POST' action='/admin/products/add?_method=PATCH',enctype="multipart/form-data")
+                        .modal-content
+                            // header
+                            .modal-header
+                              h5#exampleModalLabel.modal-title Modal title
+                            // Body
+
+                            .modal-body
+                                // product title
+                                .row
+                                    .col-md-12
+                                        .form-group
+                                            label(for='prodcuct_title') Product Title
+                                            input#prodcuct_title.form-control(type='text' name='title' placeholder='Product Title' required)
+                                            span#productError.text-danger
+                                .row#SizePriceStock0
+                                    .col-md-6
+                                        .form-group
+                                            label(for='category_name') Category Name
+                                            select#category_name.form-control(name='category' required)
+                                                option(value='Shoe') Shoe
+                                            span#categoryError.text-danger
+                                    .col-md-6
+                                        .form-group
+                                            label(for='category_name') Brand Name
+                                            select#category_name.form-control(name='brand')
+                                                option(value='0') Select a Category
+                                                option(value='NIKE') NIKE
+                                            span#categoryError.text-danger
+                                .row
+                                    .col-md-12
+                                        .form-group
+                                            label(for='prodcuct_price') Product Price
+                                            input#product_price.form-control(required type='text' name='price' placeholder='Product Price')
+                                            span#productPriceError.text-danger
+                                .row#SizePriceStock
+                                    .col-md-5
+                                        .form-group
+                                            label(for='product-size') Size
+                                            input#product-size.form-control(type='text'  placeholder='Size Product')
+                                            span#productSizeError.text-danger
+                                    .col-md-5
+                                        .form-group
+                                            label(for='product_stock') Stock
+                                            input#product-stock.form-control(type='text' placeholder='Stock')
+                                            span#productError.text-danger
+                                    .col-md-2.pt-4
+                                            button#add.btn.btn-primary.btnAddSizeProduct(type="button") Add
+    
+                                .row
+                                    .col-md-5
+                                        .form-group
+                                            label(for='product_thumbnail') Upload Product Thumbnail
+                                            input#product_thumbnail.form-control(type='file' name='thumbnail')
+                                            span#thumbnail_error.text-danger
+                                    .col-md-5
+                                        .form-group
+                                            label(for='product_thumbnail') Preview Image
+                                            .preview-thumbnail
+                                                img(src="", alt="", srcset="")
+                                .row   
+                                    .col-md-12
+                                        .form-group
+                                            label(for='long_description') Description
+                                            textarea#long_description.form-control(name='description' rows='5' placeholder='Long Description')
+                                            span#long_description_error.text-danger
+                                .row   
+                                    .col-md-12
+                                        .form-group
+                                            label Status
+                                        .form-group.statusProduct
+                                            input#active(type='radio' name='status' value="active")
+                                            label.form-check-label(for='active')
+                                                | Active
+                                            input#inactive(type='radio' name='status' value="inactive")
+                                            label.form-check-label(for='inactive')
+                                                | Inactive
+                                .row
+                                    .col-md-12
+                                        label Add More Thumbnails
+                                    .col-md-10
+                                        input.form-control(type='file', name="images")
+                                    .col-md-2
+                                        button.btn.btn-success.btn-block.add-more-thumbnail(type='button') Add
+
+                            .modal-footer
+                                button.btn.btn-secondary.btnCloseFormAddProduct(type='button' data-dismiss='modal') Close
+                                button.btn.btn-primary.save.btnSaveFormAddProduct(type='submit') Save
+
+      //- - if (messages.info)
+      //-   .message.info
+      //-     span #{messages.info}
+      form(
+        action="",
+         method="get"
+         id = "form_detail"
+        data_path =`/admin/products/detail`
+        )
+      form(
+        action="",
+         method="POST"
+         id = "form_change_status"
+        data_path_changestatus =`/admin/products/change-status`
+        )
+      form(
+        action="",
+        method="POST",
+        id = "form_delete_product",
+        data_path_delete =`/admin/products/delete`
+        )
+  script(src="/build/product.bundle.js")
+
+
+
+
+

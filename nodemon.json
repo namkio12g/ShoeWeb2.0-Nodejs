@@ -1,0 +1,5 @@
+{
+  "watch": ["webpack.config.js", "public/js", "index.js"],
+  "ext": "js,json",
+  "exec": "npm run build && node index.js"
+}

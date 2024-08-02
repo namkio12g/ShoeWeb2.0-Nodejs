@@ -1,0 +1,139 @@
+/* --------------------Cart Css------------------- */
+.product-carts {
+  height: fit-content;
+  border-radius: 20px;
+  background: white;
+}
+
+.products-cart-content {
+  height: fit-content;
+  max-height: 550px;
+  background: white;
+}
+.product-in-cart {
+  width: 95%;
+  height: 150px;
+}
+.product-in-cart img {
+  border:1px solid black;
+  width: 80%;
+  height: 100%;
+  border-radius: 20px;
+}
+.small-text {
+  color: #cecdcc;
+}
+.quantity-button {
+  font-size: 150%;
+  width: 25%;
+  border-radius: 10px;
+  background: white;
+}
+.quantity-button:hover {
+  background-color: yellow;
+}
+.price-text {
+  color: #f8e35e;
+}
+.payment-section {
+  height: 700px;
+  border-radius: 20px;
+  background: white;
+}
+.shipping-section {
+  height: 25%;
+  font-size: 15px;
+}
+.shipping-section select {
+  width: 100%;
+  height: 20%;
+  border-radius: 20px;
+}
+.shipping-section option {
+  font-size: 15px;
+}
+.couppon-section {
+  height: 27%;
+}
+.couppon-section select {
+  width: 100%;
+  height: 20%;
+  border-radius: 20px;
+  font-size: 15px;
+}
+.couppon-apply-button {
+  width: 40%;
+  height: fit-content;
+  border-radius: 20px;
+  background: black;
+}
+.cart-total-section {
+  height: 40%;
+  background: red;
+  border-radius: 20px;
+  background: #f8bf64;
+}
+.cart-total-section button {
+  width: 100%;
+  border-radius: 20px;
+  background: white;
+  border: 0px;
+}
+.couppon-text {
+  color: white;
+}
+.dropbtn {
+  background-color: #04aa6d;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown:hover .dropdown-menu {
+      display: block;
+      margin-top: 0;
+      margin-right:50px;
+      // width:200px;
+    }
+.dropdown{
+    button{
+            border:0px;
+            background-color:white
+          }
+    img{
+      width:40%;height:100%;border:1px solid black;border-radius:10px
+    }
+    input{
+      width:30%;height:50%
+    }
+    .product-section{
+      max-height:400px
+    }
+    .product-cart-hover{
+      height:100px;
+      .size-text{
+        color:gray
+      }
+      .price-text{
+        color:#f8e35e
+      }
+      .size-section{
+        height:fit-content
+      }
+    }
+    .dropdown-menu{
+      max-height:500px;
+      right:0;width:300px;
+      height:fit-content;
+      background-color:white;
+      border:1px solid black
+    }
+    .total-section div{
+      height:20%
+    }
+}
+
+
+/* --------------------Admin Css------------------- */
+/*  */

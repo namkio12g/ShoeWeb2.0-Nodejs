@@ -1,0 +1,68 @@
+extends ../../layout/default.pug
+include ../../mixins/product-cart.pug
+
+block main_content
+    div.content.overflow-hidden.py-5.px-2(style="background:#E7E7E7")
+        div.px-5.mx-5
+            p.fs-1.fw-bolder.text-center  Shopping Bag
+            p.fs-2.fw-bold.text-center  #{products.length} items in bag
+        .cart-section.d-flex.px-5.mt-2.mx-5
+            div.row.flex-grow-1.h-80.mb-1
+                .col-9.pe-5.rounded.overflow-hidden
+                    div.product-carts.py-4.shadow-lg.overflow-auto
+                        div.row.product-cart.mx-auto.my-5(style="width:95%")
+                        
+                            div.col-3
+                                p.fs-2.fw-bold Product
+                            div.col-4
+                            div.col-2.text-center
+                                p.fs-2.fw-bold Quantity
+                            div.col-1.text-center
+                                p.fs-2.fw-bold Price 
+                            div.col-2.text-center
+                                p.fs-2.fw-bold total price
+                        div
+                        div.products-cart-content.overflow-auto
+                            each product in products
+                                +product-cart(product)
+                                hr.divider.mx-auto(style="width:95%")
+                div.payment-section.col-3.mb-4.shadow.pt-4
+                    div.shipping-section.mx-4
+                        p.fs-2.fw-bolder Shipping
+                        select.payment-selection.px-4
+                            option(value="1" selected) Thanh toán tiền mặt
+                            option(value="2" ) Thanh toán qua thẻ
+                            option(value="3" ) Thanh toán qua momo
+                    hr.divider.mx-auto(style="width:95%")
+                    div.couppon-section.mx-4.d-flex.flex-column.overflow-auto
+                        p.fs-2.fw-bolder Couppon choosing
+                        p Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, doloribus eaque qui nulla accusantium atque optio consequuntur neque 
+                        select.couppon-selection.px-4
+                            option(value="0" selected) Select Couppons
+                            for couppon in couppons
+                                option(value=couppon._id data-percent=couppon.percent data-condition=couppon.condition) #{couppon.name}
+                            
+                        div.d-flex
+                            button.couppon-apply-button.mt-3.mx-auto.text-center(type="button")
+                                p.fw-bold.my-auto(style="font-size:150%;color:white") Apply
+                    hr.divider.mx-auto(style="width:95%")
+                    div.cart-total-section.px-4.pt-3.overflow-auto
+                        p.fs-2.fw-bolder Cart Total
+                        div.mt-5
+                            div.d-flex.flex-row.justify-content-between
+                                p.fs-4 Cost Products 
+                                p.cost-products-text.fs-4.fw-bold $#{total}
+                            div.d-flex.flex-row.justify-content-between
+                                p.fs-4 Shipping fee 
+                                p.shipping-fee-text.fs-4.fw-bold $250
+                            div.d-flex.flex-row.justify-content-between
+                                input#hiddenCoupponId(type="hidden" value=0)
+                                p.fs-4 Couppoun  
+                                p.couppon-text.fs-4.fw-bold 0
+                            div.d-flex.flex-row.justify-content-between
+                                p.fs-3.fw-bolder Cost Products 
+                                p.total-text.fs-3.fw-bolder $#{total}
+                            div.d-flex
+                            button.create-order-button.mt-3.mx-auto.text-center(type="button")
+                                p.fw-bold.my-auto(style="font-size:200%;color:black") Apply
+    script(src="/build/cart.bundle.js")

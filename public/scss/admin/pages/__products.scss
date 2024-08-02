@@ -1,0 +1,253 @@
+/* ++++++++++++++++++++++++++Product-Page+++++++++++++++++++++++++ */
+/* modal-add new product and edit product */
+.wrapper {
+  align-items: stretch;
+  display: flex;
+  width: 100%;
+}
+#sidebar {
+  max-width: 200px;
+  min-width: 200px;
+  background-color: black;
+  transition: all 0.35s ease-in-out;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+  transition: all 0.35s ease-in-out;
+  width: 100%;
+  background: #fafafa;
+}
+.avatar {
+  height: 40px;
+  width: 40px;
+}
+.navbar-expand .navbar-nav {
+  margin-left: auto;
+}
+.navbar-expand {
+  height: 60px;
+  /* margin-bottom: 0; */
+  /* max-height: 50px; */
+}
+/* Title Content  */
+.navbar_menu-title {
+  padding-left: 10px;
+
+  /* height: 50px; */
+  /* padding: 1rem; */
+}
+.navbar_menu-title > .nameTitle {
+  font-size: 25px;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+}
+
+.navbar_search {
+  position: relative;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+}
+.navbar_search input {
+  height: 30px;
+}
+.navbar select {
+  height: 30px;
+}
+.navbar_search button {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  /* width: 50%; */
+}
+.searchAndStatus {
+  position: relative;
+  background: var(--bs-body-bg);
+  margin-left: 0px;
+}
+.btn_addProduct {
+  position: absolute;
+  padding: 3px;
+  top: 50%;
+
+  right: 10px;
+  margin-right: none;
+  margin-right: 10px;
+}
+
+.navbar {
+  background: var(--bs-body-bg);
+}
+.navbar lable {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(226, 84, 32);
+}
+.navbar_content {
+  display: flex;
+  flex-direction: column;
+  height: 10;
+  margin: 15px 10px;
+}
+.navbar_content > table {
+  width: 100%;
+}
+.img_tableProduct img {
+  width: 70px;
+  height: 70px;
+}
+.tr-content {
+  height: 7rem;
+}
+.row-product {
+  height: 7rem;
+}
+th {
+  text-align: center;
+  font-size: 1.5rem;
+}
+th:hover {
+}
+td {
+  text-align: center;
+  font-size: 1.2rem;
+}
+th[first] {
+  color: orangered;
+}
+.table-group-divider tr > * {
+  margin-top: 20px;
+}
+.table-group-divider tr :last-child button {
+  margin-right: 10px;
+}
+.btn {
+  margin-left: 5px;
+}
+.avatar-products {
+  height: 100%;
+  width: 100%;
+}
+.name-id-products {
+  text-align: start;
+  font-weight: 600;
+}
+.name-id-products p1:last-child {
+  color: rgb(134, 126, 126);
+}
+.arrow {
+  transition: transform 0.3s ease;
+  padding-left: 5px;
+  display: none;
+}
+.arrow.down {
+  transform: rotate(180deg);
+}
+/* ++++++++++++++++ Add New Product++++++++++++ */
+
+.add-product-header {
+  height: 30px;
+  border-bottom: 1px solid rgb(155, 143, 143);
+  justify-content: space-between;
+}
+.add-product-body {
+  border-radius: 1rem;
+  margin-top: 20px;
+}
+.add-product-body .item {
+  border-radius: 1rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+.add-product-body .item .row {
+  margin-top: 1.5rem;
+}
+.add-product-body .row > div {
+  border-radius: 20px;
+}
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.preview-thumbnail {
+  width: 80px;
+  height: 80px;
+}
+.preview-thumbnail img {
+  height: 100%;
+  width: 100%;
+}
+.form-group label {
+  font-size: 1.5rem;
+  color: #1c1d5f;
+  font-weight: 500;
+  padding-right: 5px;
+}
+.form-group i {
+  color: #1c1d5f;
+}
+.form-control {
+  height: 35px;
+  font-size: 1.5rem;
+}
+.add-product-body .item h4 {
+  color: rgb(8, 43, 241);
+  font-weight: bold;
+}
+/*++++++++++ Pagination+++++++++= */
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+.pagination_product {
+  height: 31px;
+}
+.pagination a {
+  color: black;
+  font-weight: bold;
+}
+.active a {
+  background-color: black !important;
+}
+/* +++++++++++++++++++++++++++++comfirm++++++++++++++++++++++++= */
+#confirmDialog {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none; /* Ẩn dialog ban đầu */
+}
+
+.dialog-content {
+  text-align: center;
+}
+
+#confirmBtn,
+#cancelBtn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+#cancelBtn {
+  background-color: #dc3545;
+}
+.modal-dialog {
+  max-width: 700px;
+}
+.modal-dialog .row {
+  margin-bottom: 20px;
+}
+.btnDeleteSizeProduct {
+  font-size: 10px;
+}

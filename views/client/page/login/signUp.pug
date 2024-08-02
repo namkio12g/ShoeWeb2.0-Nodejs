@@ -1,0 +1,47 @@
+extends ../../layout/login.pug
+block main_content 
+    div.d-flex.flex-column.mx-3.my-1
+                        .title-text.mt-1.mb-1
+                            p.fs-3.fw-bolder.mb-0.text-center Create your account
+                            p.text-center(style="color:gray") Already have an account?
+                                a(href="/login/")  click heres
+                        p.warning-text.mb-1 Password and Confirm password is not the same!
+                        form#signUp-form(method="POST" action="/login/signUp?_method=PATCH")
+                            div.input-section.mx-auto(style="width:100%")
+                                p.label-text.mb-1 Full name
+                                div.d-flex.flex-row.justify-content-between
+                                    input.name.rounded-2.mb-2.px-3(placeholder="Name" name="firstName" type="text" required style="width:48%;height:35px " maxlength="10" )
+                                    input.name.rounded-2.mb-2.px-3(placeholder="Last name" name="lastName" type="text" required style="width:48%;height:35px" maxlength="10" )
+                                p.label-text.mb-1 Email
+                                input.email-input.rounded-2.mb-2.px-3(placeholder="Email" name="email" type="email" required style="width:100%;height:35px" pattern=".+@gmail.com")
+                                p.label-text.mb-1 Phone Number
+                                input.phone-input.rounded-2.mb-2.px-3(placeholder="Phone number" name="phoneNumber" type="tel" required pattern="0[0-9]{9}" style="width:100%;height:35px" )
+                                div.d-flex.flex-row.justify-content-between
+                                    .d-flex.flex-column(style="width:48%;")
+                                        p.label-text.mb-1 Gender
+                                        .d-flex.flex-row
+                                            .d-flex.flex-row.align-items-center.me-4   
+                                                input.gender-input.me-1( name="gender" type="radio" checked value="male" id="maleOption" style="width:15px")
+                                                label(for="maleOption") male
+                                            .d-flex.flex-row.align-items-center
+                                                input.gender-input.me-1( name="gender" type="radio" checked value="female" id="femaleOption" style="width:15px")
+                                                label(for="maleOption") female
+                                    .d-flex.flex-column(style="width:48%")
+                                        p.label-text.mb-1 Birthday
+                                        input.birhtday-input.rounded-2.mb-2.px-3(placeholder="Birthday" name="birthday" type="date" style="width:100%;height:35px" required)
+                                
+                                p.label-text.mb-1 Password
+                                input.rePass-input.rounded-2.mb-2.px-3(placeholder="Password" name="password" type="password" required style="width:100%;height:35px")
+                                p.label-text.mb-1 Confirm password
+                                input.pass-input.rounded-2.mb-2.px-3(placeholder="ReEnter-Password" name="rePassword" type="password" required style="width:100%;height:35px")
+                       
+                                
+
+                            div.mt-1.mb-3.mt-0(style="width:90%")
+                            
+                                    input.remember-check.mx-1(type="checkbox" )
+                                    span I accept 
+                                        a the term and condidtions
+                            div.mt-2.text-center
+                                button.signIn-btn.rounded-3(type="submit" style="width:100%;background-color:#3f04a3") Sign up
+                                    

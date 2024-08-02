@@ -1,0 +1,22 @@
+mixin product-cart(product)
+    div.product-in-cart.row.mx-auto.my-4
+                                div.col-3(style="height:100%")
+                                    img.object-fit-fill( src=product.thumbnail)
+                                div.col-4
+                                    div.py-5
+                                        row
+                                            p.small-text.fs-2.fw-normal  Description
+                                        row.my-2
+                                            p.fs-2.fw-bold #{product.title}
+                                        row.d-flex.flex-row.mt-5
+                                            p.small-text.fs-3 size : 
+                                            p.fs-3.fw-bold #{product.size}
+                                div.col-2.d-flex.flex-row
+                                    div.mx-auto.my-auto.text-center(style="width:90%" )
+                                        button.quantity-button.text-center.mx-2(type="button" id="increase-button") +
+                                        span.quantity-text.mt-4.mx-3(style="font-size:20px" data-product-size=product.size data-product-id=product.id) #{product.quantity}
+                                        button.quantity-button.text-center.mx-2(type="button" id="decrease-button") -
+                                div.col-1.d-flex
+                                    p.fs-3.fw-bold.mx-auto.my-auto(id="price" data-product-value=product.price) $#{product.price}
+                                div.col-2.d-flex
+                                    p.fs-2.fw-bold.mx-auto.my-auto(id="total-price" style="color:#F8E35E") $#{product.price*product.quantity}

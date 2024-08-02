@@ -1,0 +1,77 @@
+extends ../../page/user/index.pug
+
+block user_content 
+    p.fs-2 Order detail
+    hr.mx-auto(style="width:100%")
+    .mt-3.d-flex.flex-column
+        .d-flex.flex-row.justify-content-between
+        .information-content.my-5
+            .d-flex.flex-row.orderDetail-header.p-4
+                .d-flex.flex-column.ms-4.pe-5(style="border-right:1px #918e8e solid")
+                    span.fs-4.fw-bold Order Id: ##{order._id}
+                    span.fs-4  #{order.productArray.length} items
+                
+                .d-flex.flex-row.ms-4.pe-5.justify-content-center.align-items-center(style="border-right:1px #918e8e solid")
+                    i.fs-3.fa-solid.fa-file-invoice.mx-3
+                    span.fs-4.fw-bold  Total: #{order.priceTotal-order.coupponTotal}$  
+                .d-flex.flex-row.ms-4.justify-content-center.align-items-center
+                    i.fs-3.fa-solid.fa-calendar-days.mx-3
+                    span.fs-4  #{order.formattedDate}
+            .d-flex.flex-row.orderDetail-content.justify-content-between.mt-4
+                .orderProduct-content
+                    span.fs-3  Items ordered & delivery details
+                    .kk
+                        ul#progressbar
+                            if order.status===1
+                                li.fs-4.step0.state#step1 Order Create
+                                li.fs-4.step0.text-center#step2 Order Confirm
+                                li.fs-4.step0.text-end.text-muted#step3 Shipped
+                            else if order.status===2
+                                li.fs-4.step0.active#step1 Order Create
+                                li.fs-4.step0.text-center.state#step2 Order Confirm
+                                li.fs-4.step0.text-end.text-muted#step3 Shipped
+                            else if order.status===3
+                                li.fs-4.step0.active#step1 Order Create
+                                li.fs-4.step0.text-center.active#step2 Order Confirm
+                                li.fs-4.step0.text-end.text-muted.active#step3 Shipped
+                            else
+                               p.fs-2.text-center Order canceled
+                    for product in order.productArray
+                        .orderProduct-item.p-3.d-flex.flex-row.my-4
+                            img(src=product.thumbnail, alt="")
+                            .d-flex.flex-column.ms-4.justify-content-center
+                                span.fs-4.fw-bold #{product.name}
+                                span.fs-4 Quantity: #{product.quantity} | Size: #{product.size}
+                .orderInfo-content.d-flex.flex-column
+                    span.fs-3  Delivery Address
+            
+                    .mt-4.mb-5.d-flex.flex-column.p-4.address-section
+                        span.fs-4 Home
+                        span.fs-4 #{order.address} 
+                    span.fs-3  Payment details
+                    .mt-4.paymentDetail-section.p-4.d-flex.flex-column
+                        for product in order.productArray
+                            .d-flex.flex-row.justify-content-between.mb-2
+                                span.fs-4 #{product.name}
+                                span.fs-4 #{product.total}
+
+                        hr(style="width:100%")
+                        .d-flex.flex-row.justify-content-between.mb-2.order-delivery-text
+                            span.fs-4 Products total
+                            span.fs-4 #{order.priceTotal}$
+                        .d-flex.flex-row.justify-content-between.mb-2.order-couppon-text
+                            span.fs-4 Couppon savings
+                            span.fs-4 #{order.coupponTotal}$
+                        .d-flex.flex-row.justify-content-between.mb-2.order-delivery-text
+                            span.fs-4 Delivery fee
+                            span.fs-4 800$
+                        hr(style="width:100%")
+                        .d-flex.flex-row.justify-content-between.mb-2.order-total-text
+                            span.fs-4.fw-bold Total
+                            span.fs-3.fw-bold #{order.priceTotal-order.coupponTotal}$ 
+                    if order.status===1
+                        a(data-order-id=order._id).mx-auto.fs-3.p-2.mt-3.text-center.cancel-button Cancel order
+                    else if order.status===4
+                        a.mx-auto.fs-3.p-2.mt-3.text-center Create order again 
+
+

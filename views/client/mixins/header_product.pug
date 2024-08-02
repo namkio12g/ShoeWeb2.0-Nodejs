@@ -1,0 +1,4 @@
+mixin product_title(listRoute)
+    .breadcrumb-product__link.container
+        each item in listRoute
+            a(href=`${item.route}`) #{item.title}

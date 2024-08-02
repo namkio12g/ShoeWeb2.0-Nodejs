@@ -1,0 +1,108 @@
+extends ../../layout/default.pug
+include ../../mixins/order_infor.pug
+include ../../mixins/pagination.pug
+include ../../mixins/detailProduct.pug
+include ../../mixins/confirm.pug
+
+block main
+  .wrapper
+    include ../../partials/sider.pug
+    .main
+      include ../../partials/header.pug
+      .container-fluid
+        section.mg-5.pd-none.bg.wrapper-order-detail
+            .row.bg
+                .col-12.titel-order-detail
+                        h2 Order ID ##{order._id}
+            .row
+                .col-12
+                    .modal-header
+                        h4#exampleModalLabel.modal-title Order Information : 
+                    .modal-body
+                        .row.row-detail-order
+                            .col-5.infor-item-order
+                                    lable Customer ID:  
+                                    span.infor-item #{order.customerID}
+
+                            .col-5.infor-item-order
+                                    lable Name Customer: 
+                                    span.infor-item #{order.nameCustomer}
+                        .row.row-detail-order
+                            .col-5.infor-item-order
+                                    lable Price Total:  
+                                    span.infor-item #{order.priceTotal}
+
+                            .col-5.infor-item-order
+                                    lable Quantity Total: 
+                                    span.infor-item #{order.quantityTotal}
+                        .row.row-detail-order
+                            .col-5.infor-item-order
+                                    lable Address:  
+                                    span.infor-item #{order.address}
+
+                            .col-5.infor-item-order
+                                    lable Phone Number: 
+                                    span.infor-item #{order.phoneNumber}
+                        .row.row-detail-order
+                            .col-5.infor-item-order
+                                    lable Date:  
+                                    span.infor-item.infor-item-date #{order.date}
+
+                            .col-5.infor-item-order
+                                    lable Status: 
+                                    span.infor-item.infor-item-status(style=`${order.status==="Đã Xác Nhận"? "color:var(--bs-success)":"color:var(--bs-danger)"} `) #{order.status}
+            .row
+                .col-12
+                    .modal-header
+                        h4#exampleModalLabel.modal-title Products : 
+                    .modal-body
+                        .row.row-detail-order
+                            table.table.align-middle.tableProduct
+                                thead
+                                    tr
+                                        th(scope='col',style='width: 5%' first) STT
+                                        th(scope='col',style='width: 10%') Product ID
+                                        th(scope='col',style='width: 10%') Product Name
+                                        th(scope='col',style='width: 10%') image
+                                        th(scope='col',style='width: 10%') Size
+                                        th(scope='col',style='width: 10%') quantity
+                                        th(scope='col',style='width: 10%') Price
+                                        th(scope='col',style='width: 10%') Tổng Tiền
+                                tbody.table-group-divider
+                                    each item,index in order.productArray
+                                        +order_infor_detail_item(item,index)
+                                    tr.text-start.tr-content
+                                                    th(class="stt_tableProduct",scope='row' first) Total
+                                                    td(class="_tableProduct")
+                                                    td(class="_tableProduct")
+                                                    td.img_tableProduct
+                                                    td(class="_tableProduct")
+                                                    td(class="_tableProduct") #{order.quantityTotal}
+                                                    td(class="_tableProduct")
+                                                    td(class="_tableProduct") #{order.priceTotal}
+                        .row.row-detail-order
+                            .col-5.infor-item-order
+                                    lable Pay Method:  
+                                    span.infor-item #{order.payMethod}
+                        .row.row-detail-order
+                            .col-5.infor-item-order
+                                    lable Paid Amount:  
+                                    span.infor-item #{order.priceTotal} VND
+                        .row.row-detail-order
+                            .col-5.infor-item-order
+                                    lable Remaining Amount:  
+                                    span.infor-item #{order.priceTotal} VND
+            .row.row-detail-order
+                .col-5.infor-item-order
+                    if order.status==="Chưa Xác Nhận"
+                        button.btn.btn-danger.btn-cancel(id_order=order._id type='button' data-toggle="modal" data-target="#exampleModal" btn_delete_order ) Hủy
+                        button.btn.btn-success.ml-1.openConfirm(type='button') Xác Nhận
+            +confirm("Bạn Có Muốn Hủy Không")
+      form(
+        action="",
+        method="POST",
+        id = "form_delete_order",
+        data_path_delete =`/admin/orders/delete`
+        )
+
+  script(src="/build/order.bundle.js")

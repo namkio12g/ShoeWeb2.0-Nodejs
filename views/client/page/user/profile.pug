@@ -1,0 +1,31 @@
+extends ../../page/user/index.pug
+
+block user_content 
+    p.fs-2 Personal information
+    hr.mx-auto(style="width:100%")
+    .mt-3.d-flex.flex-column
+        .d-flex.flex-row.justify-content-between
+            img.rounded-circle(src="https://mdbcdn.b-cdn.net/img/new/avatars/9.webp" alt="avatar1" style="width:140px    ")
+            a.fs-4.fw-bold(href="" style="color:#4d08c3") Change Profile information
+        .information-content.my-5
+            if(account.verified==="false")
+                .my-5
+                    a.p-3.fs-4(href="/verification/?reason=verification" style="text-decoration:none;border-radius:7px;border:1px solid #c58ffd;background-color:#ab67f3;color:white") Verify account
+            .my-3
+                p.fs-4.fw-bold Name
+                input.py-2.px-3.fs-4(type="text" style="width:50%;border-radius:2px;border:1px solid #B0B0B0" value=user.name disabled)
+            .my-3
+                p.fs-4.fw-bold Date of birth
+                input.py-2.px-3.fs-4(type="text" style="width:50%;border-radius:2px;border:1px solid #B0B0B0" value=birthday disabled)
+            .my-3
+                p.fs-4.fw-bold Gender
+                input.py-2.px-3.fs-4(type="text" style="width:50%;border-radius:2px;border:1px solid #B0B0B0" value="male" disabled)
+            .my-3
+                p.fs-4.fw-bold Phone Number
+                input.py-2.px-3.fs-4(type="text" style="width:50%;border-radius:2px;border:1px solid #B0B0B0" value=user.phoneNumbers disabled)
+            .my-3
+                p.fs-4.fw-bold Email
+                input.py-2.px-3.fs-4(type="text" style="width:50%;border-radius:2px;border:1px solid #B0B0B0" value=user.email disabled) 
+       
+
+                

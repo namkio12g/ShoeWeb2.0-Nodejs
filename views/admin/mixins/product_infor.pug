@@ -1,0 +1,88 @@
+include ./confirm.pug
+
+
+mixin product_infor(products,listOption,keyword,detailProduct1)
+    nav.navbar.navbar_menu-title
+        .nameTitle Product List
+    .row.searchAndStatus
+        .col-md-4
+            form.form-group.navbar.navbar_search.form_search 
+                lable Tìm kiếm
+                input(type="text" value=keyword name="keyword" class="form-control",id="seach" placeholder="----------Bạn tìm kiếm gì----------" aria-label="Recipient's username" aria-describedby="button-addon2")
+                button(type='submit')
+                    i(class="fa-solid fa-magnifying-glass" )
+        .col-md-2
+            .form-group.navbar
+                lable Trạng Thái
+                select.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
+                                option(value="") -- status --
+
+                                each item in listOption
+                                    if item.class=="active"
+                                        option(value=item.value,selected) #{item.name}
+                                    else 
+                                        option(value=item.value) #{item.name}  
+        .col-md-2
+            .form-group.navbar
+                lable Action
+                select.form-select(aria-label='Default select example')
+                    option(value="") -- Vui lòng chọn thao tác --
+                    option(value="option1") Lựa chọn 1
+                    option(value="option2") Lựa chọn 2
+                    option(value="option3") Lựa chọn 3
+
+        .col-md-4
+            //- button.btn.btn-success.add_Product.btn_addProduct(type='button') Add new product
+            button.btn.btn-success.add_Product.btn_addProduct.btn_addNewProduct(type='button') Add new product
+
+    nav.navbar.navbar_content
+        +detailProduct(detailProduct1)
+        table.table.align-middle.tableProduct
+            thead
+                tr
+                    th(scope='col',style='width: 5%' first)
+                        input(type="checkbox")
+                    th(scope='col',style='width: 5%' first) STT
+                    th(scope='col',style='width: 20%') Product
+                    th(scope='col',style='width: 10%') Brand
+                        i(class="fa-solid fa-arrow-up arrow")
+                    th(scope='col',style='width: 10%') Price
+                    th(cope='col',style='width: 10%') Trạng Thái 
+                    th(scope='col') Detail
+                    th(scope='col') Hoạt Động
+
+            tbody.table-group-divider
+            +confirm("Bạn Có Muốn Xóa Không")
+            each item,index in products
+                +product_infor_item(item,index)
+
+mixin product_infor_item(item,index) 
+    tr.text-start.row-product
+                    th(scope='row' first)
+                        input(type="checkbox")    
+                    td(class="stt_tableProduct",scope='row' first) #{index+1}
+                    td(class="_tableProduct")
+                        .row
+                            .col-3
+                                img(class='avatar-products' src=`${item.thumbnail}`, alt="", srcset="")
+                            .col-7
+                                div.d-flex.flex-column.name-id-products
+                                    p1 #{item.title}
+                                    p1 SP00001
+                        //- img(src=`${item.thumbnail}`, alt="", srcset="")
+                    td(class="_tableProduct") #{item.brand}
+                    td(class="_tableProduct") #{item.price}
+
+                    td(class="text-wrap") 
+                        button.btnStatusProduct(status =item.status, id_product =item._id style=`${item.status==="active"? "color:var(--bs-success)":"color:var(--bs-danger)"}`)
+                            span:  i(class="fa-solid fa-circle")
+                            span 
+                                | #{item.status}
+                    td
+                            i.fa-solid.fa-eye(btn-data-detail, id_product =item._id)
+ 
+                    td
+                        button.btn.btn-warning(href="/" type='button' data-toggle="modal" data-target="#exampleModal" )
+                            a(href=`/admin/products/edit/${item._id}`)  Edit
+                        if item.delete == "false"
+                            button.btn.btn-danger.ml-1.openConfirm(type='button' btn_delete id_product=item._id ) Delete

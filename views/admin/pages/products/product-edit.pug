@@ -1,0 +1,172 @@
+extends ../../layout/default.pug
+
+block main
+  .wrapper
+    include ../../partials/sider.pug
+    .main
+      include ../../partials/header.pug
+      .container-fluid.pd-none
+        form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/products/update/${productItem._id}?_method=PATCH`,enctype="multipart/form-data")
+            section.add-product-header.bg.d-flex
+                div
+                    h2 Edit Product: ##{productItem._id}
+                button.btn.btn-primary.save.btnUpdateProduct(type='submit') Update
+
+            section.add-product-body
+                .row
+                    .col-7.bg
+                        div.item.basic-information
+                            .modal-header
+                                h4.modal-title Basic Information : 
+                            .modal-body
+                                // product title
+                                .row
+                                    .col-md-12
+                                        .form-group
+                                            label(for='prodcuct_title') Product Title
+                                            input#prodcuct_title.form-control(type='text' name='title' placeholder='Product Title' required value=`${productItem.title}`)
+                                            span#productError.text-danger
+                                .row#SizePriceStock0
+                                    .col-md-6
+                                        .form-group
+                                            label(for='category_name' ) Category Name  
+                                            span: i(class="fa-solid fa-circle-check")
+
+                                            input#category_name.form-control(value=`${category}` name='category' type='text' placeholder='Product category' required)
+                                            span#categoryError.text-danger
+                                    .col-md-6
+                                        .form-group
+                                            label(for='category_name') Brand Name
+                                            span: i(class="fa-solid fa-circle-check")
+
+                                            input#brand_name.form-control(value=`${productItem.brand}` name='brand' type='text' placeholder='Product brand' required )
+                                            span#categoryError.text-danger
+                                .row
+                                    .col-md-12
+                                        .form-group
+                                            label(for='prodcuct_price') Product Price
+                                            span: i(class="fa-solid fa-circle-check")
+
+                                            input#product_price.form-control(value=`${productItem.price}` required type='text' name='price' placeholder='Product Price' )
+                                            span#productPriceError.text-danger
+
+                                .row#SizePriceStock
+                                    .col-md-6
+                                        .form-group
+                                            label(for='product-size') Size
+                                            input#product-size.form-control(type='text'  placeholder='Size Product')
+                                            span#productSizeError.text-danger
+                                    .col-md-5
+                                        .form-group
+                                            label(for='product_stock') Stock
+                                            input#product-stock.form-control(type='text' placeholder='Stock')
+                                            span#productError.text-danger
+                                    .col-md-1.pt-4
+                                            button#add.btn.btn-primary.btnAddSizeProduct(type="button") Add
+                                each item in productItem.size
+                                    .row#SizePriceStock
+                                        .col-md-5
+                                            .form-group
+                                                label(for='product-size') Size
+                                                input#product-size.form-control(name="size" type='text'  placeholder='Size Product' value= item.Value)
+                                                span#productError.text-danger
+                                        .col-md-5
+                                            .form-group
+                                                label(for='product_stock') Stock
+                                                input#product-stock.form-control(name="stock" type='text' placeholder='Stock' value=item.stock)
+                                                span#productError.text-danger
+                                        .col-md-2.pt-4
+                                                button#add.btn.btn-danger.btnDeleteSizeProduct(type="button") Delete
+                                .row 
+                                    .col-md-6
+                                        .form-group
+                                            label(for='discountPercentage' ) Discount
+                                            span: i(class="fa-solid fa-circle-check")
+                                            input#discountPercentage.form-control(value=`${productItem.discountPercentage}` name='discountPercentage' type='text' placeholder='Product discountPercentage' required)
+                                            span#discountPercentageError.text-danger
+                                    .col-md-6
+                                        .form-group
+                                            label Gender
+                                        .form-group.statusProduct
+                                            - var x=['male','female','unisex']
+                                                each item in x
+                                                    if productItem.gender === item
+                                                        input(id=`${item}` type='radio' name='gender' value=item checked)
+                                                        label.form-check-label(for=`${item}`)
+                                                            | #{item}
+                                                    else
+                                                        input(id=`${item}` type='radio' name='gender' value=item)
+                                                        label.form-check-label(for=`${item}`)
+                                                            | #{item}
+
+                                .row   
+                                    .col-md-12
+                                        .form-group
+                                            label(for='long_description') Description
+                                            span: i(class="fa-solid fa-circle-check")
+
+                                            textarea#long_description.form-control(name='description' rows='10' placeholder='Long Description' value=productItem.description) #{productItem.description}
+                                            span#long_description_error.text-danger
+                    .col-5.bg
+                        div.item.visibility
+                            .row
+                                .modal-header
+                                    h4#exampleModalLabel.modal-title Visibility : 
+                                .modal-body
+                                    .row   
+                                        .col-md-12
+                                            .form-group
+                                                label Status
+                                            .form-group.statusProduct
+                                                if productItem.status == "active"
+                                                    input#active(type='radio' name='status' value="active" checked)
+                                                    label.form-check-label(for='active')
+                                                        | Active
+                                                    input#inactive(type='radio' name='status' value="inactive")
+                                                    label.form-check-label(for='inactive')
+                                                    |   
+                                                else 
+                                                    input#active(type='radio' name='status' value="active" )
+                                                    label.form-check-label(for='active')
+                                                        | Active
+                                                    input#inactive(type='radio' name='status' value="inactive" checked)
+                                                    label.form-check-label(for='inactive')
+                                                        |   Inactive
+                                    .row
+                                        .col-md-12
+                                            .form-group
+                                                label(for='category_name') Publish Date
+                                                input#updateAt.form-control(name='updateAt' type='text' required value=productItem.updateAt)
+                                                span#categoryError.text-danger
+                            .row
+                                .modal-header
+                                    h4#exampleModalLabel.modal-title Image : 
+                                .modal-body
+                                    .row
+                                        .col-md-5
+                                            .form-group
+                                                label(for='product_thumbnail') Upload Product Thumbnail
+                                                input#product_thumbnail.form-control(type='file' name='thumbnail'  value=`${productItem.thumbnail}` )
+                                                span#thumbnail_error.text-danger
+                                        .col-md-5
+                                            .form-group
+                                                label(for='product_thumbnail') Preview Image
+                                                .preview-thumbnail
+                                                    img(src=`${productItem.thumbnail}`, alt="", srcset="")
+                                    .row
+                                        .col-md-12
+                                            label Add More Thumbnails
+                                        .col-md-12
+                                            input.form-control.add-more-thumbnail(type='file',  name='thumbnail', multiple)
+                                    .row
+                                        .col-md-12
+                                            .form-group
+                                                label(for='product_thumbnail') More thumbnails
+                                                .row.form-add-more-thumbnail
+                                                    //- .col-4
+                                                    //-     .preview-thumbnail-more.preview-thumbnail
+                                                    //-         img(src="", alt="", srcset="")
+      //-------------product edit----------------
+    
+
+  script(src="/build/product_add.bundle.js")

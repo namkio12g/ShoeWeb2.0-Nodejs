@@ -1,0 +1,60 @@
+extends ../../layout/default.pug
+include ../../mixins/confirm.pug
+include ../../mixins/customer_info_item.pug
+include ../../mixins/detailCustomer.pug
+block main 
+    .wrapper 
+        include ../../partials/sider.pug 
+        .main 
+            include ../../partials/header.pug
+            nav.navbar.navbar_menu-title
+                    .nameTitle Danh Sách Khách Hàng
+            .row.searchAndStatus
+                .col-md-4
+                    form.form-group.navbar.navbar_search.form_search 
+                        lable Tìm kiếm
+                        input(type="text" value=keyword name="keyword" class="form-control",id="seach" placeholder="Bạn tìm kiếm gì" aria-label="Recipient's username" aria-describedby="button-addon2")
+                        button(type='submit')
+                            i(class="fa-solid fa-magnifying-glass" )
+                .col-md-4
+                    .form-group.navbar
+                        lable Trạng Thái
+                        select.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
+                                        each item in listOps
+                                            if item.class=="active"
+                                                option(value=item.value,selected) #{item.name}
+                                            else 
+                                                option(value=item.value) #{item.name}  
+                //- .col-md-4
+                //-     button.btn.btn-success.add_Product.btn_addProduct(type='button') Add new product
+            //- select.form-select.filterSearchProduct#select1(aria-label='Default select example')
+            nav.navbar.navbar_content
+                +detailCustomer(customer)
+                table.table.align-middle.tableProduct
+                    thead
+                        tr
+                            th(scope='col',style='width: 5%') STT
+                            th(scope='col',style='width: 10%') Họ và tên
+                            th(scope='col',style='width: 10%') Số điện thoại
+                            th(scope='col',style='width: 10%') Điểm
+                            th(cope='col',style='width: 10%') Trạng Thái
+                            th(scope='col') Detail
+                            th(scope='col') Hoạt Động
+
+                    tbody.table-group-divider
+                    +confirm()
+                    each item,index in customers
+                        +customer_infor_item(item,index)
+            form(
+                action="",path_data="/admin/customers/delete",method="POST",id="form-delete"
+            ) 
+            form(
+                action="",path_data="/admin/customers/detail",method="GET",id="form-detail"
+            )
+            form(
+                action="",path_data="/admin/customers/change-status",method="POST",id="form-change_status"
+            )
+    script(src="/sources/admin/js/customer.js")
+             
+
+                    

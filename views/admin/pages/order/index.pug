@@ -1,0 +1,23 @@
+extends ../../layout/default.pug
+include ../../mixins/order_infor.pug
+include ../../mixins/pagination.pug
+include ../../mixins/detailProduct.pug
+
+block main
+  .wrapper
+    include ../../partials/sider.pug
+    .main
+      include ../../partials/header.pug
+      +order_infor(orders,pagination)
+      form(
+        action="",
+        method="POST",
+        id = "form_delete_order",
+        data_path_delete =`/admin/orders/delete`
+        )
+
+  script(src="/build/order.bundle.js")
+
+
+
+

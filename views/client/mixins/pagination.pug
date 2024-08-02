@@ -1,0 +1,12 @@
+mixin pagination(pagination) 
+    nav.pagination_product(aria-label='...')
+        ul.pagination
+            if pagination.numberOfPage > 1
+                li.page-item
+                    a.page-link(class=`${1 == pagination.pageCurrent ?"disabled":""}`, value = pagination.pageCurrent-1) Previous
+                - for (var x = 1; x <= pagination.numberOfPage ; x++)
+                        li.page-item(class =`${x==pagination.pageCurrent? "active":""}`  aria-current='page')
+                            a.page-link.page_link-number(value = x) #{x}
+                li.page-item
+                    a.page-link(class=`${pagination.numberOfPage == pagination.pageCurrent ?"disabled":""}` value = pagination.pageCurrent+1) Next
+            else 

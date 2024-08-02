@@ -1,0 +1,29 @@
+mixin product_item(link,name,price,priceNew,discountPercentage,id)
+    .col-4
+        .cart-product
+            img.cart-product__img(src=link, path =`/products/detail/${id}`,alt='')
+            h2.cart-product__title #{name}
+            if discountPercentage != 0
+                .cart-product__discountPercentage.discountPercentage -#{discountPercentage}%
+            div.cart-product__price
+                if discountPercentage != 0 
+                    span.priceOrgirinal.priceDiscountPercentage $#{price}
+                    span.priceNew $#{priceNew}
+                else 
+                    span.priceOrgirinal $#{price}
+            .cart-product__addCart Add ToCart
+
+        //- i.bx.bxs-shopping-bag.add-cart
+mixin product_item2(link,name,price,priceNew,discountPercentage,id)
+    .cart-product
+        img.product-img(src=link, path =`/products/detail/${id}`,alt='')
+        h2.product-title #{name}
+        if discountPercentage != 0
+            .discountPercentage -#{discountPercentage}%
+        div.price
+            if discountPercentage != 0 
+                span.priceOrgirinal.priceDiscountPercentage $#{price}
+                span.priceNew $#{priceNew}
+            else 
+                span.priceOrgirinal $#{price}
+        .add-cart Add ToCart
