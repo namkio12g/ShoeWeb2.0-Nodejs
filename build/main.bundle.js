@@ -15,7 +15,7 @@
   \***************************************/
 /***/ (() => {
 
-eval("// Form-search\nvar form_search = document.querySelector(\".form-search\");\nif (form_search) {\n  form_search.addEventListener(\"submit\", function (e) {\n    e.preventDefault();\n    var url = new URL(document.location.href);\n    var keyword = e.target.elements.keyword.value;\n    if (keyword) {\n      url.searchParams.set(\"keyword\", keyword);\n    } else {\n      url.searchParams[\"delete\"](\"keyword\");\n    }\n    document.location.href = url.href;\n  });\n}\n\n//# sourceURL=webpack://shoe-sales-website-nodejs/./public/js/admin/main.admin.js?");
+eval("// Form-search\ntinymce.init({\n  selector: 'textarea#long_description'\n});\nconsole.log(\"ádasd\");\nvar form_search = document.querySelector(\".form-search\");\nif (form_search) {\n  form_search.addEventListener(\"submit\", function (e) {\n    e.preventDefault();\n    var url = new URL(document.location.href);\n    var keyword = e.target.elements.keyword.value;\n    if (keyword) {\n      url.searchParams.set(\"keyword\", keyword);\n    } else {\n      url.searchParams[\"delete\"](\"keyword\");\n    }\n    document.location.href = url.href;\n  });\n}\n\n//# sourceURL=webpack://shoe-sales-website-nodejs/./public/js/admin/main.admin.js?");
 
 /***/ })
 

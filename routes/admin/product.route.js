@@ -13,5 +13,7 @@ router.patch("/add", upload.array("thumbnail"), controller.add);
 router.get("/edit/:id", controller.edit);
 router.patch("/update/:id", upload.single("thumbnail"), controller.update);
 router.get("/add-new-product", controller.addNewProduct);
+router.post("/add-new-product", controller.addNewProductPatch);
+
 
 module.exports = router;

@@ -6,6 +6,34 @@ const { ObjectID } = require("mongodb");
 // const product = require("../../models/product.model");
 
 // [GET] /admin/products
+module.exports.addNewProductPatch = async (req, res) => {
+  try {
+     let sizestockArr = req.body.sizestock.split(',')
+     let sizestockjson=[]
+     let total=0;
+     for (let i = 0; i < sizestockArr.length - 1; i++) {
+        let temp = sizestockArr[i].split('-')
+        total += parseInt(temp[1]);
+        sizestockjson.push({
+          Value:parseInt(temp[0]),
+          stock: parseInt(temp[1]),
+
+        })
+     }
+     req.body.price = parseInt(req.body.price);
+     req.body.discountPercentage = parseInt(req.body.discountPercentage);
+     req.body.size=sizestockjson;
+     req.body.stock=total;
+     const newProduct = new product(req.body);
+     await newProduct.save();
+     
+     res.redirect("back")
+  } catch (error) {
+    console.log(error)
+     res.redirect("back")
+  }
+ 
+}
 module.exports.index = async (req, res) => {
   const listOption = status1.statusProduct(req.query);
   let find = {

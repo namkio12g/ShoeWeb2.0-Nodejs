@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-
+var slug = require('mongoose-slug-generator')
+mongoose.plugin(slug);
 const productSchema = new mongoose.Schema(
   {
     title: {
@@ -8,7 +9,6 @@ const productSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
     },
     price: {
       type: Number,
@@ -50,9 +50,8 @@ const productSchema = new mongoose.Schema(
     },
     thumbnail: {
       type: String,
-    },
-    images: {
-      type: [String],
+      default: ""
+
     },
     status: {
       type: String,
@@ -65,6 +64,22 @@ const productSchema = new mongoose.Schema(
     gender: {
       type: String,
       default: "unisex",
+    },
+    slug:{
+      type:String,
+      slug:"title",unique:true
+    },
+    createAt:{
+      type:{
+        createBy:{
+          type:String,
+          default:""
+        },
+        createTime:{
+          type:Date,
+          default:Date.now()
+        }
+      }
     },
     updateAt: {
       type: Date,

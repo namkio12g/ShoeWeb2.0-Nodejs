@@ -26,6 +26,7 @@ app.use(session({
         secure: false
     }
 }));
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -45,7 +46,7 @@ database.connect();
 // app.use(flash());
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/build", express.static(path.join(__dirname, "build")));
 
 // app.use(express.static("./"));

@@ -1,4 +1,8 @@
 // Form-search
+tinymce.init({
+  selector: 'textarea#long_description'
+});
+console.log("ádasd")
 const form_search = document.querySelector(".form-search");
 if (form_search) {
   form_search.addEventListener("submit", (e) => {

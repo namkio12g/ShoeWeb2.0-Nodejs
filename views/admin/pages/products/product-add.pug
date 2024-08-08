@@ -5,12 +5,13 @@ block main
     include ../../partials/sider.pug
     .main
       include ../../partials/header.pug
+      
       .container-fluid.pd-none
-        form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/products/add?_method=PATCH`,enctype="multipart/form-data")
+        form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/products/add-new-product` add-product-form)
             section.add-product-header.bg.d-flex
                 div
-                    h2 Add New Product
-                button.btn.btn-primary.save.btnSaveFormAddProduct(type='submit') Create
+                    h2 Tạo mới sản phẩm
+                button.btn.btn-primary.save.btnSaveFormAddProduct(type='submit') Tạo mới
 
             section.add-product-body
                 .row
@@ -23,20 +24,20 @@ block main
                                 .row
                                     .col-md-12
                                         .form-group
-                                            label(for='prodcuct_title') Product Title
+                                            label(for='prodcuct_title') Tiêu đề sản phẩm
                                             input#prodcuct_title.form-control(type='text' name='title' placeholder='Product Title' required)
                                             span#productError.text-danger
-                                .row#SizePriceStock0
+                                .row
                                     .col-md-6
                                         .form-group
-                                            label(for='category_name' ) Category Name  
+                                            label(for='category_name' ) Loại sản phẩm
                                             span: i(class="fa-solid fa-circle-check")
 
                                             input#category_name.form-control(name='category' type='text' placeholder='Product category' required)
                                             span#categoryError.text-danger
                                     .col-md-6
                                         .form-group
-                                            label(for='category_name') Brand Name
+                                            label(for='category_name') Hãng sản phẩm
                                             span: i(class="fa-solid fa-circle-check")
 
                                             input#brand_name.form-control(name='brand' type='text' placeholder='Product brand' required )
@@ -44,36 +45,46 @@ block main
                                 .row
                                     .col-md-12
                                         .form-group
-                                            label(for='prodcuct_price') Product Price
+                                            label(for='prodcuct_price') Giá sản phẩm
                                             span: i(class="fa-solid fa-circle-check")
 
                                             input#product_price.form-control(required type='text' name='price' placeholder='Product Price' )
                                             span#productPriceError.text-danger
 
                                 .row#SizePriceStock
-                                    .col-md-6
-                                        .form-group
-                                            label(for='product-size') Size
-                                            input#product-size.form-control(type='text'  placeholder='Size Product')
-                                            span#productSizeError.text-danger
-                                    .col-md-5
-                                        .form-group
-                                            label(for='product_stock') Stock
-                                            input#product-stock.form-control(type='text' placeholder='Stock')
-                                            span#productError.text-danger
-                                    .col-md-1.pt-4
-                                            button#add.btn.btn-primary.btnAddSizeProduct(type="button") Add
+                                    .row
+                                        .col-md-6.p-0
+                                            .form-group
+                                                label Kích cỡ
+                                        .col-md-5.p-0
+                                            .form-group
+                                                label Số lượng
+                                        .col-md-1
+                                            button#add.btn.btn-primary.btnAddSizeProduct(type="button" add-sizestock-btn) add
+                                    .row.m-0.p-0(style="max-height:150px;overflow:scroll" stock-size-fields)
+                                        .row.mt-0.mb-4.p-0.d-flex.flex-row.align-items-center
+                                            .col-md-6
+                                                .form-group
+                                                    input#product-size.form-control(type='Number' product-size placeholder='Size Product')
+                                                    span#productSizeError.text-danger
+                                            .col-md-4
+                                                .form-group
+                                                    input#product-stock.form-control(type='Number' product-stock placeholder='Stock')
+                                                    span#productError.text-danger
+                                            .col-md-1
+                                                button.btn.btn-danger(type="button" remove-sizestock-btn) remove
+                         
                                 .row 
                                     .col-md-6
                                         .form-group
                                             label(for='discountPercentage' ) Discount
                                             span: i(class="fa-solid fa-circle-check")
-                                            input#discountPercentage.form-control(name='discountPercentage' type='text' placeholder='Product discountPercentage' required)
+                                            input#discountPercentage.form-control(name='discountPercentage' type='Number' placeholder='Product discountPercentage' required)
                                             span#discountPercentageError.text-danger
                                     .col-md-6
                                         .form-group
                                             label Gender
-                                        .form-group.statusProduct
+                                        .form-group.d.flex.flex-row.justify-content-between.statusProduct
                                             input#male(type='radio' name='gender' value="male" )
                                             label.form-check-label(for='male')
                                                 | male
@@ -85,6 +96,7 @@ block main
                                                 
                                             label.form-check-label(for='unisex')
                                                 | unisex
+                                                
                                 .row   
                                     .col-md-12
                                         .form-group
@@ -97,12 +109,12 @@ block main
                         div.item.visibility
                             .row
                                 .modal-header
-                                    h4#exampleModalLabel.modal-title Visibility : 
+                                    h4#exampleModalLabel.modal-title Trạng thái hoạt động : 
                                 .modal-body
                                     .row   
                                         .col-md-12
                                             .form-group
-                                                label Status
+                                                label Trạng thái
                                             .form-group.statusProduct
                                                 input#active(type='radio' name='status' value="active" checked)
                                                 label.form-check-label(for='active')
@@ -111,12 +123,12 @@ block main
                                                     
                                                 label.form-check-label(for='inactive')
                                                     | Inactive
-                                    .row
-                                        .col-md-12
-                                            .form-group
-                                                label(for='category_name') Publish Date
-                                                input#updateAt.form-control(name='updateAt' type='text' required )
-                                                span#categoryError.text-danger
+                                    //- .row
+                                    //-     .col-md-12
+                                    //-         .form-group
+                                    //-             label(for='category_name') Publish Date
+                                    //-             input#updateAt.form-control(name='updateAt' type='text' required )
+                                    //-             span#categoryError.text-danger
                             .row
                                 .modal-header
                                     h4#exampleModalLabel.modal-title Image : 
@@ -132,16 +144,16 @@ block main
                                                 label(for='product_thumbnail') Preview Image
                                                 .preview-thumbnail
                                                     img(src="", alt="", srcset="")
-                                    .row
-                                        .col-md-12
-                                            label Add More Thumbnails
-                                        .col-md-12
-                                            input.form-control.add-more-thumbnail(type='file',  name='thumbnail', multiple)
-                                    .row
-                                        .col-md-12
-                                            .form-group
-                                                label(for='product_thumbnail') More thumbnails
-                                                .row.form-add-more-thumbnail
+                                    //- .row
+                                    //-     .col-md-12
+                                    //-         label Add More Thumbnails
+                                    //-     .col-md-12
+                                    //-         input.form-control.add-more-thumbnail(type='file',  name='thumbnail', multiple)
+                                    //- .row
+                                    //-     .col-md-12
+                                    //-         .form-group
+                                    //-             label(for='product_thumbnail') More thumbnails
+                                    //-             .row.form-add-more-thumbnail
                                                     //- .col-4
                                                     //-     .preview-thumbnail-more.preview-thumbnail
                                                     //-         img(src="", alt="", srcset="")
