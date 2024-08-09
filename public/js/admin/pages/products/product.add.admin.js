@@ -1,4 +1,20 @@
 import { hasLetters } from "../../../../validation/hasLetters"; // Assuming validation.js is in the same directory
+// preview image
+const imgInp = document.querySelector('[thumbnail-input]')
+const imgPreview = document.querySelector('[thumbnail-image]')
+imgInp.addEventListener("change",(e)=>{
+  if (imgInp.files && imgInp.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      imgPreview.src = e.target.result;
+    };
+
+    reader.readAsDataURL(imgInp.files[0]);
+  }
+})
+
+
 // submit event
 const form = document.querySelector('[add-product-form]')
 console.log(form)

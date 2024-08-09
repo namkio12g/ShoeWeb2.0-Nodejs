@@ -172,12 +172,13 @@ th[first] {
   margin-right: 0px;
 }
 .preview-thumbnail {
-  width: 80px;
-  height: 80px;
+  width: 200px;
+  height: 200px;
 }
 .preview-thumbnail img {
   height: 100%;
   width: 100%;
+  border-radius:5px;
 }
 .form-group label {
   font-size: 1.5rem;
@@ -193,6 +194,10 @@ th[first] {
   font-size: 1.5rem;
 }
 .add-product-body .item h4 {
+  color: rgb(8, 43, 241);
+  font-weight: bold;
+}
+.modal-title{
   color: rgb(8, 43, 241);
   font-weight: bold;
 }
@@ -250,4 +255,11 @@ th[first] {
 }
 .btnDeleteSizeProduct {
   font-size: 10px;
+}
+.itemInfor{
+   color: orangered;
+}
+.textInfo{
+  color: black;
+  font-style: normal;
 }

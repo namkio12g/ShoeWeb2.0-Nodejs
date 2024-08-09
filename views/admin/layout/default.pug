@@ -11,14 +11,22 @@ html
         link(rel='stylesheet' href="/css/index.admin.css")
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
         script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js") 
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js") 
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.js") 
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css") 
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css") 
+
+
+
         //- script(src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin")
 
     body 
-        // Sider 
-
-        block main
+        .wrapper
+            include ../partials/sider.pug
+            .main
+                include ../partials/header.pug
+                block main
         
-
         //- script(src="https://kit.fontawesome.com/04e5609bc3.js", crossorigin="anonymous")
         //- script(src="/admin/js/scripts.js")
        

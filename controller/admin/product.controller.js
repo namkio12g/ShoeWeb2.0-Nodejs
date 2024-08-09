@@ -24,6 +24,7 @@ module.exports.addNewProductPatch = async (req, res) => {
      req.body.discountPercentage = parseInt(req.body.discountPercentage);
      req.body.size=sizestockjson;
      req.body.stock=total;
+     req.body.thumbnail=`/uploads/${req.file.filename}`
      const newProduct = new product(req.body);
      await newProduct.save();
      
@@ -65,7 +66,6 @@ module.exports.index = async (req, res) => {
       (product) => product._id == req.query.idDetail
     );
   }
-  console.log(listproduct);
   // req.flash("info", "Welcome");
 
   res.render("admin/pages/products/index", {

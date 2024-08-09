@@ -34,6 +34,16 @@ mixin product_infor(products,listOption,keyword,detailProduct1)
         .col-md-4
             //- button.btn.btn-success.add_Product.btn_addProduct(type='button') Add new product
             button.btn.btn-success.add_Product.btn_addProduct.btn_addNewProduct(type='button') Add new product
+    .row
+        .col-md-3
+            .form-group.navbar
+                lable Price select
+                .row.d-flex.flex-row.my-0.py
+                    .col-6.ps-0
+                        input.form-control.range-price(type="Number" placeholder="Min price" value=0 min="0")
+                    .col-6
+                        input.form-control.range-price(type="Number" placeholder="Max price" value=0 min="0")
+
 
     nav.navbar.navbar_content
         +detailProduct(detailProduct1)
