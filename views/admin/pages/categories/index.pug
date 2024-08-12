@@ -1,0 +1,58 @@
+extends ../../layout/default.pug
+include ../../mixins/category_item.pug
+include ../../mixins/alerts/successAlert.pug
+include ../../mixins/alerts/errorAlert.pug
+include ../../mixins/confirm.pug
+
+
+block main
+    +success_alert(messages.success)
+    +error_alert(messages.error)
+    nav.navbar.navbar_menu-title
+        .nameTitle Danh mục sản phẩm
+    .row.searchAndStatus
+        .col-md-4
+            form.form-group.navbar.navbar_search.form_search 
+                lable Tìm kiếm
+                input(type="text" value=keyword name="keyword" class="form-control",id="seach" placeholder="----------Bạn tìm kiếm gì----------" aria-label="Recipient's username" aria-describedby="button-addon2")
+                button(type='submit')
+                    i(class="fa-solid fa-magnifying-glass" )
+        .col-md-2
+            .form-group.navbar
+                lable Trạng Thái
+                select.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
+                                option(value="") -- status --
+
+                                each item in listOption
+                                    if item.class=="active"
+                                        option(value=item.value,selected) #{item.name}
+                                    else 
+                                        option(value=item.value) #{item.name}  
+ 
+        .col-md-6.d-flex.justify-content-end.py-3
+            //- button.btn.btn-success.add_Product.btn_addProduct(type='button') Add new product
+            button.btn.btn-success.fs-4(type='button' add-button) Tạo mới danh mục
+    
+
+    +confirm("Bạn Có Muốn Xóa Không")
+
+    nav.navbar.navbar_content
+        //- +detailProduct(detailProduct1)
+        table.table.align-middle.tableProduct
+            thead
+                tr
+                    th(scope='col',style='width: 5%' )
+                        input(type="checkbox" first checkbox-all)
+                    th(scope='col',style='width: 5%' first) STT
+                    th(scope='col',style='width: 30%') Tiêu đề danh mục
+                        i(class="fa-solid fa-arrow-up arrow")
+                    th(cope='col',style='width: 9%') Trạng Thái 
+                    th(scope='col') Chi tiết
+                    th(scope='col',style='width: 5%') Vị trí
+                    th(scope='col') Hoạt Động
+
+            tbody.table-group-divider
+            //- +confirm("Bạn Có Muốn Xóa Không")
+            +category_item(categories)
+
+    script(src="/build/categoryIndex_admin.bundle.js")

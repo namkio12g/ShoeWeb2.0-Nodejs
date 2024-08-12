@@ -1,0 +1,5 @@
+mixin error_alert(error)
+    if(error)
+        .alert.alert-danger.alert-boxshowing(role="alert")
+            span.fs-4 #{error}
+            icon.fs-4.fw-bold.mx-4.fa-solid.fa-trash(hid-alert)

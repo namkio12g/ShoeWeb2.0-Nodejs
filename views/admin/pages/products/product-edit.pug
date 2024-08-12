@@ -1,6 +1,11 @@
 extends ../../layout/default.pug
+include ../../mixins/alerts/successAlert.pug
+include ../../mixins/alerts/errorAlert.pug
+
 
 block main
+    +success_alert(messages.success)
+    +error_alert(messages.error)
     .container-fluid.pd-none
     form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/products/update/${productItem._id}?_method=PATCH`,enctype="multipart/form-data")
         section.add-product-header.bg.d-flex

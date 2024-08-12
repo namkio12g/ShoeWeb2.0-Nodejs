@@ -31,6 +31,21 @@ html {
 .wrapper {
   height: auto;
 }
+.alert-boxshowing{
+  position: fixed;
+  top:70px;
+  right:10px;
+  z-index: 100;
+  transition: right 0.3s ease-in-out;
+}
+.alert-box-hidden{
+  right:-1000px;
+
+}
+.alert-boxshowing icon{
+    cursor: pointer;
+}
+
 // @import "./utilities/_variables";
 /* --------------------------------Admin------------------------ */
 /* ++++++++++++++++++++++++++++++side-bar+++++++++++++++++++ */
@@ -39,3 +54,5 @@ html {
 @import "./pages/_products";
 /* ++++++++++order-page+++++++++++++= */
 @import "./pages/_orders";
+/* ++++++++++category-page+++++++++++++= */
+@import "./pages/_categories";

@@ -38,6 +38,22 @@ html {
   height: auto;
 }
 
+.alert-boxshowing {
+  position: fixed;
+  top: 70px;
+  right: 10px;
+  z-index: 100;
+  transition: right 0.3s ease-in-out;
+}
+
+.alert-box-hidden {
+  right: -1000px;
+}
+
+.alert-boxshowing icon {
+  cursor: pointer;
+}
+
 /* --------------------------------Admin------------------------ */
 /* ++++++++++++++++++++++++++++++side-bar+++++++++++++++++++ */
 /* ++++++++++++++++++++++++++++++side-bar+++++++++++++++++++ */
@@ -527,6 +543,12 @@ th[first] {
 
 .name-id-customers p1:last-child {
   color: rgb(134, 126, 126);
+}
+
+/* ++++++++++category-page+++++++++++++= */
+._tableCategory img {
+  width: 100%;
+  height: 90px;
 }
 
 /*# sourceMappingURL=index.admin.css.map */

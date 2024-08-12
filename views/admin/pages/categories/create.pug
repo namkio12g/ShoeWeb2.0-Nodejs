@@ -2,17 +2,17 @@ extends ../../layout/default.pug
 include ../../mixins/alerts/successAlert.pug
 include ../../mixins/alerts/errorAlert.pug
 
-
 include ../../mixins/categorySelItem.pug
+
 
 block main
     +success_alert(messages.success)
     +error_alert(messages.error)
     .container-fluid.pd-none
-    form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/products/add-new-product` enctype="multipart/form-data" add-product-form)
+    form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/categories/add-new-category?_method=PATCH` enctype="multipart/form-data" add-product-form)
         section.add-product-header.bg.d-flex
             div
-                h2 Tạo mới sản phẩm
+                h2 Tạo mới Danh mục
             button.btn.btn-primary.save.btnSaveFormAddProduct(type='submit') Tạo mới
 
         section.add-product-body
@@ -26,83 +26,35 @@ block main
                             .row
                                 .col-md-12
                                     .form-group
-                                        label(for='prodcuct_title') Tiêu đề sản phẩm
-                                        input#prodcuct_title.form-control(type='text' name='title' placeholder='Product Title' required)
+                                        label(for='prodcuct_title') Tiêu đề danh mục
+                                        input#prodcuct_title.form-control(type='text' name='title' placeholder='Tiêu đề danh mục' required)
                                         span#productError.text-danger
                             .row
                                 .col-md-6
                                     .form-group
-                                        label(for='category_name' ) Loại sản phẩm
+                                        label(for='category_name' ) Danh mục cha
                                         span: i(class="fa-solid fa-circle-check")
-                                        select#category_name.form-control(name='category'    type='text' placeholder='Product category' )
+
+                                        select#category_name.form-control(name='parentId' type='text' placeholder='Product category' )
+                                            option.ps-3(value="") -Lựa chọn danh mục cha-
                                             +category_option(tree)
 
-                                .col-md-6
-                                    .form-group
-                                        label(for='category_name') Hãng sản phẩm
-                                        span: i(class="fa-solid fa-circle-check")
-
-                                        input#brand_name.form-control(name='brand' type='text' placeholder='Product brand' required )
                                         span#categoryError.text-danger
-                            .row
-                                .col-md-12
-                                    .form-group
-                                        label(for='prodcuct_price') Giá sản phẩm
-                                        span: i(class="fa-solid fa-circle-check")
-
-                                        input#product_price.form-control(required type='text' name='price' placeholder='Product Price' )
-                                        span#productPriceError.text-danger
-
-                            .row#SizePriceStock
-                                .row
-                                    .col-md-6.p-0
-                                        .form-group
-                                            label Kích cỡ
-                                    .col-md-5.p-0
-                                        .form-group
-                                            label Số lượng
-                                    .col-md-1
-                                        button#add.btn.btn-primary.btnAddSizeProduct(type="button" add-sizestock-btn) add
-                                .row.m-0.p-0(style="max-height:150px;overflow:scroll" stock-size-fields)
-                                    .row.mt-0.mb-4.p-0.d-flex.flex-row.align-items-center
-                                        .col-md-6
-                                            .form-group
-                                                input#product-size.form-control(type='Number' product-size placeholder='Size Product')
-                                                span#productSizeError.text-danger
-                                        .col-md-4
-                                            .form-group
-                                                input#product-stock.form-control(type='Number' product-stock placeholder='Stock')
-                                                span#productError.text-danger
-                                        .col-md-1
-                                            button.btn.btn-danger(type="button" remove-sizestock-btn) remove
+                          
                         
                             .row 
                                 .col-md-6
                                     .form-group
-                                        label(for='discountPercentage' ) Discount
+                                        label(for='discountPercentage' ) Vị trí
                                         span: i(class="fa-solid fa-circle-check")
-                                        input#discountPercentage.form-control(name='discountPercentage' type='Number' placeholder='Product discountPercentage' required)
+                                        input#discountPercentage.form-control(name='position' type='Number' placeholder=' Nếu không nhập tự tăng')
                                         span#discountPercentageError.text-danger
-                                .col-md-6
-                                    .form-group
-                                        label Gender
-                                    .form-group.d.flex.flex-row.justify-content-between.statusProduct
-                                        input#male(type='radio' name='gender' value="male" )
-                                        label.form-check-label(for='male')
-                                            | male
-                                        input#female(type='radio' name='gender' value="female")
-                                            
-                                        label.form-check-label(for='female')
-                                            | female
-                                        input#unisex(type='radio' name='gender' value="unisex" checked)
-                                            
-                                        label.form-check-label(for='unisex')
-                                            | unisex
+            
                                             
                             .row   
                                 .col-md-12
                                     .form-group
-                                        label(for='long_description') Description
+                                        label(for='long_description') Miêu tả
                                         span: i(class="fa-solid fa-circle-check")
 
                                         textarea#long_description.form-control(name='description' rows='10' placeholder='Long Description' )
@@ -165,3 +117,8 @@ block main
 
 
     script(src="/build/product_add.bundle.js")
+
+
+
+
+

@@ -2,7 +2,6 @@
 tinymce.init({
   selector: 'textarea#long_description'
 });
-console.log("ádasd")
 const form_search = document.querySelector(".form-search");
 if (form_search) {
   form_search.addEventListener("submit", (e) => {
@@ -18,3 +17,12 @@ if (form_search) {
     document.location.href = url.href;
   });
 }
+// alert hiddin button
+const Alert = document.querySelector('.alert-boxshowing')
+const icon = document.querySelector('icon')
+
+if(icon){
+icon.addEventListener('click', function () {
+  // Toggle the class that hides the alert box
+  Alert.classList.add('alert-box-hidden');
+});}

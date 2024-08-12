@@ -2,17 +2,26 @@ const mongoose = require("mongoose");
 
 const categorySchema = new mongoose.Schema({
     title:String,
-    image: {
+    thumbnail: {
         type: String,
         default: ""
     },
-    parrentId:{
+    position:Number,
+    parentId:{
         type:String,
         default:""
     },
     description:{
         type: String,
             default: ""
+    },
+    delete:{
+      type:Boolean ,
+          default: false
+    },
+    status:{
+        type: String,
+            default: "active"
     }
 
 

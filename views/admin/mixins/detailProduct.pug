@@ -1,44 +1,45 @@
 mixin detailProduct(detailProduct) 
   if(detailProduct)
-    .d-flex.flex-column.justify-content-center.align-items-center(style="width:100%")
-        .dev.text-center
-            h3 Thông Tin Sản Phẩm:  #{detailProduct.title}
-        .dev.d-flex.flex-row.mx-5.p-3
-            nav.nav_item.imageProduct
-                img(src=detailProduct.thumbnail alt='' srcset='' style="width:150px;height:150px")
-            nav.nav_item.inforProduct.d-flex.flex-row.align-items-center.mx-5
-                nav.nav_item.inforProduct.mx-3
-                    .itemInfor.fs-4.fw-bold Title:
-                        span.textInfo.ms-2 #{detailProduct.title}
-                    .itemInfor.fs-4.fw-bold Price: 
-                        span.textInfo.ms-2 #{detailProduct.price}
-                    .itemInfor.fs-4.fw-bold discount%:
-                        span.textInfo.ms-2 #{detailProduct.discountPercentage}
+    .detail_wrapper(style='display:flex')
+        .d-flex.flex-column.justify-content-center.align-items-center(style="width:100%")
+            .dev.text-center
+                h3 Thông Tin Sản Phẩm:  #{detailProduct.title}
+            .dev.d-flex.flex-row.mx-5.p-3
+                nav.nav_item.imageProduct
+                    img(src=detailProduct.thumbnail alt='' srcset='' style="width:150px;height:150px")
+                nav.nav_item.inforProduct.d-flex.flex-row.align-items-center.mx-5
+                    nav.nav_item.inforProduct.mx-3
+                        .itemInfor.fs-4.fw-bold Title:
+                            span.textInfo.ms-2 #{detailProduct.title}
+                        .itemInfor.fs-4.fw-bold Price: 
+                            span.textInfo.ms-2 #{detailProduct.price}
+                        .itemInfor.fs-4.fw-bold discount%:
+                            span.textInfo.ms-2 #{detailProduct.discountPercentage}
 
-                    .itemInfor.fs-4.fw-bold stock:
-                        span.textInfo.fs-4.ms-2 #{detailProduct.stock}
-                nav.nav_item.inforProduct.mx-3
-                    .itemInfor.fs-4.fw-bold category:
-                        span.textInfo.fs-4.ms-2 #{detailProduct.category}
-                    .itemInfor.fs-4.fw-bold brand:
-                        span.textInfo.fs-4.ms-2 #{detailProduct.brand}
-                    .itemInfor.fs-4.fw-bold status:
-                        span.textInfo.fs-4.ms-2 #{detailProduct.status}
+                        .itemInfor.fs-4.fw-bold stock:
+                            span.textInfo.fs-4.ms-2 #{detailProduct.stock}
+                    nav.nav_item.inforProduct.mx-3
+                        .itemInfor.fs-4.fw-bold category:
+                            span.textInfo.fs-4.ms-2 #{detailProduct.category}
+                        .itemInfor.fs-4.fw-bold brand:
+                            span.textInfo.fs-4.ms-2 #{detailProduct.brand}
+                        .itemInfor.fs-4.fw-bold status:
+                            span.textInfo.fs-4.ms-2 #{detailProduct.status}
 
-                nav.nav_item.inforProduct
-                    table.tableDetailProduct
-                        thead
-                            tr
-                                th(scope='col' style="color: orangered;") SIZE
-                                each item in detailProduct.size
-                                    th(scope='col' style="color: orangered;").px-3 #{item.Value}
-                        tbody.table-group-divider
-                            tr
-                                th(scope='row') STOCK
-                                each item in detailProduct.size
-                                    th(scope='col') #{item.stock}
-                           
-        i#closeFormDetail.fa-solid.fa-circle-xmark.btnCloseDetail
+                    nav.nav_item.inforProduct
+                        table.tableDetailProduct
+                            thead
+                                tr
+                                    th(scope='col' style="color: orangered;") SIZE
+                                    each item in detailProduct.size
+                                        th(scope='col' style="color: orangered;").px-3 #{item.Value}
+                            tbody.table-group-divider
+                                tr
+                                    th(scope='row') STOCK
+                                    each item in detailProduct.size
+                                        th(scope='col') #{item.stock}
+                            
+            i.fs-4#closeFormDetail.fa-solid.fa-circle-xmark.btnCloseDetail
 
-        
+            
 

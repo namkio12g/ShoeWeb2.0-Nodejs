@@ -1,5 +1,5 @@
 mixin  confirm(str)
-    #confirmDialog.hidden
+    #confirmDialog.hidden(style="z-index:100")
         .dialog-content
             p #{str} ?
             button#confirmBtn Yes

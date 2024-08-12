@@ -1,36 +1,38 @@
 // ++++++++++++++++++++++++++Product-Page+++++++++++++++++++++++++++++++
-// Add new Product
+// checkbox event
 import "../../common/pagination.admin";
-import { hasLetters } from "../../../../validation/hasLetters"; // Assuming validation.js is in the same directory
-document.addEventListener("DOMContentLoaded", function () {
-  const arrow = document.querySelector(".arrow");
+const checkboxItems=document.querySelectorAll("[checkbox-item]");
+const checkboxAll = document.querySelector("[checkbox-all]");
+if(checkboxAll){
+  checkboxAll.addEventListener("click",(e)=>{
+    if(checkboxAll.checked){
+      checkboxItems.forEach((item) => {
+        if (!item.checked) {
+          item.checked = true
+        }
+      })
+    }
+    else{
+       checkboxItems.forEach((item) => {
+         if (item.checked) {
+           item.checked = false
+         }
+       })
+    }
+   
+  })
+}
 
-  arrow.addEventListener("click", function () {
-    arrow.classList.toggle("down");
-  });
-});
-const modalElement = document.getElementById("productModal");
-if (modalElement) {
-  // const modalToggle = document.querySelector(".add_Product"); // Replace with your button ID
-  // const modal = new bootstrap.Modal(modalElement);
-  // modalToggle.addEventListener("click", function () {
-  //   modal.show(); // Displays the modal
-  //   const btnClose = document.querySelector(".btnCloseFormAddProduct"); // Replace with your button ID
-  //   btnClose.addEventListener("click", function () {
-  //     const form = document.getElementById("cat_form");
-  //     console.log(form);
-  //     form.reset();
-  //     modal.hide(); // Displays the modal
-  //   });
-  // });
+if(checkboxItems){
+  checkboxItems.forEach((item) => {
+    item.addEventListener("click",(e)=>{
+      if(!item.checked){
+        checkboxAll.checked=false
+      }
+    })
+  })
 }
-// Add New Product 2
-const btnAddnewProduct = document.querySelector(".btn_addNewProduct");
-if (btnAddnewProduct) {
-  btnAddnewProduct.addEventListener("click", (e) => {
-    document.location.href = "/admin/products/add-new-product";
-  });
-}
+
 
 // Event Search-Status
 var url = new URL(document.location.href);
@@ -85,7 +87,7 @@ detail_Btn.forEach((element) => {
   });
 });
 // Event-close-form-detail
-const detail_Btn_Close = document.querySelector(".btnCloseDetail");
+const detail_Btn_Close = document.querySelector("#closeFormDetail");
 const url4 = new URL(document.location.href);
 if (detail_Btn_Close) {
   detail_Btn_Close.addEventListener("click", (e) => {
@@ -101,21 +103,43 @@ if (detail_Btn_Close) {
     // document.location.href = url4.href;
   });
 }
+
 // Change status product
 const btnChangeStatus = document.querySelectorAll(".btnStatusProduct");
 btnChangeStatus.forEach((element) => {
   element.addEventListener("click", (e) => {
     const idProduct = element.getAttribute("id_product");
-    const status = element.getAttribute("status");
-    const newStatus = status == "active" ? "inactive" : "active";
+    const checkedBoxes = document.querySelectorAll('input[type="checkbox"][checkbox-item]:checked');
+    if(checkedBoxes.length>1){
+      let multiItems = ""
+      checkedBoxes.forEach((item)=>{
+        const status = item.parentNode.parentNode.querySelector(".btnStatusProduct").getAttribute("status")
+        const productId = item.getAttribute("id_product");
+        multiItems += `${productId}-${status == "active" ? "inactive" : "active"},`
+      })
+      fetch("/admin/products/change-muilti-status",{
+        headers:{"Content-Type":"application/json"},
+        method:"PATCH",
+        body:JSON.stringify({
+          multiItems,
+        })
+      }).then(res=>{
+        window.location.reload()
+      })
+    }
+    else{
+      const status = element.getAttribute("status");
+      const newStatus = status == "active" ? "inactive" : "active";
 
-    const form = document.querySelector("#form_change_status");
-    const path = form.getAttribute("data_path_changestatus");
-    console.log(path);
-    const newPath = path + `/${newStatus}/${idProduct}?_method=PATCH`;
-    form.action = newPath;
+      const form = document.querySelector("#form_change_status");
+      const path = form.getAttribute("data_path_changestatus");
+      console.log(path);
+      const newPath = path + `/${newStatus}/${idProduct}?_method=PATCH`;
+      form.action = newPath;
 
-    form.submit();
+      form.submit();
+    }
+    
   });
 });
 //  Delete Products
@@ -138,11 +162,35 @@ if (btnDelete.length != 0) {
       confirmBtn.addEventListener("click", () => {
         confirmDialog.style.display = "none"; // Hiển thị dialog
         const idProduct = element.getAttribute("id_product");
+        const checkedBoxes = document.querySelectorAll('input[type="checkbox"][checkbox-item]:checked');
+        if (checkedBoxes.length > 1) {
+          let multiItems = ""
+          checkedBoxes.forEach((item) => {
+            const productId = item.getAttribute("id_product");
+            multiItems +=`${productId},`
+          
+          })
+          console.log(multiItems)
+          fetch("/admin/products/delete-multi", {
+            headers: {
+              "Content-Type": "application/json"
+            },
+            method: "DELETE",
+            body: JSON.stringify({
+              multiItems,
+            })
+          }).then(res => {
+            window.location.reload()
+          })
+        } else {
+        confirmDialog.style.display = "none"; // Hiển thị dialog
+        const idProduct = element.getAttribute("id_product");
         const form = document.querySelector("#form_delete_product");
         const path = form.getAttribute("data_path_delete");
         const newPath = path + `/${idProduct}?_method=DELETE`;
         form.action = newPath;
         form.submit();
+          }
       });
     });
   });

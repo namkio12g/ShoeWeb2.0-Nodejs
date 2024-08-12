@@ -1,0 +1,10 @@
+mixin category_option(items,selectedEditId ,level=1)
+    if(items)
+        for item in items
+            - const prefix=Array(level+1    ).join("-")
+            if selectedEditId==item._id
+                option.ps-3(value=item._id selected)  #{prefix} #{item.title}
+            else 
+                option.ps-3(value=item._id)  #{prefix} #{item.title}
+            if item.child && item.child.length>0
+                +category_option(item.child,selectedEditId,level+1)
