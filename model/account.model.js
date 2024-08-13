@@ -13,11 +13,6 @@ const accountSchema = new mongoose.Schema({
            type: String,
            required: true,
        },
-          staff: {
-              type: String,
-              default:"1"
-              
-          },
        verified: {
            type: String,
             default: "false"

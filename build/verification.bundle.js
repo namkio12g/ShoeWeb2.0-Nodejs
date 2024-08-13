@@ -15,7 +15,7 @@
   \********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("var mongoose = __webpack_require__(/*! mongoose */ \"./node_modules/mongoose/dist/browser.umd.js\");\nvar accountSchema = new mongoose.Schema({\n  email: {\n    type: String,\n    required: true\n  },\n  password: {\n    type: String,\n    required: true\n  },\n  userId: {\n    type: String,\n    required: true\n  },\n  staff: {\n    type: String,\n    \"default\": \"1\"\n  },\n  verified: {\n    type: String,\n    \"default\": \"false\"\n  },\n  \"delete\": {\n    type: String,\n    \"default\": \"false\"\n  },\n  couppons: {\n    type: [{\n      _id: {\n        type: String\n      },\n      quantity: {\n        type: Number\n      }\n    }]\n  }\n});\nvar account = mongoose.model(\"account\", accountSchema, \"accounts\");\nmodule.exports = account;\n\n//# sourceURL=webpack://shoe-sales-website-nodejs/./model/account.model.js?");
+eval("var mongoose = __webpack_require__(/*! mongoose */ \"./node_modules/mongoose/dist/browser.umd.js\");\nvar accountSchema = new mongoose.Schema({\n  email: {\n    type: String,\n    required: true\n  },\n  password: {\n    type: String,\n    required: true\n  },\n  userId: {\n    type: String,\n    required: true\n  },\n  verified: {\n    type: String,\n    \"default\": \"false\"\n  },\n  \"delete\": {\n    type: String,\n    \"default\": \"false\"\n  },\n  couppons: {\n    type: [{\n      _id: {\n        type: String\n      },\n      quantity: {\n        type: Number\n      }\n    }]\n  }\n});\nvar account = mongoose.model(\"account\", accountSchema, \"accounts\");\nmodule.exports = account;\n\n//# sourceURL=webpack://shoe-sales-website-nodejs/./model/account.model.js?");
 
 /***/ }),
 

@@ -1,0 +1,33 @@
+mixin staff_item(item,index) 
+        tr.text-start.row-category
+                        th(scope='row' first)
+                            input(type="checkbox" checkbox-item id_category=item._id)    
+                        td.fs-5(class="stt_tableCategory",scope='row' first) #{index}
+                        td(class="_tableCategory")
+                            .row.d-flex.justify-content-center.align-items-center
+                                .col-3
+                                    img(class='avatar-products' src=`${item.thumbnail}`, alt="", srcset="")
+                                .col-5
+                                    div.d-flex.flex-column
+                                        p1.fs-5 #{prefix} #{item.name}
+                    
+                        td 
+                            span.fs-4 #{item.email}
+                        td 
+                            span.fs-4 #{item.phoneNumbers}
+                        td(class="text-wrap") 
+                            button(status =item.status status-button id_category =item._id style=`${item.status==="active"? "color:var(--bs-success)":"color:var(--bs-danger)"}`)
+                                span:  i(class="fa-solid fa-circle")
+                                span.fs-5 
+                                    | #{item.status}
+                        td
+                                i.fs-5.fa-solid.fa-eye(btn-data-detail, id_product =item._id)
+                        td(class="_tableCategory")
+                                input.fs-5.form-control(type="Number" value=item.position)
+    
+                        td
+                            button.fs-5.btn.btn-warning(href="/" type='button' data-toggle="modal" data-target="#exampleModal" )
+                                a(href=`/admin/categories/edit/${item._id}`)  Edit
+                            if !item.delete
+                                button.fs-5.btn.btn-danger.ml-1.openConfirm(type='button' btn_delete id_category=item._id ) Delete
+
