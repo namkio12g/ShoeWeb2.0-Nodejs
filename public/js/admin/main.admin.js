@@ -20,9 +20,15 @@ if (form_search) {
 // alert hiddin button
 const Alert = document.querySelector('.alert-boxshowing')
 const icon = document.querySelector('icon')
+if(Alert){
+const timeout = setTimeout(() => {
+  Alert.classList.add('alert-box-hidden');
 
+}, 2500)
+}
 if(icon){
 icon.addEventListener('click', function () {
   // Toggle the class that hides the alert box
   Alert.classList.add('alert-box-hidden');
+  
 });}

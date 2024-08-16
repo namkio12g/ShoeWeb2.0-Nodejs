@@ -1,9 +1,15 @@
 const mongoose = require("mongoose");
-
+function rand(){
+    return Math.random().toString(36).substr(2)
+}
 const staffSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+    },
+    token:{
+        type:String,
+        default: rand()+rand()
     },
     name: {
             type: String,
@@ -33,8 +39,8 @@ const staffSchema = new mongoose.Schema({
         default: "active"
     },
     delete: {
-        type: String,
-        default: "false"
+        type: Boolean,
+        default: false
 
     },
 

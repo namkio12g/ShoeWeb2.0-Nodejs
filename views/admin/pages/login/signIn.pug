@@ -1,0 +1,21 @@
+extends ../../layout/login.pug
+block main_content 
+    div.d-flex.flex-column.mx-5.my-1
+                        .title-text.mt-3.mb-3
+                            a(href="/") 
+                                i.icon-home.fs-2.fa-solid.fa-shop.mb-5
+                            p.fs-2.fw-bolder.mb-0 Welcome back
+                            p.fs-2.fw-bolder.my-1 Admin login page
+                            p(style="color:gray") Access with your authorization
+                        form#login-form(method="POST" action="/admin/login/signin?_method=PATCH")
+                            div.input-section
+                                p.warning-text.mb-1 Your password or account is wrong!
+                                input.username-input.rounded-2.mb-2.px-3(placeholder="Email" name="email" type="text" required)
+                                input.password-input.rounded-2.px-3(type="password" placeholder="Password" name="password" required)
+                            div.mb-4.mt-2.d-flex.flex-row.justify-content-between(style="width:90%")
+                                div
+                                    input.remember-check.mx-1(type="checkbox" )
+                                    span Remember me
+                             
+                            div.mb-5
+                                button.signIn-btn.rounded-3(type="submit") Sign in

@@ -1,21 +1,17 @@
-// const ex = require("express");
-// const controller = require("../../controller/admin/category.controller");
-// const Router = ex.Router();
-// const multer = require("multer");
-// const storage = require("../../helpers/uploadImage");
-// const upload = multer({
-//     storage: storage()
-// });
-// Router.get("/", controller.index);
-// Router.get("/add-new-category",controller.createGet);
-// Router.get("/edit/:id", controller.editGet);
+const ex = require("express");
+const controller = require("../../controller/admin/role.controller");
+const Router = ex.Router();
+const validation=require("../../validate/validate")
+Router.get("/", controller.index);
+Router.get("/add-new-role",controller.createGet);
+Router.patch("/change-permissions", controller.changePermissions);
 // Router.delete("/delete", controller.delete);
 // Router.delete("/delete-multi", controller.deleteMulti);
 // Router.patch("/change-status",controller.changeStatus)
 // Router.patch("/change-multi-status", controller.changeMultiStatus)
 
 
-// Router.post("/add-new-category", upload.single("thumbnail"), controller.createPatch);
+Router.post("/add-new-role", validation.validateRole, controller.createPatch);
 
 
-// module.exports = Router;
+module.exports = Router;

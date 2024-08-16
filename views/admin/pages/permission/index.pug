@@ -1,0 +1,219 @@
+extends ../../layout/default.pug
+include ../../mixins/alerts/successAlert.pug
+include ../../mixins/alerts/errorAlert.pug
+
+block main
+    +success_alert(messages.success)
+    +error_alert(messages.error)
+    input.form-control(type="")
+    .container.permission-container.p-5.d-flex.flex-column.align-items-center
+        .block.d-flex.flex-row.p-4.justify-content-between.mb-5
+            .left-side.d-flex.flex-column
+                span.fs-3.fw-bold Các nhóm quyền
+                span.fs-5.fw-light Bạn có thêm tạo thêm các nhóm quyền tùy ý
+            .right-side.my-auto
+                button.btn.btn-warning.text-center.fs-4.mx-3(btn-add-role style="color:white") Cập nhật
+                a.btn.btn-info.text-center.fs-4( href="/admin/roles/add-new-role" style="color:white") + Thêm nhóm quyền
+        .block.permission-block.d-flex.flex-row.justify-content-between.px-4
+            table.table.align-middle.mb-0
+                thead
+                    tr()
+                        th.action-header.text-start
+                            span.fs-4 Action
+                        for role in roles 
+                            th(role-id=role._id role-permissions=role.permissions)
+                                span.fs-5 #{role.title} 
+                      
+                    tr.title-persmission
+                        th.text-start
+                            span.fs-4 
+                                i.fa-brands.fa-product-hunt
+                                | Quản lý sản phẩm
+                    tr.permission-item(data-name="view-product")
+                        th.text-start
+                            span.fs-5 Xem trang sản phẩm
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")
+                    tr.permission-item(data-name="add-product")
+                        th.text-start
+                            span.fs-5 Thêm sản phẩm mới
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")
+                    tr.permission-item(data-name="edit-product")
+                        th.text-start
+                            span.fs-5 Chỉnh sửa thông tin sản phẩm
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")
+                    tr(data-name="delete-product")
+                        th.text-start
+                            span.fs-5 Xóa sản phẩm
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")
+                    tr.title-persmission
+                        th.text-start
+                            span.fs-4 
+                                i.fa-brands.fa-product-hunt
+                                | Quản lý Danh mục
+                    tr.permission-item(data-name="view-categoryy") 
+                        th.text-start
+                            span.fs-5 Xem trang quản lý danh mục
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")           
+                    tr.permission-item(data-name="add-category")
+                        th.text-start
+                            span.fs-5 Thêm danh mục mới
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")
+                    tr.permission-item(data-name="edit-category") 
+                        th.text-start
+                            span.fs-5 Chỉnh sửa danh mục
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")
+                    tr(data-name="delete-category")
+                        th.text-start
+                            span.fs-5 Xóa danh mục
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox") 
+                    tr.title-persmission
+                        th.text-start
+                            span.fs-4 
+                                i.fa-brands.fa-product-hunt
+                                | Quản lý Hóa đơn
+                    tr.permission-item(data-name="view-orders") 
+                        th.text-start
+                            span.fs-5 Xem trang quản lý hóa đơn
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")           
+                    tr.permission-item(data-name="change-status-orders")  
+                        th.text-start
+                            span.fs-5 Thay đổi trạng thái hóa đơn
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")
+                    tr(data-name="view-orders-cancellation") 
+                        th.text-start
+                            span.fs-5 Xem các hóa đơn bị hủy
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")
+                    tr.title-persmission
+                        th.text-start
+                            span.fs-4 
+                                i.fa-brands.fa-product-hunt
+                                | Nhân viên
+                    tr.permission-item(data-name="view-staffs")  
+                        th.text-start
+                            span.fs-5 Xem trang quản lý nhân viên
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")           
+                    tr.permission-item(data-name="add-staffs")  
+                        th.text-start
+                            span.fs-5 Thêm nhân viên mới
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")
+                    tr.permission-item(data-name="edit-staffs") 
+                        th.text-start
+                            span.fs-5 Chỉnh sửa nhân viên
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")
+                    tr(data-name="delete-staffs") 
+                        th.text-start
+                            span.fs-5 Xóa nhân viên
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox") 
+                    tr.title-persmission
+                        th.text-start
+                            span.fs-4 
+                                i.fa-brands.fa-product-hunt
+                                | Thống kê
+                    tr(data-name="view-statistics") 
+                        th.text-start
+                            span.fs-5 Xem trang thống kê
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox") 
+                    tr.title-persmission
+                        th.text-start
+                            span.fs-4 
+                                i.fa-brands.fa-product-hunt
+                                | Phân quyền
+                    tr.permission-item(data-name="change-permissions")  
+                        th.text-start
+                            span.fs-5 Phân quyền cho các nhóm quyền
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")           
+                    tr(data-name="add-role") 
+                        th.text-start
+                            span.fs-5 Thêm nhóm quyền
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox")                                                                 
+    script(src="/build/permissions_admin.bundle.js")

@@ -1,0 +1,47 @@
+.permission-container{
+    background-color:#f8fafc
+}
+.block{
+    background-color: white;
+    width: 85%;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgb(214, 212, 212);
+    border: 1px solid rgb(240, 239, 239);
+}
+.permission-block .left-side{
+    width: 50%;
+
+}
+.permission-block .right-side span{
+    width: 50%;
+
+}
+.permission-block   .action-header span{
+    color: rgb(154, 152, 152);
+
+        
+}
+.permission-block input{
+    width: 15px;
+    height: 15px;
+}
+.permission-block   .action-header{
+    width: 50%;
+}
+.right-side table tr{
+    border-width: 0px ;
+    border-style: none;
+}
+.title-persmission{
+    border-bottom: 1px solid rgb(219, 219, 219) ;
+}
+.title-persmission th{
+    border: none;
+}
+.title-persmission span{
+    color: rgb(29, 93, 243);
+
+}
+.permission-item th{
+    border: none;
+}

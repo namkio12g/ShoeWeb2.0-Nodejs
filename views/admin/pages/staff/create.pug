@@ -46,13 +46,14 @@ block main
                                         label(for='category_name' ) Chức vụ
                                         span: i(class="fa-solid fa-circle-check")
                                         select#category_name.form-control(name='role' type='text' placeholder='' )
-                                            option.ps-3(value="123") -Lựa chọn danh mục cha-
+                                            for role in roles
+                                                option.ps-3(value=role._id) ---#{role.title}---
                                         span#categoryError.text-danger
                                 .col-md-4
                                     .form-group
                                         label(for='discountPercentage' ) Ngày sinh
                                         span: i(class="fa-solid fa-circle-check")
-                                        input#discountPercentage.form-control(name='position' type='Date' placeholder='')
+                                        input#discountPercentage.form-control(name='birthDay' type='Date' placeholder='')
                                 .col-md-2
                                     .form-group
                                         label(for='discountPercentage' ) Giới tính
@@ -66,17 +67,17 @@ block main
                             .row
                                 .col-md-4
                                     .form-group
-                                        label(for='category_name' ) Nhập lại mật khẩu
+                                        label(for='category_name' ) Mật khẩu
                                         span: i(class="fa-solid fa-circle-check")
-                                        input#prodcuct_title.form-control(type='text' name='OriginalPassword' placeholder='Tên' required)
+                                        input#prodcuct_title.form-control(type='password' name='originalPassword' placeholder='Tên' required)
                                 
                 
                             .row    
                                 .col-md-4
                                     .form-group
-                                        label(for='category_name' ) Mật khẩu
+                                        label(for='category_name' ) Nhập lại mật khẩu
                                         span: i(class="fa-solid fa-circle-check")
-                                        input#prodcuct_title.form-control(type='text' name='confirmPassword' placeholder='Tên' required)
+                                        input#prodcuct_title.form-control(type='password' name='confirmPassword' placeholder='Tên' required)
                                
                              
                             .row   

@@ -80,12 +80,14 @@ module.exports.index= async(req,res)=>{
         const couppon=await coupponModel.findOne({
             _id: item._id
         })
+        if(couppon){
         couppons.push({
             _id:couppon._id,
             name: couppon.name,
             percent: couppon.percent,
             condition: couppon.condition,
         })
+    }
     };
      const cart = await cartModel.findOne({
                customerId: req.session.user._id,

@@ -8,7 +8,7 @@ module.exports.orders=async(req,res)=>{
             customerId: req.session.user._id
         })
 
-        res.render("client/page/user/order.pug" ,{orders:orders,user:{name:customer.name}})
+        res.render("client/page/user/order.pug" ,{orders:orders,userName:customer.name})
 
     }
     else{

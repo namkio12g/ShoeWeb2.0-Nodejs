@@ -4,6 +4,10 @@ const productRouter = require("./product.route");
 const orderRouter = require("./order.route");
 const categoryRouter = require("./category.route");
 const staffRouter = require("./staff.route");
+const roleRouter = require("./role.route");
+const authorRouter = require("./authorization.route");
+
+
 
 
 
@@ -14,6 +18,10 @@ module.exports = (app) => {
   app.use(PATH_ADMIN + "/orders", orderRouter);
   app.use(PATH_ADMIN + "/categories", categoryRouter);
   app.use(PATH_ADMIN + "/staffs", staffRouter);
+  app.use(PATH_ADMIN + "/roles", roleRouter);
+  app.use(PATH_ADMIN + "/login", authorRouter);
+
+
 
 
   // app.use(PATH_ADMIN + "/order", orderRouter);

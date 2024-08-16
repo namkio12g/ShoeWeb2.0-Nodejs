@@ -15,7 +15,7 @@ const orderRouter = require("./order.route");
 
 module.exports = (app) => {
   app.use(fetchCart.get)
-  app.use(fetchSession.get)
+  app.use(fetchSession.get) 
   app.use("/", home);
   app.use("/order", orderRouter);
   app.use("/products", products);

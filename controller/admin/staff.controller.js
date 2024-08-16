@@ -1,6 +1,9 @@
 const staffModel=require("../../model/staff.model")
+const roleModel = require("../../model/role.model")
 const status1 = require("../../helpers/filterStatus");
 const getPagination = require("../../helpers/getPagination");
+const bcrypt = require("bcrypt")
+
 module.exports.changeStatus = async (req, res) => {
     try {
         const id = req.body.id;
@@ -29,9 +32,6 @@ module.exports.changeMultiStatus = async (req, res) => {
             let temp = multiItems[i].split('-')
             let id = temp[0];
             let status = temp[1];
-            console.log(id)
-            console.log(status)
-
             await categoryModel.updateOne({
                 _id: id
             }, {
@@ -71,7 +71,6 @@ module.exports.deleteMulti = async (req, res) => {
         let multiItems = req.body.multiItems.split(',');
         for (let i = 0; i < multiItems.length - 1; i++) {
             let id = multiItems[i]
-            console.log(id)
             await categoryModel.updateOne({
                 _id: id
             }, {
@@ -92,7 +91,7 @@ module.exports.index=async(req,res)=>{
     let find = {
         delete: "false",
     };
-
+    // const roles=await roleModel.find(find).select("_id title");
     if (req.query.keyword) {
         find.title = {
             $regex: req.query.keyword,
@@ -120,20 +119,19 @@ module.exports.index=async(req,res)=>{
     //     etailstaff = list.find(
     //         (staff) => staff._id == req.query.idDetail
     //     );
-    console.log("123123")
     res.render("admin/pages/staff/index.pug", {
         title: "pagedashboard",
         list:list,
         message: "This is Home!",
         listOption: listOption,
         keyword: req.query.keyword,
+        // roles:roles
         // detailCategory: detailCategory,
     });
 }
 catch(error){
-    console.log(error)
-    //   req.flash("error", "Có lỗi");
-    //   res.redirect("back")
+      req.flash("error", "Có lỗi");
+      res.redirect("back")
 }
 }
 
@@ -141,8 +139,10 @@ catch(error){
 // access create category view
 
 module.exports.createGet = async (req, res) => {
-  
+    const roles=await roleModel.find({delete:false}).select("_id title");
+
     res.render("admin/pages/staff/create.pug",{ 
+        roles: roles
     })
 }
 module.exports.editGet = async (req, res) => {
@@ -154,7 +154,6 @@ module.exports.editGet = async (req, res) => {
         const item = await categoryModel.findOne({
             _id: req.params.id
         })
-        console.log(item)
         const tree = createTree(categories)
         res.render("admin/pages/categories/edit.pug", {
             tree: tree,
@@ -171,21 +170,17 @@ module.exports.editGet = async (req, res) => {
 // create new category
 module.exports.createPatch = async (req, res) => {
     try {
-        //   let find = {
-        //       delete: "false",
-        //   };
-        // req.body.thumbnail=`/uploads/${req.file.filename}`
-        // if(req.body.position==""){
-        //     let numberDocument = await categoryModel.countDocuments(find);
-        //     req.body.position=parseInt(numberDocument)+1
-        // }
-        // const newItem=new categoryModel(req.body)
-        // newItem.save()
+        const salt = await bcrypt.genSalt(parseInt(process.env.SALTROUNDS))
+        const secPass=await bcrypt.hash(req.body.originalPassword,salt);
+        req.body.thumbnail=`/uploads/${req.file.filename}`;
+        req.body.password = secPass;
+        req.body.birthDay=new Date(req.body.birthDay)
+        const newItem=new staffModel(req.body)
+        newItem.save()
         req.flash("success", "Tạo mới thành công");
         res.redirect("back")
     } catch (error) {
         req.flash("error", "Không thể tạo mới");
-
         res.redirect("back")
 
     }

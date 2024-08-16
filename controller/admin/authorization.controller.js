@@ -1,8 +1,7 @@
-const roleModel=require("../../model/role.model")
+const staffModel = require("../../model/staff.model")
 const status1 = require("../../helpers/filterStatus");
 const getPagination = require("../../helpers/getPagination");
-const bcrypt = require("bcrypt");
-const role = require("../../model/role.model");
+const bcrypt = require("bcrypt")
 
 module.exports.changeStatus = async (req, res) => {
     try {
@@ -13,15 +12,15 @@ module.exports.changeStatus = async (req, res) => {
         }, {
             status: status
         });
-        
+
         req.flash("success", "Thao tác thành công");
         res.redirect("back");
     } catch (error) {
         req.flash("error", "Thao tác không thành công");
         res.redirect("back");
     }
-    
-    
+
+
 
 };
 // multi change stastus
@@ -64,60 +63,44 @@ module.exports.delete = async (req, res) => {
 
         res.redirect("back");
     } catch (error) {
-        
+
     }
-    
+
 };
 // multi delete 
-module.exports.changePermissions = async (req, res) => {
+module.exports.signIn = async (req, res) => {
     try {
-    console.log("122")
-
-        const roles=req.body.roles;
-        roles.forEach(async (element) => {
-            await roleModel.updateOne({_id:element.id},{permissions:element.permissions})
-        });
-    console.log("123")
-
-         req.flash("success", "Cập nhật thành công");
-        res.redirect("back");
-
+    
+      
+            req.flash("success", "Tạo mới thành công");
+            res.redirect("back")
     } catch (error) {
-    console.log("124")
-
-        req.flash("error", "Cập nhật không thành công!");
-        res.redirect("back");
-
+        req.flash("error", "Thao tác không thành công!");
     }
 }
 // access category view view
 
-module.exports.index=async(req,res)=>{
-    try{
-        const roles=await roleModel.find({delete:false})
-        res.render("admin/pages/permission/index.pug", {
-            roles:roles
-    });
-}
-catch(error){
-    console.log(error)
-      req.flash("error", "Có lỗi");
-      res.redirect("back")
-}
+module.exports.index = async (req, res) => {
+    try {
+        res.render("admin/pages/login/signIn.pug", {});
+    } catch (error) {
+        console.log(error)
+        req.flash("error", "Có lỗi");
+        res.redirect("back")
+    }
 }
 
 
 // access create category view
 
 module.exports.createGet = async (req, res) => {
-  
-    res.render("admin/pages/permission/createRole.pug",{ 
-    })
+
+    res.render("admin/pages/permission/createRole.pug", {})
 }
 module.exports.editGet = async (req, res) => {
     try {
         let find = {
-            delete:"false"
+            delete: "false"
         };
         const categories = await categoryModel.find(find).select('_id title parentId');
         const item = await categoryModel.findOne({
@@ -127,12 +110,12 @@ module.exports.editGet = async (req, res) => {
         const tree = createTree(categories)
         res.render("admin/pages/categories/edit.pug", {
             tree: tree,
-            item:item
+            item: item
         })
     } catch (error) {
-        
+
     }
-    
+
 }
 
 
@@ -140,8 +123,12 @@ module.exports.editGet = async (req, res) => {
 // create new category
 module.exports.createPatch = async (req, res) => {
     try {
-        req.body.birthDay=new Date(req.body.birthDay)
-        const newItem=new roleModel(req.body)
+        const salt = await bcrypt.genSalt(parseInt(process.env.SALTROUNDS))
+        const secPass = await bcrypt.hash(req.body.originalPassword, salt);
+        req.body.thumbnail = `/uploads/${req.file.filename}`;
+        req.body.password = secPass;
+        req.body.birthDay = new Date(req.body.birthDay)
+        const newItem = new staffModel(req.body)
         newItem.save()
         req.flash("success", "Tạo mới thành công");
         res.redirect("back")
