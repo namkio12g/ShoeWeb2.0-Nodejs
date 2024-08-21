@@ -4,17 +4,13 @@ include ../../mixins/pagination.pug
 include ../../mixins/detailProduct.pug
 
 block main
-  .wrapper
-    include ../../partials/sider.pug
-    .main
-      include ../../partials/header.pug
-      +order_infor(orders,pagination)
-      form(
-        action="",
-        method="POST",
-        id = "form_delete_order",
-        data_path_delete =`/admin/orders/delete`
-        )
+  +order_infor(orders,pagination)
+  form(
+    action="",
+    method="POST",
+    id = "form_update",
+    data_path =`/admin/orders`
+    )
 
   script(src="/build/order.bundle.js")
 

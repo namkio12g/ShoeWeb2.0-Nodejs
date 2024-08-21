@@ -1,7 +1,11 @@
 const ex = require("express");
 const order = require("../../controller/admin/order.controller");
 const Router = ex.Router();
-Router.get("/", order.index);
-Router.get("/detail/:id", order.detail);
-Router.delete("/delete/:id", order.delete);
+const authMiddle = require("../../public/middleware/auth.middleware")
+
+Router.get("/", authMiddle.checkAuth, order.index);
+Router.get("/detail/:id", authMiddle.checkAuth, order.detail);
+Router.post("/update-status/:id/:status", authMiddle.checkAuth, order.updateStatus);
+Router.post("/cancel/:id", authMiddle.checkAuth, order.cancel);
+
 module.exports = Router;

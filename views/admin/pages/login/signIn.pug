@@ -1,5 +1,11 @@
 extends ../../layout/login.pug
+include ../../mixins/alerts/successAlert.pug
+include ../../mixins/alerts/errorAlert.pug
+
+
 block main_content 
+    +success_alert(messages.success)
+    +error_alert(messages.error)
     div.d-flex.flex-column.mx-5.my-1
                         .title-text.mt-3.mb-3
                             a(href="/") 

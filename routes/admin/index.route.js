@@ -6,6 +6,7 @@ const categoryRouter = require("./category.route");
 const staffRouter = require("./staff.route");
 const roleRouter = require("./role.route");
 const authorRouter = require("./authorization.route");
+const fetchData=require("../../public/middleware/fetchdata")
 
 
 
@@ -13,6 +14,8 @@ const authorRouter = require("./authorization.route");
 
 module.exports = (app) => {
   const PATH_ADMIN = systemConfig.prefixedAdmin;
+  app.use(fetchData.getRole)
+  app.use(fetchData.getStaff)
   app.use(PATH_ADMIN + "/dashboard", dashboard);
   app.use(PATH_ADMIN + "/products", productRouter);
   app.use(PATH_ADMIN + "/orders", orderRouter);

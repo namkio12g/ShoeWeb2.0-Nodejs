@@ -3,52 +3,59 @@ aside#sidebar.sidebar
       div 
         a(href='#')
           img(src='/images/avatar.jpg', alt="", srcset="")
-      p1 King Tran @2004
+      if(staff)
+        p1 #{staff.name}
     // Slidebar
     ul.sidebar__nav
-      li.sidebar__header Admin Elements
+      li.sidebar__header Home
       li.sidebar__item
         a.sidebar-link(href='/admin/dashboard')
           i.fa-solid.fa-list
           |  T&#x1ED5;ng Quan
-      li.sidebar__header Products
-      // Item product
-      li.sidebar__item
-        a.sidebar-link.collapsed( data-bs-target='#products' data-bs-toggle='collapse' aria-expanded='false')
-          i.fa-brands.fa-product-hunt
-          |  Products
-        ul#products.sidebar-dropdown.list-unstyled.collapse(data-bs-parent='#sidebar')
-          li.sidebar__item
-            a.sidebar-link(href='/admin/products') Product List
-          li.sidebar__item
-            a.sidebar-link(href='/admin/categories') Product categories
+      if(role.permissions.includes("view-product"))
+        li.sidebar__header Sản phẩm
+        // Item product
+        li.sidebar__item
+          a.sidebar-link.collapsed( data-bs-target='#products' data-bs-toggle='collapse' aria-expanded='false')
+            i.fa-brands.fa-product-hunt
+            |  Products
+          ul#products.sidebar-dropdown.list-unstyled.collapse(data-bs-parent='#sidebar')
+            li.sidebar__item
+              a.sidebar-link(href='/admin/products') Danh sách sản phẩm
+            li.sidebar__item
+              a.sidebar-link(href='/admin/categories') Danh mục sản phẩm
       // Item order
-      li.sidebar__header Orders
-      li.sidebar__item
-        a.sidebar-link.collapsed(href='' data-bs-target='#orders' data-bs-toggle='collapse' aria-expanded='false')
-          i.fa-solid.fa-receipt 
-          |
-          | Orders
-        ul#orders.sidebar-dropdown.list-unstyled.collapse(data-bs-parent='#sidebar')
-          li.sidebar__item
-            a.sidebar-link(href='/admin/orders') Order List
-          li.sidebar__item 
-            a.sidebar-link(href='/admin/orders/canceled-order') Đơn hàng hủy
-      // Item Customer
-      li.sidebar__header Kh&aacute;ch H&agrave;ng
-      li.sidebar__item
-        a.sidebar-link(href='/admin/customers' data-bs-target='#customer'  aria-expanded='false')
-          i.fa-solid.fa-person-military-pointing
-          |  Khách hàng
-      // ----Setup
-      li.sidebar__header C&agrave;i &Dstrok;&#x1EB7;t
-      li.sidebar__item
-        a.sidebar-link.collapsed(href='' data-bs-target='#setup' data-bs-toggle='collapse' aria-expanded='false')
-          i.fa-solid.fa-gear
-          |  
-          | Account
-        ul#setup.sidebar-dropdown.list-unstyled.collapse(data-bs-parent='#sidebar')
-          li.sidebar__item
-            a.sidebar-link(href='/admin/staffs/') Nhân viên
-          li.sidebar__item
-            a.sidebar-link(href='/admin/roles/') Phân quyền
+      if(role.permissions.includes("view-orders"))
+        li.sidebar__header Orders
+        li.sidebar__item
+          a.sidebar-link.collapsed(href='' data-bs-target='#orders' data-bs-toggle='collapse' aria-expanded='false')
+            i.fa-solid.fa-receipt 
+            |
+            | Đơn hàng
+          ul#orders.sidebar-dropdown.list-unstyled.collapse(data-bs-parent='#sidebar')
+            li.sidebar__item
+              a.sidebar-link(href='/admin/orders') Danh sách đơn hàng
+            li.sidebar__item 
+              a.sidebar-link(href='/admin/orders/canceled-order') Đơn hàng hủy
+        // Item Customer
+      if(role.permissions.includes("view-customers"))
+        li.sidebar__header Kh&aacute;ch H&agrave;ng
+        li.sidebar__item
+          a.sidebar-link(href='/admin/customers' data-bs-target='#customer'  aria-expanded='false')
+            i.fa-solid.fa-person-military-pointing
+            |  Khách hàng
+        // ----Setup
+      if(role.permissions.includes("view-staffs"))
+        li.sidebar__header C&agrave;i &Dstrok;&#x1EB7;t
+        li.sidebar__item
+          a.sidebar-link.collapsed(href='' data-bs-target='#setup' data-bs-toggle='collapse' aria-expanded='false')
+            i.fa-solid.fa-gear
+            |  
+            | Nhân viên
+          ul#setup.sidebar-dropdown.list-unstyled.collapse(data-bs-parent='#sidebar')
+            if(role.permissions.includes("view-staffs"))
+              li.sidebar__item
+                a.sidebar-link(href='/admin/staffs/') Quản lý Nhân viên
+            if(role.permissions.includes("change-permissions"))
+              li.sidebar__item
+                a.sidebar-link(href='/admin/roles/') Phân quyền

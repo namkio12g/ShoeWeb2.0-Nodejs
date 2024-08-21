@@ -13,7 +13,8 @@ block main
                 span.fs-5.fw-light Bạn có thêm tạo thêm các nhóm quyền tùy ý
             .right-side.my-auto
                 button.btn.btn-warning.text-center.fs-4.mx-3(btn-add-role style="color:white") Cập nhật
-                a.btn.btn-info.text-center.fs-4( href="/admin/roles/add-new-role" style="color:white") + Thêm nhóm quyền
+                if(role.permissions.includes("add-role"))
+                    a.btn.btn-info.text-center.fs-4( href="/admin/roles/add-new-role" style="color:white") + Thêm nhóm quyền
         .block.permission-block.d-flex.flex-row.justify-content-between.px-4
             table.table.align-middle.mb-0
                 thead
@@ -187,6 +188,20 @@ block main
                     tr(data-name="view-statistics") 
                         th.text-start
                             span.fs-5 Xem trang thống kê
+                        th(scope='col')
+                            input(type="checkbox")
+                        th 
+                            input(type="checkbox")
+                        th
+                            input(type="checkbox") 
+                    tr.title-persmission
+                        th.text-start
+                            span.fs-4 
+                                i.fa-brands.fa-product-hunt
+                                | Khách hàng
+                    tr(data-name="view-customers") 
+                        th.text-start
+                            span.fs-5 Quản lý khách hàng
                         th(scope='col')
                             input(type="checkbox")
                         th 

@@ -2,7 +2,6 @@ const roleModel=require("../../model/role.model")
 const status1 = require("../../helpers/filterStatus");
 const getPagination = require("../../helpers/getPagination");
 const bcrypt = require("bcrypt");
-const role = require("../../model/role.model");
 
 module.exports.changeStatus = async (req, res) => {
     try {

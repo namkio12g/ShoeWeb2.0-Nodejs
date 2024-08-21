@@ -22,7 +22,7 @@ block main
         .col-md-2
             .form-group.navbar
                 lable Trạng Thái
-                select.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
+                select.fs-4.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
                                 option(value="") -- status --
 
                                 each item in listOption
@@ -30,10 +30,11 @@ block main
                                         option(value=item.value,selected) #{item.name}
                                     else 
                                         option(value=item.value) #{item.name}  
- 
+    
         .col-md-6.d-flex.justify-content-end.py-3
             //- button.btn.btn-success.add_Product.btn_addProduct(type='button') Add new product
-            a.btn.btn-success.fs-4.text-center.d-flex.align-items-center(href="/admin/staffs/add-new-staff") Tạo mới Nhân viên
+            if(role.permissions.includes("add-staffs"))
+                a.btn.btn-success.fs-4.text-center.d-flex.align-items-center(href="/admin/staffs/add-new-staff") Tạo mới Nhân viên
 
     +confirm("Bạn Có Muốn Xóa Không")
 

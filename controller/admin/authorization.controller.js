@@ -1,88 +1,65 @@
 const staffModel = require("../../model/staff.model")
 const status1 = require("../../helpers/filterStatus");
+const system = require("../../config/system.js");
+
 const getPagination = require("../../helpers/getPagination");
 const bcrypt = require("bcrypt")
 
-module.exports.changeStatus = async (req, res) => {
-    try {
-        const id = req.body.id;
-        const status = req.body.newStatus;
-        await categoryModel.updateOne({
-            _id: id
-        }, {
-            status: status
-        });
-
-        req.flash("success", "Thao tác thành công");
-        res.redirect("back");
-    } catch (error) {
-        req.flash("error", "Thao tác không thành công");
-        res.redirect("back");
-    }
-
-
-
-};
-// multi change stastus
-module.exports.changeMultiStatus = async (req, res) => {
-    try {
-        let multiItems = req.body.multiItems.split(',');
-        for (let i = 0; i < multiItems.length - 1; i++) {
-            let temp = multiItems[i].split('-')
-            let id = temp[0];
-            let status = temp[1];
-            console.log(id)
-            console.log(status)
-
-            await categoryModel.updateOne({
-                _id: id
-            }, {
-                status: status
-            });
-
-
-        }
-        req.flash("success", "Thao tác thành công");
-        res.redirect("back");
-    } catch (error) {
-        req.flash("error", "Thao tác không thành công!");
-
-        res.redirect("back");
-    }
-}
-// delete 
-module.exports.delete = async (req, res) => {
-    try {
-        const id = req.body.id;
-        await categoryModel.updateOne({
-            _id: id
-        }, {
-            delete: "true"
-        });
-        req.flash("success", "Tạo mới thành công");
-
-        res.redirect("back");
-    } catch (error) {
-
-    }
-
-};
-// multi delete 
 module.exports.signIn = async (req, res) => {
     try {
-    
-      
-            req.flash("success", "Tạo mới thành công");
-            res.redirect("back")
+        
+             const salt = await bcrypt.genSalt(parseInt(process.env.SALTROUNDS))
+            const staff=await staffModel.findOne({email:req.body.email,delete:false})
+            if(!staff){
+                res.json({
+                    success: false,
+                    message: "Không tìm thấy tài khoản!"
+                })
+                return;
+            }
+            if(staff.status=="inactive"){
+                res.json({
+                    success: false,
+                    message: "Tài khoản đã ngừng hoạt động!"
+                })
+                return;
+            }
+            const flag=await bcrypt.compare(req.body.password, staff.password)
+            if (!flag) {
+                res.json({
+                    success: false,
+                    message: "Mật khẩu không đúng !"
+                })
+                return;
+            }
+            res.cookie("token",staff.token)
+            req.session.staff = {
+                _id: staff._id,
+                role:staff.role,
+                name:staff.name
+            };
+            res.json({
+                success: true,
+                message: "Đăng nhập thành công!"
+            })
     } catch (error) {
-        req.flash("error", "Thao tác không thành công!");
+        res.json({
+            success: false,
+            message: "Thao tác thất bại!"
+        })
     }
 }
 // access category view view
 
 module.exports.index = async (req, res) => {
     try {
-        res.render("admin/pages/login/signIn.pug", {});
+        if(!req.session.staff) {
+            res.render("admin/pages/login/signIn.pug", {});
+        }
+        else{
+        res.redirect("/admin/dashboard")
+
+        }
     } catch (error) {
         console.log(error)
         req.flash("error", "Có lỗi");

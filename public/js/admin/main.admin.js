@@ -1,7 +1,10 @@
+const { default: tinymce } = require("tinymce");
+``
 // Form-search
+if(tinymce){
 tinymce.init({
   selector: 'textarea#long_description'
-});
+});}
 const form_search = document.querySelector(".form-search");
 if (form_search) {
   form_search.addEventListener("submit", (e) => {

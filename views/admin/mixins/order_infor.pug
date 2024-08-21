@@ -16,13 +16,12 @@ mixin order_infor(orders,pagination)
             .col-md-2
                 .form-group.navbar
                     lable Trạng Thái
-                    select.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
-                                    each item in status
-                                        if item.class=="active"
-                                            option(value=item.value,selected) #{item.name}
-                                        else 
-                                            option(value=item.value) #{item.name}  
-            .col-3
+                    select.fs-4.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example' name="status")
+                        for item in status
+                            if(item.class=="active")
+                                option(value=item.value,selected) #{item.name}
+                            else 
+                                option(value=item.value ) #{item.name}
             .col-3.pagination-order.align-items-end.d-flex
                 +pagination(pagination)
 
@@ -35,11 +34,11 @@ mixin order_infor(orders,pagination)
                     tr
                         th(scope='col',style='width: 5%' first) STT
                         th(scope='col',style='width: 20%') Customer
-                        th(scope='col',style='width: 15%') Order date
+                        th(scope='col',style='width: 8%') Order date
                         th(scope='col',style='width: 10%') Pay method
 
                         th(scope='col',style='width: 10%') Tổng Tiền
-                        th(cope='col',style='width: 10%') Status
+                        th(cope='col',style='width: 15%') Status
                         th(scope='col') Detail
                         th(scope='col') Hoạt Động
 
@@ -60,19 +59,21 @@ mixin order_infor_item(item,index)
                                 .col-7
                                     div.d-flex.flex-column.name-id-customers
                                         p1 #{item.nameCustomer}
-                                        p1 KH0001
-                    td(class="_tableProduct") #{item.date}
+                                        p1 ##{item._id}
+                    td(class="_tableProduct") #{item.formattedDate}
                     td(class="_tableProduct") #{item.payMethod}
 
                     td(class="_tableProduct") #{item.priceTotal}
-                    td(class="text-wrap" status =item.status, style=`${item.status==="Đã Xác Nhận"? "color:var(--bs-success)":"color:var(--bs-danger)"}`) #{item.status}
+                    td(class="text-wrap" status =item.status,)
+                        span.fs-5.px-3.py-2( style=`color:white;background-color:${item.status===1?"#05BC04":item.status===2?"#40D6DE":item.status===4?"#D7152C":"#6E09BC"};border-radius:20px`) #{item.status===1?"Chưa xác nhận":item.status===2?"Đã xác nhận":item.status===4?"Giao hàng thành công":"Đang giao hàng"}
                     td
                             i.fa-solid.fa-eye(btn-data-detail-order, orderID =item._id, data-path)
  
                     td
-                        button.btn.btn-warning(type='button' data-toggle="modal" data-target="#exampleModal" ) Edit
-                        if item.delete == "false"
-                            button.btn.btn-danger.ml-1.openConfirm(type='button' btn_delete_order id_order=item._id ) Delete
+                        if ( role.permissions.includes("change-status-orders") && item.status!=4 )
+                            button.fs-4.btn.btn-success(status-button  id_order=item._id  status_order=item.status data-toggle="modal" data-target="#exampleModal" ) Cập nhật trạng thái
+                        if ( role.permissions.includes("view-orders-cancellation")  && item.status!=4 )
+                            button.fs-4.btn.btn-danger.ml-1.openConfirm( cancel-button id_order=item._id ) Hủy đơn hàng
 
 
 mixin order_infor_detail_item(item,index) 

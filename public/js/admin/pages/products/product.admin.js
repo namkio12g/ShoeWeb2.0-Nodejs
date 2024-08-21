@@ -105,7 +105,7 @@ if (detail_Btn_Close) {
 }
 
 // Change status product
-const btnChangeStatus = document.querySelectorAll(".btnStatusProduct");
+const btnChangeStatus = document.querySelectorAll("[status-button]");
 btnChangeStatus.forEach((element) => {
   element.addEventListener("click", (e) => {
     const idProduct = element.getAttribute("id_product");

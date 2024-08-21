@@ -15,7 +15,19 @@ module.exports.index = async (req, res) => {
     find.customerID = { $regex: req.query.keyword, $options: "i" };
   }
   if (req.query.status) {
-    find.status = req.query.status;
+    if(req.query.status=="0"){
+      find.status = {
+        $lt: 4
+      };
+    }
+    else{
+    find.status = parseInt(req.query.status);
+    }
+  }
+  else{
+    find.status = {
+      $lt: 4
+    };
   }
 
   const numberDocument = await order.countDocuments(find);
@@ -39,10 +51,32 @@ module.exports.index = async (req, res) => {
   });
 };
 // [DELETE] /admin/orders/delete/:id
-module.exports.delete = async (req, res) => {
+module.exports.cancel = async (req, res) => {
+  try{
   const id = req.params.id;
-  await order.updateOne({ _id: id }, { status: "Đã Xóa" }, { delete: "true" });
+  await order.updateOne({ _id: id }, { status:5});
+  req.flash("success","Đã hủy bỏ thành công đơn hàng")
   res.redirect("back");
+  }
+  catch(err){
+req.flash("error", "Thao tác gặp lỗi")
+res.redirect("back");
+  }
+};
+module.exports.updateStatus = async (req, res) => {
+  try {
+  const id = req.params.id;
+  await order.updateOne({
+    _id: id
+  }, {
+    status: parseInt(req.params.status) + 1
+  });
+  req.flash("success", "Đã Cập nhật trạng thái thành công thành công đơn hàng")
+  res.redirect("back");
+  } catch (err) {
+    req.flash("error", "Thao tác gặp lỗi")
+    res.redirect("back");
+  }
 };
 // [GET] /admin/orders/detail/:id
 module.exports.detail = async (req, res) => {

@@ -7,6 +7,7 @@ module.exports = {
     product: "./public/js/admin/pages/products/product.admin.js",
     product_add: "./public/js/admin/pages/products/product.add.admin.js",
     product_client: "./public/js/client/pages/products/product.client.js",
+    login_admin: "./public/js/admin/login.js",
     product_client_detail:
       "./public/js/client/pages/products/product-detail.js",
     categoryIndex_admin: "./public/js/admin/pages/category/index.js",

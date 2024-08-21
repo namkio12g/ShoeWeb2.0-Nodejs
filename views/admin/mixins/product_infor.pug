@@ -37,8 +37,10 @@ mixin product_infor(products,listOption,keyword,detailProduct1)
 
         .col-md-2
             //- button.btn.btn-success.add_Product.btn_addProduct(type='button') Add new product
-            button.btn.btn-success.add_Product.btn_addProduct.btn_addNewProduct(type='button')
-                a.fs-4(href="/admin/products/add-new-product" style="color:white")  Add new product
+        
+            if( role.permissions.includes("add-product"))
+                button.btn.btn-success.add_Product.btn_addProduct.btn_addNewProduct(type='button')
+                    a.fs-4(href="/admin/products/add-new-product" style="color:white")  Add new product
 
 
     nav.navbar.navbar_content
@@ -80,15 +82,22 @@ mixin product_infor_item(item,index)
                     td(class="_tableProduct") #{item.price}
 
                     td(class="text-wrap") 
-                        button.btnStatusProduct(status =item.status, id_product =item._id status-button style=`${item.status==="active"? "color:var(--bs-success)":"color:var(--bs-danger)"}`)
-                            span:  i(class="fa-solid fa-circle")
-                            span 
-                                | #{item.status}
+                        if( role.permissions.includes("edit-product"))
+                            button.btnStatusProduct(status =item.status, id_product =item._id status-button style=`${item.status==="active"? "color:var(--bs-success)":"color:var(--bs-danger)"}`)
+                                span:  i(class="fa-solid fa-circle")
+                                span 
+                                    | #{item.status}
+                        else 
+                             button.btnStatusProduct(status =item.status, id_product =item._id  style=`${item.status==="active"? "color:var(--bs-success)":"color:var(--bs-danger)"}`)
+                                span:  i(class="fa-solid fa-circle")
+                                span 
+                                    | #{item.status}
                     td
                             i.fa-solid.fa-eye(btn-data-detail, id_product =item._id)
  
                     td
                         //- button.btn.btn-warning(href="/" type='button' data-toggle="modal" data-target="#exampleModal" )
-                        a.btn.btn-warning.fs-5(href=`/admin/products/edit/${item._id}`)  Edit
-                        if item.delete == "false"
+                        if( role.permissions.includes("edit-product"))
+                            a.btn.btn-warning.fs-5(href=`/admin/products/edit/${item._id}`)  Edit
+                        if(item.delete == "false" && role.permissions.includes("delete-product") )
                             button.btn.fs-5.btn-danger.ml-1.openConfirm(type='button' btn_delete id_product=item._id) Delete

@@ -12,7 +12,7 @@ block main
         .nameTitle Danh mục sản phẩm
     .row.searchAndStatus
         .col-md-4
-            form.form-group.navbar.navbar_search.form_search 
+            form.fs-4.form-group.navbar.navbar_search.form_search 
                 lable Tìm kiếm
                 input(type="text" value=keyword name="keyword" class="form-control",id="seach" placeholder="----------Bạn tìm kiếm gì----------" aria-label="Recipient's username" aria-describedby="button-addon2")
                 button(type='submit')
@@ -20,7 +20,7 @@ block main
         .col-md-2
             .form-group.navbar
                 lable Trạng Thái
-                select.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
+                select.fs-4.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
                                 option(value="") -- status --
 
                                 each item in listOption
@@ -31,7 +31,9 @@ block main
  
         .col-md-6.d-flex.justify-content-end.py-3
             //- button.btn.btn-success.add_Product.btn_addProduct(type='button') Add new product
-            button.btn.btn-success.fs-4(type='button' add-button) Tạo mới danh mục
+
+            if(role.permissions.includes("add-category"))
+                button.btn.btn-success.fs-4(type='button' add-button) Tạo mới danh mục
     
 
     +confirm("Bạn Có Muốn Xóa Không")

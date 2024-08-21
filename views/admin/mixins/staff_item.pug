@@ -16,17 +16,24 @@ mixin staff_item(item,index)
                         td 
                             span.fs-4 #{item.phoneNumbers}
                         td(class="text-wrap") 
-                            button(status =item.status status-button id_category =item._id style=`${item.status==="active"? "color:var(--bs-success)":"color:var(--bs-danger)"}`)
-                                span:  i(class="fa-solid fa-circle")
-                                span.fs-5 
-                                    | #{item.status}
+                            if( role.permissions.includes("edit-staffs"))
+                                button(status =item.status status-button id_category =item._id style=`${item.status==="active"? "color:var(--bs-success)":"color:var(--bs-danger)"}`)
+                                    span:  i(class="fa-solid fa-circle")
+                                    span.fs-5 
+                                        | #{item.status}
+                            else 
+                                button(status =item.status id_category =item._id style=`${item.status==="active"? "color:var(--bs-success)":"color:var(--bs-danger)"}`)
+                                    span:  i(class="fa-solid fa-circle")
+                                    span.fs-5 
+                                        | #{item.status}
                         td
                                 i.fs-5.fa-solid.fa-eye(btn-data-detail, id_product =item._id)
 
     
                         td
-                            button.fs-5.btn.btn-warning(href="/" type='button' data-toggle="modal" data-target="#exampleModal" )
-                                a(href=`/admin/categories/edit/${item._id}`)  Edit
-                            if !item.delete
-                                button.fs-5.btn.btn-danger.ml-1.openConfirm(type='button' btn_delete id_category=item._id ) Delete
+                            if( role.permissions.includes("edit-staffs"))
+                                button.fs-4.btn.btn-warning(href="/" type='button' data-toggle="modal" data-target="#exampleModal" )
+                                    a(href=`/admin/categories/edit/${item._id}` style="color:white")  Edit
+                            if (!item.delete && role.permissions.includes("delete-staffs"))
+                                button.fs-4.btn.btn-danger.ml-1.openConfirm(type='button' btn_delete id_category=item._id ) Delete
 

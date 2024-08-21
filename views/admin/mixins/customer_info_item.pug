@@ -13,6 +13,6 @@ mixin customer_infor_item(item,index)
  
                     td
                         button.btn.btn-warning(type='button' data-toggle="modal" data-target="#exampleModal" ) Edit
-                        if item.delete == "false"
+                        if item.delete == "false" 
                             button.btn.btn-danger.ml-1.openConfirm(type='button' btn_delete id_customer=item._id ) Delete
 

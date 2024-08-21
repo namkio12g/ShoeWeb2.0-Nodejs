@@ -2,24 +2,39 @@ module.exports.statusOrder = (query) => {
   let status = [
     {
       name: "ALL",
-      value: "",
-      class: "",
+      value: "0",
+      class: ""
     },
     {
       name: "Đã Xác Nhận",
-      value: "Đã Xác Nhận",
-      class: "",
+      value: "2",
+      class: ""
+
     },
     {
       name: "Chưa Xác Nhận",
-      value: "Chưa Xác Nhận",
-      class: "",
+      value: "1",
+      class: ""
+
+    },
+    {
+      name: "Đang giao hàng",
+      value: "3",
+      class: ""
+
+    },
+    {
+      name: "Giao hàng thành công",
+      value: "4",
+      class:""
+
     },
   ];
   if (query.status) {
     const index = status.findIndex((items) => {
       return items.value == query.status;
     });
+    console.log(index)
     status[index].class = "active";
   }
   return status;

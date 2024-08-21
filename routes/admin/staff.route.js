@@ -7,8 +7,10 @@ const storage = require("../../helpers/uploadImage");
 const upload = multer({
     storage: storage()
 });
-Router.get("/", controller.index);
-Router.get("/add-new-staff",controller.createGet);
+const authMiddle = require("../../public/middleware/auth.middleware")
+
+Router.get("/", authMiddle.checkAuth, controller.index);
+Router.get("/add-new-staff", authMiddle.checkAuth,controller.createGet);
 // Router.get("/edit/:id", controller.editGet);
 // Router.delete("/delete", controller.delete);
 // Router.delete("/delete-multi", controller.deleteMulti);
@@ -16,7 +18,7 @@ Router.get("/add-new-staff",controller.createGet);
 // Router.patch("/change-multi-status", controller.changeMultiStatus)
 
 
-Router.post("/add-new-staff", upload.single("thumbnail"), validation.validateStaff, controller.createPatch);
+Router.post("/add-new-staff", authMiddle.checkAuth, upload.single("thumbnail"), validation.validateStaff, controller.createPatch);
 
 
 module.exports = Router;
