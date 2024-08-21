@@ -1,6 +1,6 @@
 const staffModel = require("../../model/staff.model")
 module.exports.checkAuth = async (req,res,next)=>{
-    if (`!req.session.token || `!req.session.staff) {
+    if (!req.session.token) {
         res.redirect("/admin/login")
         return;
     }
