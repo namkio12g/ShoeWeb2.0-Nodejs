@@ -32,17 +32,18 @@ module.exports.signIn = async (req, res) => {
                 })
                 return;
             }
-            res.cookie("token",staff.token)
+            req.session.token=staff.token
             req.session.staff = {
                 _id: staff._id,
                 role:staff.role,
-                name:staff.name
+                name:staff.name,
             };
             res.json({
                 success: true,
                 message: "Đăng nhập thành công!"
             })
     } catch (error) {
+        console.log(error)
         res.json({
             success: false,
             message: "Thao tác thất bại!"
