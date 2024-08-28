@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-var slug = require('mongoose-slug-generator')
+var slug = require('mongoose-slug-generator');
+const type = require("mongoose/lib/schema/operators/type");
 mongoose.plugin(slug);
 const productSchema = new mongoose.Schema(
   {
@@ -7,6 +8,9 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    images:[{
+      type:String
+    }],
     description: {
       type: String,
     },
@@ -14,6 +18,7 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    position:Number,
     discountPercentage: {
       type: Number,
       default: 0,
@@ -61,6 +66,28 @@ const productSchema = new mongoose.Schema(
       type: String,
       default: "false",
     },
+    editedInfo: {
+        editedAt: {
+          type: String,
+          default: ""
+        },
+        editedBy: {
+          type: Date,
+          default: Date.now()
+        }
+
+      },
+      deleteInfo: {
+        deleteAt: {
+          type: String,
+          default: ""
+        },
+        deleteBy: {
+          type: Date,
+          default: Date.now()
+        }
+
+      },
     gender: {
       type: String,
       default: "unisex",
@@ -82,11 +109,32 @@ const productSchema = new mongoose.Schema(
       }
     },
     updateAt: {
-      type: Date,
+     type: {
+       updateBy: {
+         type: String,
+         default: ""
+       },
+       updateTime: {
+         type: Date,
+         default: Date.now()
+       }
+     }
     },
   },
   { versionKey: false }
 );
+productSchema.virtual('priceFormatted').get(function () {
+ return new Intl.NumberFormat('vi-VN', {
+   style: 'currency',
+   currency: 'VND'
+ }).format(this.price);
+});
+productSchema.virtual('priceAfterDiscountFormatted').get(function () {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND'
+  }).format(this.price*(100-this.discountPercentage)/100);
+});
 const product = mongoose.model("product", productSchema, "products");
 
 module.exports = product;

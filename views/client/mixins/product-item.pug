@@ -1,0 +1,19 @@
+mixin product_item(product)
+    .div.product-item2.rounded-4.mb-5
+        .product-item-top
+            .img-wrapper
+                img.rounded-4(src=product.thumbnail, alt="")
+                img.img-hover.rounded-4(src=product.images[0])
+            .product-hover-action.mx-auto.d-flex.justify-content-center
+                i.fs-3.p-3.mx-2.rounded-2.fa-solid.fa-eye 
+                i.fs-3.p-3.mx-2.rounded-2.fa-solid.fa-cart-shopping
+                i.fs-3.p-3.mx-2.rounded-2.fa-solid.fa-heart 
+            .sale-badge.fs-5.fw-bold.rounded-2.px-2.py-1 -#{product.discountPercentage}%
+        div.d-flex.flex-column.justify-content-center.align-items-center
+            span.fs-4.fw-bold.mt-3  #{product.title}
+            if product.discountPercentage===0
+                span.fs-4.mt-3 #{product.price}
+            else
+                .product-info.d-flex.flex-row.jutify-content-between.align-items-center
+                    span.fs-5.fw-bold.original-price.my-2.mx-3 #{product.priceFormatted}
+                    span.fs-4.fw-bold.sale-price.my-2.mx-3 #{product.priceAfterDiscountFormatted}

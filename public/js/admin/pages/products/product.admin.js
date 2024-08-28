@@ -33,9 +33,22 @@ if(checkboxItems){
   })
 }
 
-
-// Event Search-Status
+// Event category
 var url = new URL(document.location.href);
+const selectElementCategory = document.getElementById("comboboxChangeCategory");
+if (selectElementCategory) {
+  selectElementCategory.addEventListener("change", () => {
+    const selectedIndex = selectElementCategory.selectedIndex;
+    const selectedOption = selectElementCategory.options[selectedIndex];
+    if (selectedOption.value != "") {
+      url.searchParams.set("category", selectedOption.value);
+    } else {
+      url.searchParams.delete("category");
+    }
+    document.location.href = url.href;
+  });
+}
+// Event Search-Status
 const selectElement = document.getElementById("comboboxChangeStatus");
 if (selectElement) {
   selectElement.addEventListener("change", () => {

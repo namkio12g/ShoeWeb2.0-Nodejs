@@ -8,45 +8,60 @@ block main
     .container-fluid
     section.mg-5.pd-none.bg.wrapper-order-detail
         .row.bg
-            .col-12.titel-order-detail
-                    h2 Order ID ##{order._id}
+            .col-11.titel-order-detail
+                    h2 hóa đơn ##{order._id}
+            .col-1.titel-order-detail 
+                a.fs-3(href="/admin/orders/")
+                    i.fa-solid.fa-backward 
         .row
             .col-12
                 .modal-header
                     h4#exampleModalLabel.modal-title Order Information : 
                 .modal-body
                     .row.row-detail-order
-                        .col-5.infor-item-order
-                                lable Customer ID:  
-                                span.infor-item #{order.customerID}
+                        .col-4.infor-item-order
+                                lable ID hóa đơn:  
+                                span.fs-4.infor-item ##{order._id}
 
-                        .col-5.infor-item-order
-                                lable Name Customer: 
-                                span.infor-item #{order.nameCustomer}
+                        .col-4.infor-item-order
+                                lable Tên khách hàng: 
+                                span.fs-4.infor-item #{order.nameCustomer}
+                        .col-4.infor-item-order
+                                lable Phương thức thanh toán: 
+                                span.fs-4.infor-item #{order.payMethod}
                     .row.row-detail-order
-                        .col-5.infor-item-order
-                                lable Price Total:  
-                                span.infor-item #{order.priceTotal}
+                        .col-4.infor-item-order
+                                lable Tổng tiền toàn bộ sản phẩm:  
+                                span.fs-4.infor-item #{order.priceTotal}VND
 
-                        .col-5.infor-item-order
-                                lable Quantity Total: 
-                                span.infor-item #{order.quantityTotal}
+                        .col-4.infor-item-order
+                                lable Tổng số lượng sản phẩm: 
+                                span.fs-4.infor-item #{order.quantityTotal}
+                        .col-4.infor-item-order
+                                lable Tổng tiền áp dụng mã giảm giá : 
+                                span.fs-4.infor-item #{order.coupponTotal}VND
                     .row.row-detail-order
-                        .col-5.infor-item-order
-                                lable Address:  
-                                span.infor-item #{order.address}
-
-                        .col-5.infor-item-order
-                                lable Phone Number: 
-                                span.infor-item #{order.phoneNumber}
+                        .col-4.infor-item-order
+                                lable Tổng tiền sau khi áp mẫ : 
+                                span.fs-4.infor-item #{order.priceTotal-order.coupponTotal}VND
+                        .col-4.infor-item-order
+                                lable Số điện thoại: 
+                                span.fs-4.infor-item #{order.phoneNumber}
+                        .col-4.infor-item-order
+                                lable Trạng thái: 
+                                span.fs-5.px-3.py-2( style=`color:white;background-color:${order.status===1?"#05BC04":order.status===2?"#40D6DE":order.status===4?"#D7152C":order.status===3?"#6E09BC":"#92B8C1"};border-radius:20px`) #{order.status===1?"Chưa xác nhận":order.status===2?"Đã xác nhận":order.status===4?"Giao hàng thành công":order.status===3?"Đang giao hàng":"Đã hủy"}                   
                     .row.row-detail-order
-                        .col-5.infor-item-order
-                                lable Date:  
-                                span.infor-item.infor-item-date #{order.formattedDate}
-
-                        .col-5.infor-item-order
-                                lable Status: 
-                                span.fs-5.px-3.py-2( style=`color:white;background-color:${order.status===1?"#05BC04":order.status===2?"#40D6DE":order.status===4?"#D7152C":"#6E09BC"};border-radius:20px`) #{order.status===1?"Chưa xác nhận":order.status===2?"Đã xác nhận":order.status===4?"Giao hàng thành công":"Đang giao hàng"}
+                        .col-4.infor-item-order
+                                lable Ngày lập đơn:  
+                                span.fs-4.infor-item.infor-item-date #{order.formattedDate}
+                        .col-4.infor-item-order
+                                lable Địa chỉ:  
+                                span.fs-4.infor-item #{order.address}
+                        .col-4.infor-item-order
+                                lable EditBy/EditedAt :
+                                if(order.staffName)  
+                                    span.fs-4.infor-item #{order.staffName}/#{order.formattedDateEdit}
+                        
         .row
             .col-12
                 .modal-header
@@ -62,7 +77,6 @@ block main
                                     th(scope='col',style='width: 10%') image
                                     th(scope='col',style='width: 10%') Size
                                     th(scope='col',style='width: 10%') quantity
-                                    th(scope='col',style='width: 10%') Price
                                     th(scope='col',style='width: 10%') Tổng Tiền
                             tbody.table-group-divider
                                 each item,index in order.productArray
@@ -74,20 +88,19 @@ block main
                                                 td.img_tableProduct
                                                 td(class="_tableProduct")
                                                 td(class="_tableProduct") #{order.quantityTotal}
-                                                td(class="_tableProduct")
                                                 td(class="_tableProduct") #{order.priceTotal}
                     .row.row-detail-order
                         .col-5.infor-item-order
-                                lable Pay Method:  
+                                lable Phương thức thanh toán:  
                                 span.infor-item #{order.payMethod}
                     .row.row-detail-order
                         .col-5.infor-item-order
-                                lable Paid Amount:  
+                                lable Tổng số tiền ban đầu:  
                                 span.infor-item #{order.priceTotal} VND
                     .row.row-detail-order
                         .col-5.infor-item-order
-                                lable Remaining Amount:  
-                                span.infor-item #{order.priceTotal} VND
+                                lable Tổng số tiền sau khi áp mãz   :  
+                                span.infor-item #{order.priceTotal-order.coupponTotal}VND
         .row.row-detail-order
             .col-5.infor-item-order
                 if order.status==="Chưa Xác Nhận"

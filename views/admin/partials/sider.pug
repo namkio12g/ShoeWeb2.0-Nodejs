@@ -36,12 +36,12 @@ aside#sidebar.sidebar
             li.sidebar__item
               a.sidebar-link(href='/admin/orders') Danh sách đơn hàng
             li.sidebar__item 
-              a.sidebar-link(href='/admin/orders/canceled-order') Đơn hàng hủy
+              a.sidebar-link(href='/admin/orders/canceled-orders') Đơn hàng hủy
         // Item Customer
       if(role.permissions.includes("view-customers"))
         li.sidebar__header Kh&aacute;ch H&agrave;ng
         li.sidebar__item
-          a.sidebar-link(href='/admin/customers' data-bs-target='#customer'  aria-expanded='false')
+          a.sidebar-link(href='/admin/customers/' data-bs-target='#customer'  aria-expanded='false')
             i.fa-solid.fa-person-military-pointing
             |  Khách hàng
         // ----Setup

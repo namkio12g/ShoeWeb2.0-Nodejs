@@ -1,6 +1,5 @@
 // const { response } = require("express");
 
-const product = require("../../../../model/product.model")
 const Swal = require('sweetalert2')
 const quantityCartInputs = document.querySelectorAll(".quantity-input")
 const checkCartInputs = document.querySelectorAll(".check-input")

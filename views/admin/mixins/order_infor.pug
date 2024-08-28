@@ -1,27 +1,34 @@
 include ./confirm.pug
 
-mixin order_infor(orders,pagination)
+mixin order_infor(orders,pagination,flag="true",title="Đơn Đặt Hàng")
 
     .container-fluid.order-container
         section.inner-title-order.row
             .col-12
-                        h2 Danh Sách Đơn Đặt Hàng
+                        h2.fs-1.fw-bold Danh Sách #{title}
         .row.searchAndStatus
-            .col-md-4
+            .col-md-2
                 form.form-group.navbar.navbar_search.form_search 
                     lable Tìm kiếm
-                    input(type="text" value=keyword name="keyword" class="form-control",id="seach" placeholder="Bạn tìm kiếm gì" aria-label="Recipient's username" aria-describedby="button-addon2")
+                    input(type="text" value=phone name="keyword" class="form-control",id="seach" placeholder="Tìm kiếm theo SĐT" aria-label="Recipient's username" aria-describedby="button-addon2")
                     button(type='submit')
                         i(class="fa-solid fa-magnifying-glass" )
-            .col-md-2
-                .form-group.navbar
-                    lable Trạng Thái
-                    select.fs-4.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example' name="status")
-                        for item in status
-                            if(item.class=="active")
-                                option(value=item.value,selected) #{item.name}
-                            else 
-                                option(value=item.value ) #{item.name}
+            //- .col-md-2
+            //-     form.form-group.navbar.navbar_search.form_search 
+            //-         lable Phone Number
+            //-         input(type="number" value=phone name="keyword" class="form-control",id="seach" placeholder="Tìm kiếm theo SĐT" aria-label="Recipient's username" aria-describedby="button-addon2")
+            //-         button(type='submit')
+            //- 
+            if(flag=="true")            
+                .col-md-2
+                    .form-group.navbar
+                        lable Trạng Thái
+                        select.fs-4.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example' name="status")
+                            for item in status
+                                if(item.class=="active")
+                                    option(value=item.value,selected) #{item.name}
+                                else 
+                                    option(value=item.value ) #{item.name}
             .col-3.pagination-order.align-items-end.d-flex
                 +pagination(pagination)
 
@@ -33,9 +40,9 @@ mixin order_infor(orders,pagination)
                 thead
                     tr
                         th(scope='col',style='width: 5%' first) STT
-                        th(scope='col',style='width: 20%') Customer
+                        th(scope='col',style='width: 20%') OrderID/Customer
                         th(scope='col',style='width: 8%') Order date
-                        th(scope='col',style='width: 10%') Pay method
+                        th(scope='col',style='width: 10%') Customer Phone Number
 
                         th(scope='col',style='width: 10%') Tổng Tiền
                         th(cope='col',style='width: 15%') Status
@@ -58,32 +65,33 @@ mixin order_infor_item(item,index)
                                     img(class='avatar-customers' src="/images/avatar.jpg", alt="", srcset="")
                                 .col-7
                                     div.d-flex.flex-column.name-id-customers
-                                        p1 #{item.nameCustomer}
                                         p1 ##{item._id}
+                                        p1 #{item.nameCustomer} 
+                                        
                     td(class="_tableProduct") #{item.formattedDate}
-                    td(class="_tableProduct") #{item.payMethod}
+                    td(class="_tableProduct") #{item.phoneNumber}
 
                     td(class="_tableProduct") #{item.priceTotal}
                     td(class="text-wrap" status =item.status,)
-                        span.fs-5.px-3.py-2( style=`color:white;background-color:${item.status===1?"#05BC04":item.status===2?"#40D6DE":item.status===4?"#D7152C":"#6E09BC"};border-radius:20px`) #{item.status===1?"Chưa xác nhận":item.status===2?"Đã xác nhận":item.status===4?"Giao hàng thành công":"Đang giao hàng"}
+                        span.fs-5.px-3.py-2( style=`color:white;background-color:${item.status===1?"#05BC04":item.status===2?"#40D6DE":item.status===4?"#D7152C":item.status===3?"#6E09BC":"#92B8C1"};border-radius:20px`) #{item.status===1?"Chưa xác nhận":item.status===2?"Đã xác nhận":item.status===4?"Giao hàng thành công":item.status===3?"Đang giao hàng":"Đã hủy"}
                     td
                             i.fa-solid.fa-eye(btn-data-detail-order, orderID =item._id, data-path)
  
                     td
-                        if ( role.permissions.includes("change-status-orders") && item.status!=4 )
+                        if ( role.permissions.includes("change-status-orders") && item.status<4 )
                             button.fs-4.btn.btn-success(status-button  id_order=item._id  status_order=item.status data-toggle="modal" data-target="#exampleModal" ) Cập nhật trạng thái
-                        if ( role.permissions.includes("view-orders-cancellation")  && item.status!=4 )
+                        if ( role.permissions.includes("view-orders-cancellation")  && item.status<4 )
                             button.fs-4.btn.btn-danger.ml-1.openConfirm( cancel-button id_order=item._id ) Hủy đơn hàng
+                
 
 
 mixin order_infor_detail_item(item,index) 
     tr.text-start.tr-content
                     th(class="stt_tableProduct",scope='row' first) #{index+1}
-                    td(class="_tableProduct") #{item._idProduct}
-                    td(class="_tableProduct") #{item.nameProduct}
-                    td.img_tableProduct
+                    td.fs-5(class="_tableProduct") ##{item.productId}
+                    td.fs-5(class="_tableProduct") #{item.name}
+                    td.fs-5.img_tableProduct
                         img(src=`${item.thumbnail}`, alt="", srcset="")
-                    td(class="_tableProduct") #{item.size}
-                    td(class="_tableProduct") #{item.quantity}
-                    td(class="_tableProduct") #{item.price}
-                    td(class="_tableProduct") #{item.total}
+                    td.fs-5(class="_tableProduct") #{item.size}
+                    td.fs-5(class="_tableProduct") #{item.quantity}
+                    td.fs-5(class="_tableProduct") #{item.total}

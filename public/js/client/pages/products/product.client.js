@@ -1,18 +1,38 @@
-import "../../components/rangePrice";
-import "../../common/pagination.client";
+// import "../../components/rangePrice";
+// import "../../common/pagination.client";
 //++++++++++++++++++++++Product-Detail++++++++++++++++++++++++++++=
-const btn2 = document.querySelectorAll(".cart-product__img");
-var siz4;
-btn2.forEach((element) => {
-  element.addEventListener("click", (e) => {
-    var url = new URL(document.location.href);
-    const newPath = element.getAttribute("path");
+const filterBlock = document.querySelectorAll(".filter-block-collapse");
+filterBlock.forEach((element) => {
+  const filterTitle = element.querySelector(".filter-title");
+  const filterCollapse = element.querySelector(".filter-collapse");
+  filterTitle.addEventListener("click", (e) => {
 
-    // const newPath = url.href + element.getAttribute("path");
-    // form.action = newPath;
-
-    // form.submit();
-    // url.searchParams.set("range", element.value);
-    document.location.href = newPath;
+      filterCollapse.classList.toggle("filter-collapse-active")
+      filterTitle.classList.toggle("filter-title-active")
   });
 });
+//slider
+const minRange = document.getElementById('minRange');
+const maxRange = document.getElementById('maxRange');
+const minValue = document.getElementById('minValue');
+const maxValue = document.getElementById('maxValue');
+
+minRange.addEventListener('input', updateValueMin);
+maxRange.addEventListener('input', updateValueMax);
+
+function updateValueMin() {
+
+  if (parseInt(minRange.value) > parseInt(maxRange.value)) {
+    minRange.value = maxRange.value;
+  }
+  
+  minValue.textContent = (parseInt(minRange.value) * 10000000 / 100);
+  maxValue.textContent = (parseInt(maxRange.value) * 10000000 / 100);
+}
+function updateValueMax() {
+  if (parseInt(maxRange.value) < parseInt(minRange.value)) {
+    maxRange.value = minRange.value;
+  }
+  minValue.textContent = (parseInt(minRange.value)*10000000/100);
+  maxValue.textContent = (parseInt(maxRange.value) * 10000000 / 100);
+}

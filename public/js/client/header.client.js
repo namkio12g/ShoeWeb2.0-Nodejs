@@ -1,8 +1,25 @@
 const productsInCart = document.querySelectorAll(".product-cart-hover")
 const Swal = require('sweetalert2')
+const headerBot = document.querySelector(".header-bottom")
+//header sticky transform
+window.addEventListener("scroll",function(e){
+ if (window.pageYOffset > 500) {
+        headerBot.classList.add("sticky-div")
+    headerBot.classList.remove("hidden-div")
+
+    }
+else if (window.pageYOffset > 200) {
+    headerBot.classList.add("hidden-div")
+
+ } 
+else {
+         headerBot.classList.remove("sticky-div")
+        headerBot.classList.remove("hidden-div")
 
 
-
+ }
+})
+///
 productsInCart.forEach((item)=>{
     const inputProductCart=item.querySelector(".quantity-input");
     inputProductCart.addEventListener("change",(e)=>{

@@ -1,0 +1,19 @@
+extends ../../layout/default.pug
+include ../../mixins/order_infor.pug
+include ../../mixins/pagination.pug
+include ../../mixins/detailProduct.pug
+
+block main
+  +order_infor(orders,pagination,"false","Đơn hàng đã hủy")
+  form(
+    action="",
+    method="POST",
+    id = "form_update",
+    data_path =`/admin/orders`
+    )
+
+  script(src="/build/order.bundle.js")
+
+
+
+

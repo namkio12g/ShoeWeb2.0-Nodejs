@@ -1,8 +1,8 @@
 const filterStatus = require("../../helpers/filterStatus")
-const customerModel=require("../../models/customer.model")
+const customerModel=require("../../model/customer.model")
 const listOption2=require("../../helpers/filterStatus")
 module.exports.index= async (req,res)=>{
-    const listOps = listOption2(req.query)
+    const listOps = listOption2.statusProduct(req.query)
     
     let condition={
         delete:"false",
@@ -18,17 +18,6 @@ module.exports.index= async (req,res)=>{
      }
     
     const customers=await customerModel.find(condition)
-    customers.forEach((e)=>{
-        const dc = new Date(e.dateCreated);
-        const bd = new Date(e.birthDay);
-        const dcFormat = dc.toISOString().split('T')[0];
-        const bdFormat = bd.toISOString().split('T')[0];
-        e.birthDays = bdFormat;
-        e.dateCreated = dcFormat;
-       
-
- 
-    })
     let customer;
     if (req.query.idDetail) {
         customer = customers.find(

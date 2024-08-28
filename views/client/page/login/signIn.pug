@@ -1,6 +1,6 @@
 extends ../../layout/login.pug
 block main_content 
-    div.d-flex.flex-column.mx-5.my-1
+    div.d-flex.flex-column.mx-5.my-1.pe-5
                         .title-text.mt-3.mb-3
                             a(href="/") 
                                 i.icon-home.fs-2.fa-solid.fa-shop.mb-5
@@ -10,12 +10,16 @@ block main_content
                         form#login-form(method="POST" action="/login/signin?_method=PATCH")
                             div.input-section
                                 p.warning-text.mb-1 Your password or account is wrong!
-                                input.username-input.rounded-2.mb-2.px-3(placeholder="email" name="email" type="text" required)
-                                input.password-input.rounded-2.px-3(type="password" placeholder="Password" name="password" required)
+                                .input-group
+                                    input.form-control.username-input.rounded-2.mb-2.px-3(placeholder="email" name="email" type="text" required)
+                                .input-group
+                                    input.form-control.password-input.rounded-2.px-3(type="password" placeholder="Password" name="password" required)
                             div.mb-4.mt-2.d-flex.flex-row.justify-content-between(style="width:90%")
                                 div
-                                    input.remember-check.mx-1(type="checkbox" )
-                                    span Remember me
+                                    .input-group.m-0
+                                        .form-check.p-0
+                                            input.form-check-input.remember-check.mx-1(type="checkbox" )
+                                        span Remember me
                                 div
                                     a(href="#") Forgot password?
                             div.mb-5

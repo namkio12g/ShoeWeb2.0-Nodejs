@@ -43,6 +43,28 @@ const staffSchema = new mongoose.Schema({
         default: false
 
     },
+    editedInfo: {
+            editedAt: {
+                type: String,
+                default: ""
+            },
+            editedBy: {
+                type: Date,
+                default: Date.now()
+            }
+
+        },
+        deleteInfo: {
+            deleteAt: {
+                type: String,
+                default: ""
+            },
+            deleteBy: {
+                type: Date,
+                default: Date.now()
+            }
+
+        }
 
 
 });

@@ -1,5 +1,5 @@
 include ./confirm.pug
-
+include ../mixins/categorySelItem.pug
 
 mixin product_infor(products,listOption,keyword,detailProduct1)
     nav.navbar.navbar_menu-title
@@ -25,7 +25,7 @@ mixin product_infor(products,listOption,keyword,detailProduct1)
         .col-md-2
             .form-group.navbar
                 lable Trạng Thái
-                select.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
+                select.fs-4.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
                                 option(value="") -- status --
 
                                 each item in listOption
@@ -33,7 +33,13 @@ mixin product_infor(products,listOption,keyword,detailProduct1)
                                         option(value=item.value,selected) #{item.name}
                                     else 
                                         option(value=item.value) #{item.name}  
+        .col-md-2
+            .form-group.navbar
+                lable Danh mục sản phẩm
+                select.fs-4.form-select.filterSearchProduct#comboboxChangeCategory(aria-label='Default select example'  name="category")
+                    option(value="") ---- Danh mục ----
 
+                    +category_option(tree,categorySelected)
 
         .col-md-2
             //- button.btn.btn-success.add_Product.btn_addProduct(type='button') Add new product
@@ -52,7 +58,7 @@ mixin product_infor(products,listOption,keyword,detailProduct1)
                         input(type="checkbox" checkbox-all)
                     th(scope='col',style='width: 5%' first) STT
                     th(scope='col',style='width: 20%') Product
-                    th(scope='col',style='width: 10%') Brand
+                    th(scope='col',style='width: 10%') Category
                         i(class="fa-solid fa-arrow-up arrow")
                     th(scope='col',style='width: 10%') Price
                     th(cope='col',style='width: 10%') Trạng Thái 
@@ -78,7 +84,7 @@ mixin product_infor_item(item,index)
                                     p1 #{item.title}
                                     p1 SP00001
                         //- img(src=`${item.thumbnail}`, alt="", srcset="")
-                    td(class="_tableProduct") #{item.brand}
+                    td(class="_tableProduct") #{item.categoryName}
                     td(class="_tableProduct") #{item.price}
 
                     td(class="text-wrap") 

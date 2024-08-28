@@ -5,7 +5,7 @@ block user_content
     
     .mt-3.d-flex.flex-row.justify-content-between
         p.fs-2 Your addresses
-        button.addAddress-btn.p-3.fs-4(type="button" data-toggle="modal" data-target="#addAddressModal") + Add more address
+        button.addAddress-btn.p-3.fs-4(type="button" data-bs-toggle="modal" data-bs-target="#addAddressModal") + Add more address
     if(addresses.length==0)
         .mt-2.text-center
             span.warning-addAddress.fs-4 Add more address to make order
@@ -21,15 +21,16 @@ block user_content
                     .modal-header
                          h5.modal-title.fs-2.fw-bold(id="addAddressModalTitle") Add address modal
                         
-                    .modal-body.address-modal
+                    .modal-body
                             p.fs-3.my-0 Tỉnh/Thành Phố
-                            input.fs-3.my-0.mb-3(type="text" name="city" required)
+                            .input-group
+                                input.form-control.fs-3.my-0.mb-3(type="text" name="city" required)
                             p.fs-3.my-0  Quận/ Huyện
-                            input.fs-3.my-0.mb-3(type="text" name="district" required)
+                            input.form-control.fs-3.my-0.mb-3(type="text" name="district" required)
                             p.fs-3.my-0  Xã /Phường
-                            input.fs-3.my-0.mb-3(type="text" name="commune" required)
+                            input.form-control.fs-3.my-0.mb-3(type="text" name="commune" required)
                             p.fs-3.my-0  Số nhà/Đường
-                            input.fs-3.my-0.mb-3(type="text" name="street" required)
+                            input.form-control.fs-3.my-0.mb-3(type="text" name="street" required)
                     .modal-footer
                         button.btn.btn-secondary.fs-3(type="button" data-dismiss="modal") Close
                         button.btn.btn-primary.fs-3(type="submit") Save 
@@ -40,15 +41,15 @@ block user_content
                     .modal-header
                          h5.modal-title.fs-2.fw-bold(id="updateAddressModalTitle") Update address model
                         
-                    .modal-body.address-modal
+                    .modal-body
                             p.fs-3.my-0 Tỉnh/Thành Phố
-                            input.city-input.fs-3.my-0.mb-3(type="text" name="city" required)
+                            input.form-control.city-input.fs-3.my-0.mb-3(type="text" name="city" required)
                             p.fs-3.my-0  Quận/ Huyện
-                            input.district-input.fs-3.my-0.mb-3(type="text" name="district" required)
+                            input.form-control.district-input.fs-3.my-0.mb-3(type="text" name="district" required)
                             p.fs-3.my-0  Xã /Phường
-                            input.commune-input.fs-3.my-0.mb-3(type="text" name="commune" required)
+                            input.form-control.commune-input.fs-3.my-0.mb-3(type="text" name="commune" required)
                             p.fs-3.my-0  Số nhà/Đường
-                            input.street-input.fs-3.my-0.mb-3(type="text" name="street" required)
+                            input.form-control.street-input.fs-3.my-0.mb-3(type="text" name="street" required)
                             input.id-input(type="hidden" name="id" required)
                     .modal-footer
                         button.btn.btn-secondary.fs-3(type="button" data-dismiss="modal") Close

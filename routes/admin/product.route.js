@@ -18,9 +18,21 @@ router.delete("/delete-multi", authMiddle.checkAuth, controller.deleteMulti);
 // router.get("/detail/:id", controller.detail);
 // router.patch("/add",, controller.add);
 router.get("/edit/:id", authMiddle.checkAuth, controller.editGet);
-router.patch("/update/:id", authMiddle.checkAuth, upload.single("thumbnail"),validate.validateProduct,controller.update);
+
+router.post("/update/:id", authMiddle.checkAuth, upload.fields([{
+    name: 'thumbnail',
+    maxCount: 1 },{
+    name: 'thumbnails',
+    maxCount: 12
+}]),validate.validateProduct,controller.update);
+
 router.get("/add-new-product", authMiddle.checkAuth, controller.addNewProduct);
-router.post("/add-new-product", authMiddle.checkAuth, upload.single("thumbnail"), validate.validateProduct,controller.addNewProductPatch);
+router.post("/add-new-product", authMiddle.checkAuth, upload.fields([{
+    name: 'thumbnail',
+    maxCount: 1 },{
+    name: 'thumbnails',
+    maxCount: 12
+}]), validate.validateProduct, controller.addNewProductPatch);
 
 
 module.exports = router;

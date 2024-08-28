@@ -67,10 +67,17 @@ const orderSchema = new mongoose.Schema(
       type: String,
       default: "false",
     },
-    id_staff: {
-      type: String,
-      default:""
-    },
+    editedInfo:{
+      editedBy:{
+        type:String,
+        default:""
+      },
+      editedAt:{
+        type:Date,
+        default:Date.now()
+      }
+
+    }
   },
   { versionKey: false }
 );
@@ -78,7 +85,10 @@ orderSchema.virtual('formattedDate').get(function () {
   let newDate = new Date(this.date);
   return newDate.toISOString().split('T')[0];
 });
-
+orderSchema.virtual('formattedDateEdit').get(function () {
+  let newDate = new Date(this.editedInfo.editedAt);
+  return newDate.toISOString().split('T')[0];
+});
 orderSchema.set('toJSON', {
   virtuals: true
 });

@@ -1,20 +1,60 @@
 extends ../../layout/default.pug
-block main_content 
-        main.main-content
-            section.home-slide-area
-                img(src='./images/7872310.jpg' alt='' srcset='')
-            section.product-area.product-range.container-fluid.d-flex.flex-row.justify-content-center.flex-wrap
-                .product-range__item
-                    .product-range__introdution
-                        h2.title Puma shoes
-                        img(src='./images/puma.jpg' alt='' srcset='')
-                .product-range__item
-                    .product-range__introdution
-                        h2.title Nike shoes
-                        img(src='./images/nike3.jpg' alt='' srcset='')
-                .product-range__item
-                    .product-range__ntrodution
-                        h2.title Puma shoes
-                        img(src='./images/nike.jpg' alt='' srcset='')
-        
+include ../../mixins/product-item.pug
+include ../../mixins/cart-menu.pug
 
+block main_content 
+    hr
+    +cart-menu("")
+    main.main-content
+        .carousel-section.px-5.py-5
+            .carousel.carousel-fade.slide.m-0.p-0.rounded-5#carouselTheKingSlide(data-bs-ride="carousel")
+                .carousel-indicators
+                    button.active(data-bs-target="#carouselTheKingSlide" type="button" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1")
+                    button(data-bs-target="#carouselTheKingSlide" type="button" data-bs-slide-to="1")
+                    button(data-bs-target="#carouselTheKingSlide" type="button" data-bs-slide-to="2")
+                .carousel-inner
+                    .carousel-item.active(data-bs-interval="3000")
+                        img.d-block.img-fluid.rounded-5(alt="first slide" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2bbcfa99737217.5ef9be3dbb9a9.jpg")
+                    .carousel-item(data-bs-interval="3000")  
+                        img.d-block.img-fluid.rounded-5(alt="second slide" src="https://storage.pixteller.com/designs/designs-images/2020-12-21/05/gym-shoes-sale-banner-1-5fe0c46cc78bc.png")
+                    .carousel-item(data-bs-interval="3000")
+                        img.d-block.img-fluid.rounded-5(alt=" third slide" src="https://i.ytimg.com/vi/UBgDqvqwx_Y/maxresdefault.jpg")
+                
+                button.carousel-button.carousel-control-prev(data-bs-target="#carouselTheKingSlide" type="button" data-bs-slide="prev")
+                    span.rounded-3.carousel-icon.carousel-control-prev-icon(aria-hidden="true")
+                    <span class="visually-hidden">Next</span>
+                button.carousel-button.carousel-control-next(data-bs-target="#carouselTheKingSlide" type="button" data-bs-slide="next")
+                    span.rounded-3.carousel-icon.carousel-control-next-icon(aria-hidden="true")
+                    <span class="visually-hidden">Next</span>
+        .container.mb-5.px-0.custom-container
+            .row.my-5
+                .col-lg-6.col-sm-12.px-4.mb-3
+                    .best-seller-2.d-flex.flex-row.justify-content-between.align-items-center.px-5.py-5.rounded-5
+                        .text-box.d-flex.flex-column.justify-content-center 
+                            Span.fs-2.fw-bold Suit and Formaware 
+                            a.fs-3.fw-bold.mt-3.px-2.py-3.rounded-2(href="#") Shop now
+                        img.rounded-5(src="./images/shoeBest1.png")
+                .col-lg-6.col-sm-12.px-4
+                    .best-seller-2.d-flex.flex-row.justify-content-between.align-items-center.px-5.py-5.rounded-5
+                        .text-box.d-flex.flex-column.justify-content-center 
+                            Span.fs-2.fw-bold Suit and Formaware 
+                            a.fs-3.fw-bold.mt-3.px-2.py-3.rounded-2(href="#") Shop now
+                        img.rounded-5(src="./images/shoeBest2.png")
+            .row 
+            .row.best-selling-row.mb-5
+                .col-12.px-4.mb-5
+                    span.fs-1.fw-bold.best-selling-text Best Selling
+                each product of products 
+                    .col-6.col-lg-3.col-md-6.px-4.mt-3
+                        +product_item(product)
+        .row
+        .row.my-5
+            .col-12.mt-5.sale-banner.d-flex.flex-row.justify-content-center.align-items-center.pb-5
+                .banner-text.d-flex.flex-column.justify-content-center.align-items-center
+                    .big-text.d-flex.flex-row
+                        h1.d-flex.flex-row.inline Best offer - Up to&nbsp;
+                        h1.number-text.inline 50%
+                    .small-text 
+                        span.fs-3 Explore our latest New Arrivals & unlock discounts of up to 50% off!
+                    a.fs-4.px-5.py-3.fw-bold.rounded-3.mt-5(href="#") Shop now
+                img.rounded-5(src="./images/shoeBig.png")

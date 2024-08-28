@@ -1,13 +1,13 @@
 extends ../../layout/default.pug
 include ../../mixins/alerts/successAlert.pug
 include ../../mixins/alerts/errorAlert.pug
-
+include ../../mixins/categorySelItem.pug
 
 block main
     +success_alert(messages.success)
     +error_alert(messages.error)
     .container-fluid.pd-none
-    form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/products/update/${productItem._id}?_method=PATCH`,enctype="multipart/form-data")
+    form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/products/update/${productItem._id}?_method=PATCH`,enctype="multipart/form-data" product-form)
         section.add-product-header.bg.d-flex
             div
                 h2 Edit Product: ##{productItem.slug}
@@ -33,8 +33,8 @@ block main
                                         label(for='category_name' ) Category Name  
                                         span: i(class="fa-solid fa-circle-check")
 
-                                        input#category_name.form-control(value=`${category}` name='category' type='text' placeholder='Product category' required)
-                                        span#categoryError.text-danger
+                                        select#category_name.form-control(name='category' type='text' placeholder='Product category' )
+                                            +category_option(tree,productItem.category)
                                 .col-md-6
                                     .form-group
                                         label(for='category_name') Brand Name
@@ -52,32 +52,28 @@ block main
                                         span#productPriceError.text-danger
 
                             .row#SizePriceStock
-                                .col-md-6
-                                    .form-group
-                                        label(for='product-size') Size
-                                        input#product-size.form-control(type='text'  placeholder='Size Product')
-                                        span#productSizeError.text-danger
-                                .col-md-5
-                                    .form-group
-                                        label(for='product_stock') Stock
-                                        input#product-stock.form-control(type='text' placeholder='Stock')
-                                        span#productError.text-danger
-                                .col-md-1.pt-4
-                                        button#add.btn.btn-primary.btnAddSizeProduct(type="button") Add
-                            each item in productItem.size
-                                .row#SizePriceStock
-                                    .col-md-5
+                                .row
+                                    .col-md-6.p-0
                                         .form-group
-                                            label(for='product-size') Size
-                                            input#product-size.form-control(name="size" type='text'  placeholder='Size Product' value= item.Value)
-                                            span#productError.text-danger
-                                    .col-md-5
+                                            label Kích cỡ
+                                    .col-md-5.p-0
                                         .form-group
-                                            label(for='product_stock') Stock
-                                            input#product-stock.form-control(name="stock" type='text' placeholder='Stock' value=item.stock)
-                                            span#productError.text-danger
-                                    .col-md-2.pt-4
-                                            button#add.btn.btn-danger.btnDeleteSizeProduct(type="button") Delete
+                                            label Số lượng
+                                    .col-md-1
+                                        button#add.btn.btn-primary.btnAddSizeProduct(type="button" add-sizestock-btn) add
+                                .row.m-0.p-0(style="max-height:150px;overflow:scroll" stock-size-fields)
+                                    each item in productItem.size
+                                        .row.mt-0.mb-4.p-0.d-flex.flex-row.align-items-center
+                                            .col-md-6
+                                                .form-group
+                                                    input#product-size.form-control(type='Number' product-size placeholder='Size Product' value= item.Value)
+                                                    span#productSizeError.text-danger
+                                            .col-md-4
+                                                .form-group
+                                                    input#product-stock.form-control(type='Number' product-stock placeholder='Stock' value=item.stock)
+                                                    span#productError.text-danger
+                                            .col-md-1
+                                                button.btn.btn-danger(type="button" remove-sizestock-btn) remove
                             .row 
                                 .col-md-6
                                     .form-group
@@ -142,8 +138,17 @@ block main
                                             .col-12
                                                 .form-group
                                                     label(for='product_thumbnail') Upload Product Thumbnail
-                                                    input#product_thumbnail.form-control(type='file' name='thumbnail' required thumbnail-input)
+                                                    input#product_thumbnail.form-control(type='file' name='thumbnail'  thumbnail-input)
                                                     span#thumbnail_error.text-danger
+                                .row
+                                    .modal-header
+                                        h4#exampleModalLabel.modal-title More thumbnails : 
+                                    .col-md-12
+                                        input.form-control.add-more-thumbnail(type='file',  name='thumbnails'  multiple="multiple")
+                             
+                                                //- .col-4
+                                                //-     .preview-thumbnail-more.preview-thumbnail
+                                                //-         img(src="", alt="", srcset="")
                 .col-2.bg
                     .form-group
                         .modal-header
@@ -154,6 +159,7 @@ block main
                                                 //- .col-4
                                                 //-     .preview-thumbnail-more.preview-thumbnail
                                                 //-         img(src="", alt="", srcset="")
+                
     //-------------product edit----------------
 
 

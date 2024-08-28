@@ -6,6 +6,8 @@ const categoryRouter = require("./category.route");
 const staffRouter = require("./staff.route");
 const roleRouter = require("./role.route");
 const authorRouter = require("./authorization.route");
+const customerRouter = require("./customer.route");
+
 const fetchData=require("../../public/middleware/fetchdata")
 
 
@@ -23,10 +25,11 @@ module.exports = (app) => {
   app.use(PATH_ADMIN + "/staffs", staffRouter);
   app.use(PATH_ADMIN + "/roles", roleRouter);
   app.use(PATH_ADMIN + "/login", authorRouter);
+  app.use(PATH_ADMIN + "/customers", customerRouter);
 
 
 
 
-  // app.use(PATH_ADMIN + "/order", orderRouter);
-  // app.use(PATH_ADMIN + "/customers", customerRouter);
+
+
 };

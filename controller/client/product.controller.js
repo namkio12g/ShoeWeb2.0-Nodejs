@@ -46,13 +46,7 @@ module.exports.index = async (req, res) => {
     .limit(pagination.numberOfProduct)
     .skip(pagination.positionProduct);
 
-  const newProducts = listproduct.map((item) => {
-    item.priceNew = (
-      (item.price * (100 - item.discountPercentage)) /
-      100
-    ).toFixed(0);
-    return item;
-  });
+ 
   let listRouter = [
     { title: "Home > ", route: "/" },
     { title: "Products", route: "/products" },
@@ -62,7 +56,7 @@ module.exports.index = async (req, res) => {
   res.render("client/page/product/index", {
     title: "Trang Chủ > Products >",
     message: "This is product page!",
-    product: newProducts,
+    products: listproduct,
     listRoute: listRouter,
     pagination: pagination,
     listRangePrice: listRangePrice,

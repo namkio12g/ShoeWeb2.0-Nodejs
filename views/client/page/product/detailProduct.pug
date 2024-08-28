@@ -12,15 +12,19 @@ block main_content
       .img.col-lg-6
         .img__display
           .img__showcase
+            img(src=`${listproduct.thumbnail}` alt='' srcset='')
             if listproduct.images[0]
               each item in listproduct.images
                 img(src=`${item}` alt='' srcset='')
             else 
                 img(src="" alt='' srcset='')
         .img__select
+          .img-item
+              a(href='#' data-id=`${1}` )
+                img(src=`${listproduct.thumbnail}` alt='' srcset='' style="width:111px;height:111px")
           each item,index in listproduct.images
             .img-item
-              a(href='#' data-id=`${index+1}`)
+              a(href='#' data-id=`${index+2}`)
                 img(src=`${item}` alt='' srcset='')
           //- .img-item
           //-   a(href='#' data-id='2')

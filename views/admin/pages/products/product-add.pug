@@ -9,7 +9,7 @@ block main
     +success_alert(messages.success)
     +error_alert(messages.error)
     .container-fluid.pd-none
-    form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/products/add-new-product` enctype="multipart/form-data" add-product-form)
+    form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/products/add-new-product` enctype="multipart/form-data" product-form)
         section.add-product-header.bg.d-flex
             div
                 h2 Tạo mới sản phẩm
@@ -34,7 +34,7 @@ block main
                                     .form-group
                                         label(for='category_name' ) Loại sản phẩm
                                         span: i(class="fa-solid fa-circle-check")
-                                        select#category_name.form-control(name='category'    type='text' placeholder='Product category' )
+                                        select#category_name.form-control(name='category' type='text' placeholder='Product category' )
                                             +category_option(tree)
 
                                 .col-md-6
@@ -141,6 +141,19 @@ block main
                                             label(for='product_thumbnail') Upload Product Thumbnail
                                             input#product_thumbnail.form-control(type='file' name='thumbnail' required thumbnail-input)
                                             span#thumbnail_error.text-danger
+                        .row
+                            .modal-header
+                                h4#exampleModalLabel.modal-title More thumbnails : 
+                            .col-md-12
+                                input.form-control.add-more-thumbnail(type='file',  name='thumbnails'  multiple="multiple")
+                        .row
+                            .col-md-12
+                                .form-group
+                                    label(for='product_thumbnail') More thumbnails
+                                    .row.form-add-more-thumbnail
+                                        //- .col-4
+                                        //-     .preview-thumbnail-more.preview-thumbnail
+                                        //-         img(src="", alt="", srcset="")
                 .col-2.bg
                     .form-group
                         .modal-header

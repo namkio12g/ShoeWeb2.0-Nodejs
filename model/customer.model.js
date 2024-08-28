@@ -65,6 +65,11 @@ delete:{
     default:"false"
 },
 });
+customerSchema.virtual('formattedBirhtday').get(function () {
+    let newDate = new Date(this.birthDay);
+    return newDate.toISOString().split('T')[0];
+});
+
 customerSchema.methods.formatBirthDay = function () {
     if (!this.birthDay) return null;
 

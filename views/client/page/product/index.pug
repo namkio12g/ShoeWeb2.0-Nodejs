@@ -1,58 +1,125 @@
 extends ../../layout/default.pug
-include ../../mixins/product_item.pug
-include ../../mixins/header_product.pug
 include ../../mixins/pagination.pug
-
+include ../../mixins/product-item.pug
+include ../../mixins/cart-menu.pug
 
 block main_content
-  section.breadcrumb-product
-    +product_title(listRoute)
-  section.products.container
-    .filter
-      .row.filter__item
-        .col-12.topCategoriesProduct
-          nav 
-            p1 Top Categories 
-            ul
-              li Nike Air
-              li Puma
-              li a
-              li b
-              li c
+  +cart-menu("")
+  main.main-content
+    .row
+    .row.title-filter
+      .product-all-banner.d-flex.flex-column.justify-content-center.align-items-center.py-5.mb-5
+        span.big-text.mb-3   Products
+        ul.breadcrumbs.d-flex.flex-row
+          li.fs-1.fw-bold.breadcrumbs-item
+            a.breadcrumbs-link(href="") Home
+          li.fs-1.fw-bold.breadcrumbs-item
+            a.breadcrumbs-link(href="") yhs
+          li.fs-1.fw-bold.breadcrumbs-item
+            a.breadcrumbs-link(href="") sss
+          li.fs-1.fw-bold.breadcrumbs-item
+            a.breadcrumbs-link(href="") sss1
+    .product-content.container.custom-container.mt-5.pt-5
+      .row 
+        button.filte-button.py-3.rounded-4
+          i.fa-solid.fa-sliders.mx-4
+          span Filter
+      .row
+        .col-lg-3.col-md-0.col-sm-0.pe-5.mt-3
+          .col-12.filter-menu
+            .filter-block-collapse 
+              a.filter-title.d-flex.flex-row.justify-content-between.align-items-center 
+                span Prices
+              .filter-collapse.my-5.overflow-scroll.py-4
+                .range-slider
+                  input#minRange.slider(type='range', min='0', max='100', value='25')
+                  input#maxRange.slider(type='range', min='0', max='100', value='75')
+                .range-values.d-flex.flex-row.justify-content-between.align-items-center.my-4
+                  .range-text.me-3.px-4.py-2
+                    span.fs-2#minValue #{(parseInt("25")*10000000/100)}
+                  .range-text.px-4.py-2
+                    span.fs-2#maxValue #{(parseInt("75")*10000000/100)}
+                button.w-100.border.rounded-2 Search
+            .filter-block-collapse 
+              a.filter-title.d-flex.flex-row.justify-content-between.align-items-center 
+                span Categories
+              .filter-collapse.my-5.overflow-y-scroll 
+                .item.my-5
+                  a(href="") Accessories
+                .item.my-5
+                  a(href="") Baby
+                .item.my-5
+                  a(href="") Best Selling
+              hr
+            .filter-block-collapse  
+              a.filter-title.d-flex.flex-row.justify-content-between.align-items-center 
+                span Categories
+              .filter-collapse.my-5.overflow-y-scroll 
+                .item.my-4
+                  a(href="") Accessories
+                .item.my-4
+                  a(href="") Baby
+                .item.my-4
+                  a(href="") Best Selling
+              hr
+              
+              
+        .col-lg-9.col-md-12.col-sm-12.px-2.mt-3.product-main
+          .row
+            each product of products 
+              .col-6.col-lg-4.col-md-6.px-4.mt-3
+                  +product_item(product)
+                  
 
-      .row.filter__item
-        .col-12.rangePriceProduct
-          nav
-            div.titleRange
-              p1 Price Range
-            .double-slider-box
-              .range-slider
-                span.slider-track
-                input.min-val(type='range' name='min_val' min='0' max='1200000' value='0' )
-                input.max-val(type='range' name='max_val' min='0' max='1200000' value='1200000')
-                .tooltip1.min-tooltip
-                .tooltip1.max-tooltip
-      .row.filter__item
-        .col-12.size-option
-          nav 
-            p1 Size
-            ul
-              li
-                .inner-size-option 37
-              li
-                .inner-size-option 38
-              li
-                .inner-size-option 39
-              li
-                .inner-size-option 40
-              li
-                .inner-size-option 41            
-    section.listProducts
-        nav.row.flex-wrap
-          each item in product
-            +product_item(item.thumbnail,item.title,item.price,item.priceNew,item.discountPercentage,item._id)
+        
+  //- section.breadcrumb-product
+  //-   +product_title(listRoute)
+  //- section.products.container
+  //-   .filter
+  //-     .row.filter__item
+  //-       .col-12.topCategoriesProduct
+  //-         nav 
+  //-           p1 Top Categories 
+  //-           ul
+  //-             li Nike Air
+  //-             li Puma
+  //-             li a
+  //-             li b
+  //-             li c
+
+  //-     .row.filter__item
+  //-       .col-12.rangePriceProduct
+  //-         nav
+  //-           div.titleRange
+  //-             p1 Price Range
+  //-           .double-slider-box
+  //-             .range-slider
+  //-               span.slider-track
+  //-               input.min-val(type='range' name='min_val' min='0' max='1200000' value='0' )
+  //-               input.max-val(type='range' name='max_val' min='0' max='1200000' value='1200000')
+  //-               .tooltip1.min-tooltip
+  //-               .tooltip1.max-tooltip
+  //-     .row.filter__item
+  //-       .col-12.size-option
+  //-         nav 
+  //-           p1 Size
+  //-           ul
+  //-             li
+  //-               .inner-size-option 37
+  //-             li
+  //-               .inner-size-option 38
+  //-             li
+  //-               .inner-size-option 39
+  //-             li
+  //-               .inner-size-option 40
+  //-             li
+  //-               .inner-size-option 41            
+  //-   section.listProducts
+  //-       nav.row.flex-wrap
+  //-         each item in product
+  //-           +product_item(item.thumbnail,item.title,item.price,item.priceNew,item.discountPercentage,item._id)
         +pagination(pagination)
-  script(src="/build/product_client.bundle.js")
+  script(src="/build/product_client.bundle.js") 
 
 
         
