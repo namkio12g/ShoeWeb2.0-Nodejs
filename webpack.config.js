@@ -12,8 +12,10 @@ module.exports = {
     product_client_detail:
       "./public/js/client/pages/products/product-detail.js",
     categoryIndex_admin: "./public/js/admin/pages/category/index.js",
-    permissions_admin: "./public/js/admin/pages/permissions/permission.js",
+    brandIndex_admin: "./public/js/admin/pages/brand/index.js",
 
+    permissions_admin: "./public/js/admin/pages/permissions/permission.js",
+    home_client: "./public/js/client/pages/home/home.js",
     order: "./public/js/admin/pages/orders/order.admin.js",
     cart: "./public/js/client/pages/cart.client.js",
     header: "./public/js/client/header.client.js",

@@ -1,36 +1,44 @@
-mixin cart-menu(products)
-    .cart-section.rouned-4.p-5
+mixin cart-menu(cart)
+    .cart-menu.rouned-1.py-5.ps-5.pe-2
         .my-5.d-flex.flex-row.justify-content-between.align-items-center 
             span.fs-1.fw-bold Cart
             span.icon-cancel.py-2.px-3
-                        i.fs-3.fw-bold.fa-solid.fa-x
+                i.fs-3.fw-bold.fa-solid.fa-x
         hr.my-5 
-        //- .row.list-section.empty-list
-        //-     span.fs-2 Your cart is empty
-        .row.list-section.product-list-loop.px-3 
-            .product-cart-item2.d-flex.flex-row 
-                .img-section
-                    a(href="/") 
-                        img.rounded-3(src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")
-                    span.icon-cancel.py-2.px-3
-                        i.fs-3.fa-solid.fa-x
-                .product-cart-info.d-flex.flex-column.ms-5 
-                    a.fs-2.title-text Tb. Dark Lipstick - red
-                    span.fs-2 1 x 985.000d
-            hr.my-4
-            .product-cart-item2.d-flex.flex-row 
-                .img-section
-                    a(href="/") 
-                        img.rounded-3(src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")
-                    span.icon-cancel.py-2.px-3
-                        i.fs-3.fa-solid.fa-x
-                .product-cart-info.d-flex.flex-column.ms-5 
-                    a.fs-2.title-text Tb. Dark Lipstick - red
-                    span.fs-2 1 x 985.000d
+        if !cart.products
+            .row.list-section.empty-list
+                span.fs-2 Your cart is empty
+        else
+            .row.list-section.product-list-loop.px-3 
+                .product-cart-item2.d-flex.flex-row 
+                    .img-section
+                        a(href="/") 
+                            img.rounded-3(src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")
+                        span.icon-cancel.py-2.px-3
+                            i.fs-3.fa-solid.fa-x
+                    .product-cart-info.d-flex.flex-column.ms-5 
+                        a.fs-3.title-text Tb. Dark Lipstick - red
+                        span.fs-3 1 x 985.000d
+                hr.my-4
+                .product-cart-item2.d-flex.flex-row 
+                    .img-section
+                        a(href="/") 
+                            img.rounded-3(src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")
+                        span.icon-cancel.py-2.px-3
+                            i.fs-3.fa-solid.fa-x
+                    .product-cart-info.d-flex.flex-column.ms-5 
+                        a.fs-3.title-text Tb. Dark Lipstick - red
+                        span.fs-3 1 x 985.000d
         hr
         .subtotal-text.d-flex.flex-row.justify-content-between.align-items-center.py-4
-            .span.fs-1.fw-bold Subtotal: 
-            .span.fs-1.fw-bold.price-text 6.000.000d
+            .span.fs-2.fw-bold Subtotal:
+            if cart.products
+                .span.fs-2.fw-bold.price-text 6.000.
+            else 
+                .span.fs-2.fw-bold.price-text 0
         hr
+        .dil.mt-4
+            if cart.products
+                a.cart-index-button.w-100.px-3.py-2.rounded-2(href="/cart/index") Go to your cart 
 
     .overlay.vh-100

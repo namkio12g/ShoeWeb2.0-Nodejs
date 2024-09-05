@@ -11,7 +11,18 @@ filterBlock.forEach((element) => {
       filterTitle.classList.toggle("filter-title-active")
   });
 });
-//slider
+//Filter Button
+const filterButton = document.querySelector('.filter-button');
+const filterMenu = document.querySelector('.filter-menu');
+filterButton.addEventListener("click",()=>{
+
+  filterMenu.classList.toggle("filter-menu-active")
+})
+
+
+
+
+//slider price js
 const minRange = document.getElementById('minRange');
 const maxRange = document.getElementById('maxRange');
 const minValue = document.getElementById('minValue');
@@ -26,13 +37,13 @@ function updateValueMin() {
     minRange.value = maxRange.value;
   }
   
-  minValue.textContent = (parseInt(minRange.value) * 10000000 / 100);
-  maxValue.textContent = (parseInt(maxRange.value) * 10000000 / 100);
+  minValue.textContent = (parseInt(minRange.value) * 10000000 / 100).toLocaleString();;
+  maxValue.textContent = (parseInt(maxRange.value) * 10000000 / 100).toLocaleString();;
 }
 function updateValueMax() {
   if (parseInt(maxRange.value) < parseInt(minRange.value)) {
     maxRange.value = minRange.value;
   }
-  minValue.textContent = (parseInt(minRange.value)*10000000/100);
-  maxValue.textContent = (parseInt(maxRange.value) * 10000000 / 100);
+  minValue.textContent = (parseInt(minRange.value) * 10000000 / 100).toLocaleString();;
+  maxValue.textContent = (parseInt(maxRange.value) * 10000000 / 100).toLocaleString();;
 }

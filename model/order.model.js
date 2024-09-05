@@ -74,7 +74,6 @@ const orderSchema = new mongoose.Schema(
       },
       editedAt:{
         type:Date,
-        default:Date.now()
       }
 
     }
@@ -88,6 +87,24 @@ orderSchema.virtual('formattedDate').get(function () {
 orderSchema.virtual('formattedDateEdit').get(function () {
   let newDate = new Date(this.editedInfo.editedAt);
   return newDate.toISOString().split('T')[0];
+});
+orderSchema.virtual('priceTotalFormatted').get(function () {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND'
+  }).format(this.priceTotal);
+});
+orderSchema.virtual('coupponTotalFormatted').get(function () {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND'
+  }).format(this.coupponTotal);
+});
+orderSchema.virtual('totalFormatted').get(function () {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND'
+  }).format(this.priceTotal-this.coupponTotal);
 });
 orderSchema.set('toJSON', {
   virtuals: true

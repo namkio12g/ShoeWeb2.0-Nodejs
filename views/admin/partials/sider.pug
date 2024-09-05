@@ -21,9 +21,11 @@ aside#sidebar.sidebar
             |  Products
           ul#products.sidebar-dropdown.list-unstyled.collapse(data-bs-parent='#sidebar')
             li.sidebar__item
-              a.sidebar-link(href='/admin/products') Danh sách sản phẩm
+              a.sidebar-link(href='/admin/products') sản phẩm
             li.sidebar__item
-              a.sidebar-link(href='/admin/categories') Danh mục sản phẩm
+              a.sidebar-link(href='/admin/categories/') Danh mục sản phẩm
+            li.sidebar__item
+              a.sidebar-link(href='/admin/brands/') Nhãn hiệu
       // Item order
       if(role.permissions.includes("view-orders"))
         li.sidebar__header Orders

@@ -1,13 +1,13 @@
 mixin product_item(product)
     .div.product-item2.rounded-4.mb-5
         .product-item-top
-            .img-wrapper
+            a.img-wrapper(href=`/products/detail/${product.slug}`)
                 img.rounded-4(src=product.thumbnail, alt="")
                 img.img-hover.rounded-4(src=product.images[0])
             .product-hover-action.mx-auto.d-flex.justify-content-center
-                i.fs-3.p-3.mx-2.rounded-2.fa-solid.fa-eye 
-                i.fs-3.p-3.mx-2.rounded-2.fa-solid.fa-cart-shopping
-                i.fs-3.p-3.mx-2.rounded-2.fa-solid.fa-heart 
+                i.icon.fs-3.p-3.mx-2.rounded-2.fa-solid.fa-eye(data-bs-toggle="modal" data-bs-target="#quickViewModal" data-id=product._id quick-view-btn)
+                i.icon.fs-3.p-3.mx-2.rounded-2.fa-solid.fa-cart-shopping
+                i.icon.fs-3.p-3.mx-2.rounded-2.fa-solid.fa-heart 
             .sale-badge.fs-5.fw-bold.rounded-2.px-2.py-1 -#{product.discountPercentage}%
         div.d-flex.flex-column.justify-content-center.align-items-center
             span.fs-4.fw-bold.mt-3  #{product.title}

@@ -9,6 +9,8 @@ const upload = multer({
 });
 Router.get("/", controller.index);
 Router.patch("/signin", controller.signIn);
+Router.patch("/signout", controller.signOut);
+
 
 
 

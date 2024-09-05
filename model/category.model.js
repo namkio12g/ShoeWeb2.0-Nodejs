@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-
+var slug = require('mongoose-slug-generator');
+mongoose.plugin(slug);
 const categorySchema = new mongoose.Schema({
     title:String,
     thumbnail: {
@@ -23,31 +24,36 @@ const categorySchema = new mongoose.Schema({
         type: String,
             default: "active"
     },
-    editedInfo: {
-        editedAt: {
-            type: String,
-            default: ""
+    createdInfo: {
+            createdBy: {
+                type: String,
+                default: ""
+            },
+            createdAt: {
+                type: Date,
+                default: Date.now()
+            }
         },
-        editedBy: {
-            type: Date,
-            default: Date.now()
-        }
-
-    },
-    deleteInfo: {
-        deleteAt: {
-            type: String,
-            default: ""
+        editedInfo: {
+            editedBy: {
+                type: String,
+                default: ""
+            },
+            editedAt: {
+                type: Date,
+            }
         },
-        deleteBy: {
-            type: Date,
-            default: Date.now()
-        }
-
-    }
+      slug: {
+          type: String,
+          slug: "title",
+          unique: true,
+        slugOn: true
+      },
+    
 
 
 });
+
 const category = mongoose.model("category", categorySchema, "categories");
 
 module.exports = category;

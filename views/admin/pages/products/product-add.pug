@@ -34,7 +34,7 @@ block main
                                     .form-group
                                         label(for='category_name' ) Loại sản phẩm
                                         span: i(class="fa-solid fa-circle-check")
-                                        select#category_name.form-control(name='category' type='text' placeholder='Product category' )
+                                        select#category_name.form-control(name='category' type='text' placeholder='Product category' required)
                                             +category_option(tree)
 
                                 .col-md-6
@@ -42,8 +42,10 @@ block main
                                         label(for='category_name') Hãng sản phẩm
                                         span: i(class="fa-solid fa-circle-check")
 
-                                        input#brand_name.form-control(name='brand' type='text' placeholder='Product brand' required )
-                                        span#categoryError.text-danger
+                                        select#brand_name.form-control(name='brand' type='text' placeholder='Product brand' required )
+                                            option.ps-3(value="") Nhãn hiệu
+                                            for brand in brands 
+                                                option.ps-3(value=brand._id) #{brand.title}
                             .row
                                 .col-md-12
                                     .form-group

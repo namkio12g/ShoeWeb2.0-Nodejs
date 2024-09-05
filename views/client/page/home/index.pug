@@ -4,7 +4,7 @@ include ../../mixins/cart-menu.pug
 
 block main_content 
     hr
-    +cart-menu("")
+    +cart-menu(cart)
     main.main-content
         .carousel-section.px-5.py-5
             .carousel.carousel-fade.slide.m-0.p-0.rounded-5#carouselTheKingSlide(data-bs-ride="carousel")
@@ -58,3 +58,33 @@ block main_content
                         span.fs-3 Explore our latest New Arrivals & unlock discounts of up to 50% off!
                     a.fs-4.px-5.py-3.fw-bold.rounded-3.mt-5(href="#") Shop now
                 img.rounded-5(src="./images/shoeBig.png")
+        .row.product-slider
+            .slider-carousel.col-12.mt-4
+                i.arrow.fa-solid.fa-arrow-left.prev-icon
+                i.arrow.fa-solid.fa-arrow-right.next-icon
+                .slider-content.d-flex.flex-row.overflow-hidden(draggable="false")
+                    each product of products 
+                        .slider-item.mx-4(draggable="false")
+                            +product_item(product)
+    #quickViewModal.rounded-3.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+      .modal-dialog.modal-dialog-centered.modal-xl.rounded-3
+        .modal-content.rounded-3
+            .modal-body.rounded-3
+                form
+                    .row.p-5
+                        .col-lg-6
+                            img.rounded-5(src="https://minimalin-demo.myshopify.com/cdn/shop/files/gallery-2_770x.jpg?v=1691167477") 
+                        .col-lg-6.ps-5
+                            h1.mb-4.title Air fox 111
+                            h1.mb-4.price 2.000.000 d
+                            p.mb-4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque recusandae, ex velit ullam sint facilis exercitationem corrupti suscipit, possimus eum enim dicta distinctio quas ut, odit quidem quia rerum consequuntur?
+                            .d-flex.flex-row.align-items-center
+                                p.me-5 Size:
+                                select.ms-5.form-control.mb-4#selectSize(name="size")
+                                    option(value="39") 39
+                                    option(value="40") 40
+                            .cart-insert.d-flex.justify-content-start    
+                                input.form-control.me-5(type="Number")   
+                                button.px-4.py-4.rounded-2(type='button', data-bs-dismiss='modal') Add to cart
+    script(src="/build/home_client.bundle.js")
+            

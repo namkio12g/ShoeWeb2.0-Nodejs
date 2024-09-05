@@ -1,31 +1,30 @@
 extends ../../layout/default.pug
-include ../../mixins/product_item.pug
 include ../../mixins/header_product.pug
 include ../../mixins/pagination.pug
+include ../../mixins/cart-menu.pug
 
 
 block main_content
-  section.breadcrumb-product
-    +product_title(listRoute)
+  +cart-menu(cart )
   section.product-detail.container
     .row
-      .img.col-lg-6
-        .img__display
+      .img.col-lg-6.col-md-12
+        .img__display.col-12
           .img__showcase
-            img(src=`${listproduct.thumbnail}` alt='' srcset='')
-            if listproduct.images[0]
-              each item in listproduct.images
-                img(src=`${item}` alt='' srcset='')
-            else 
-                img(src="" alt='' srcset='')
-        .img__select
-          .img-item
-              a(href='#' data-id=`${1}` )
-                img(src=`${listproduct.thumbnail}` alt='' srcset='' style="width:111px;height:111px")
-          each item,index in listproduct.images
-            .img-item
-              a(href='#' data-id=`${index+2}`)
-                img(src=`${item}` alt='' srcset='')
+            img.img-showing.active(src=`${product.thumbnail}` alt='' srcset='' index-image=`0`)
+            if product.images[0]
+              for item,index in product.images
+                img.img-showing(src=`${item}` alt='' srcset='' index-image=`${index+1}`)
+            
+        .img__select.slider-carousel.col-12.mt-4
+          i.arrow.fa-solid.fa-arrow-left.prev-icon
+          i.arrow.fa-solid.fa-arrow-right.next-icon
+          .slider-content.d-flex.flex-row.overflow-hidden(draggable="false")
+            .slider-item.me-4.active(draggable="false"  index-image=`0`)
+                img(src=`${product.thumbnail}` alt='' srcset='' draggable="false")
+            each item,index in product.images
+              .slider-item.mx-4(draggable="false" index-image=`${index+1}`)
+                img(src=`${item}` alt='' srcset='' draggable="false" )
           //- .img-item
           //-   a(href='#' data-id='2')
           //-     img(src=`${listproduct.images[1]}`  alt='' srcset='')
@@ -33,50 +32,55 @@ block main_content
           //-   a(href='#' data-id='3')
           //-     img(src=`${listproduct.images[2]}`  alt='' srcset='')
       // Card right
-      .detailProduct-header-right.col-lg-5
-        h2.product-title-detail #{listproduct.title}
-        a.product-link(href='#') Visit nike store
-        .product-rating
-          i.fas.fa-star
-          i.fas.fa-star
-          i.fas.fa-star
-          i.fas.fa-star
-          i.fas.fa-star-half-alt
-          span 4.7
-        if listproduct.discountPercentage == 0
-          .product-price
-              p.price-product Price:
+      .detailProduct-header-right.col-lg-6.col-md-12
+        h2.product-title-detail.fs-1 #{product.title}
+        //- a.product-link(href='#') Visit nike store
+        //- .product-rating
+        //-   i.fas.fa-star
+        //-   i.fas.fa-star
+        //-   i.fas.fa-star
+        //-   i.fas.fa-star
+        //-   i.fas.fa-star-half-alt
+        //-   span 4.7
+        if product.discountPercentage == 0
+          .product-price.d-flex.flex-row.mt-3
+              p.price #{product.priceFormatted}
         else 
-          .product-price
-            p.last-price Old Price: 
-              span #{listproduct.price} VND 
-            p.new-price New Price:
-              span #{listproduct.priceNew} VND
+          .product-price.d-flex.flex-row.mt-3.align-items-center
+            p.me-4.last-price.pt-2  #{product.priceFormatted}
+            p.me-4.new-price #{product.priceAfterDiscountFormatted}
+            p.discount.px-3.py-2.rounded-2  Save - #{product.discountPercentage}%
+        hr
         .product-detail
-          h2 about this product:
-          p #{listproduct.description}
-            
-          ul
-            li Color:
-            li Brand:  #{listproduct.brand}
-            li Category:  #{listproduct.category}
-            li Shipping Area
+          p #{product.description}
+        hr
+        ul.px-0.my-5
+          li 
+            strong Brand:  
+            span #{product.brandTitle}
+          li 
+            strong Category: 
+            span #{product.categoryTitle}
+          li.product-stock-text 
+            strong Availability: 
+            span 12 left in stock
+        hr.my-5
         form#add-form(method="POST" action="/cart/add?_method=PATCH")
-          input(type="hidden" id="id_detail" name="id" value=listproduct._id) 
+          input(type="hidden" id="id_detail" name="id" value=product._id) 
           .product-size 
             p Size:
-            for item in listproduct.size
+            for item in product.size
               .size-item(stock =`${item.stock}` value=item.Value) #{item.Value}
-          .product-stock
-            p
+          hr.my-5
           input(type="hidden" id="size_input_detail" name="size") 
-          .purchase-info
-            .purchase-quantity
-              span SL:
-              input(type='number' name="quantity" min='1' value='1')
-            button.btn.btn-primary(type='submit')
+          .purchase-info.d-flex.flex-row 
+            .purchase-quantity.my-0
+              button(type='button').fs-1.plus-button +
+              input.m-0.p-0.fs-1#inputQuantity(type='number' name="quantity" min='1' max='100' value='1' step="1")
+              button(type='button').fs-1.minus-button -
+            button.mx-3.btn.btn-primary.add-cart-button(type='submit')
               | Add to Card
-              i.fas.fa-cart-arrow-down
+              i.fas.fa-cart-arrow-down.mx-2
     .detailProduct.detailProduct-center
         h2 Sản phẩm liên quan
         section.listProducts_SPLQ

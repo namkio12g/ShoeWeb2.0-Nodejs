@@ -8,6 +8,7 @@ const fetchSession = require("../../controller/client/login.controller");
 const userRoute=require("./userInfo.route.js")
 const loginRouter = require("./login.route");
 const orderRouter = require("./order.route");
+const fetchData=require("./../../public/middleware/fetchdata.client.js")
 
 
 
@@ -15,6 +16,8 @@ const orderRouter = require("./order.route");
 
 module.exports = (app) => {
   app.use(fetchCart.get)
+  app.use(fetchData.getBrands)
+  app.use(fetchData.getCategories)
   app.use(fetchSession.get) 
   app.use("/", home);
   app.use("/order", orderRouter);

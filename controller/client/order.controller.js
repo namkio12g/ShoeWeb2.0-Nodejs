@@ -55,12 +55,13 @@ module.exports.createOrder=async (req,res)=>{
 
         for (let item of cart.products) {
             const product= await productModel.findOne({_id:item.productId})
-            let totalTheProduct = parseInt(item.quantity) * parseInt(product.price)
+            let totalTheProduct = parseInt(item.quantity) * (parseInt(item.discountPercentage) * parseInt(product.price))/100
             total += parseInt(totalTheProduct)
             quantityTotal+=parseInt(item.quantity)
             products.push({
                 productId:item.productId,
                 size:item.size,
+                price: ((100-parseInt(item.discountPercentage)) * parseInt(product.price)) / 100,
                 quantity:item.quantity,
                 name:product.title,
                 thumbnail:product.thumbnail,

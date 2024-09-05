@@ -23,7 +23,7 @@ if (req.session.user) {
                     thumbnail: product.thumbnail,
                     size: item.size,
                     quantity: item.quantity,
-                    price:product.price,
+                    price:((100-parseInt(product.discountPercentage)) * parseInt(product.price)) / 100,
                     id:item.productId
                 });
            }

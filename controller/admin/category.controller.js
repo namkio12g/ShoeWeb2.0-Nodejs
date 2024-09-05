@@ -12,7 +12,10 @@ module.exports.changeStatus = async (req, res) => {
         await categoryModel.updateOne({
             _id: id
         }, {
-            status: status
+            status: status,$set: {
+      'editedInfo.editedBy': req.session.staff._id,
+      'editedInfo.editedAt': Date.now()
+    }
         });
         
         req.flash("success", "Thao tác thành công");
@@ -39,7 +42,10 @@ module.exports.changeMultiStatus = async (req, res) => {
             await categoryModel.updateOne({
                 _id: id
             }, {
-                status: status
+                status: status, $set: {
+                    'editedInfo.editedBy': req.session.staff._id,
+                    'editedInfo.editedAt': Date.now()
+                }
             });
 
 
@@ -59,7 +65,10 @@ module.exports.delete = async (req, res) => {
         await categoryModel.updateOne({
             _id: id
         }, {
-            delete: "true"
+            delete: "true", $set: {
+                'editedInfo.editedBy': req.session.staff._id,
+                'editedInfo.editedAt': Date.now()
+            }
         });
         req.flash("success", "Tạo mới thành công");
 
@@ -79,7 +88,10 @@ module.exports.deleteMulti = async (req, res) => {
             await categoryModel.updateOne({
                 _id: id
             }, {
-                delete: "true"
+                delete: "true", $set: {
+                    'editedInfo.editedBy': req.session.staff._id,
+                    'editedInfo.editedAt': Date.now()
+                }
             });
             req.flash("success", "Tạo mới thành công");
             res.redirect("back")
@@ -118,7 +130,7 @@ module.exports.index=async(req,res)=>{
     const tree = createTree(list)
     let detailCategory;
     if (req.query.idDetail) {
-        etailCategory = list.find(
+        detailCategory = list.find(
             (category) => category._id == req.query.idDetail
         );
     }
@@ -185,6 +197,7 @@ module.exports.createPatch = async (req, res) => {
             req.body.position=parseInt(numberDocument)+1
         }
         const newItem=new categoryModel(req.body)
+        newItem.createdInfo.createdBy = req.session.staff._id;
         newItem.save()
         req.flash("success", "Tạo mới thành công");
         res.redirect("back")

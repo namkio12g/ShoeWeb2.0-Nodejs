@@ -51,51 +51,126 @@ if (addForm) {
 
 }
 
-console.log(imgBtn);
-let eleSelected = imgBtn[0].parentNode;
-eleSelected.style.border = "4px solid red";
+//quantity button
+const plusBtn = document.querySelector(".plus-button");
+const minusBtn = document.querySelector(".minus-button");
+const inputQuanityDetail1 = document.querySelector("#inputQuantity");
+plusBtn.addEventListener("click",()=>{
+  let newValue = parseInt(inputQuanityDetail1.value) + 1
+  if (newValue >=1) {
+        inputQuanityDetail1.value = newValue;
+  console.log(inputQuanityDetail1.value)
 
-let imgId = 1;
-img.forEach((item) => {
-  item.addEventListener("click", (e) => {
-    e.preventDefault();
-    eleSelected.style.border = "4px solid rgb(170, 157, 157)";
 
-    imgId = item.getAttribute("data-id");
-    eleSelected = item.parentNode;
-    eleSelected.style.border = "4px solid red";
-    slideImage();
-  });
-});
-function slideImage() {
-  const displayWidth = document.querySelector(
-    ".img__showcase:first-child"
-  ).clientWidth;
-  console.log(displayWidth);
-  document.querySelector(".img__showcase").style.transform = `translateX(${
-    -(imgId - 1) * displayWidth
-  }px)`;
+  }
+})
+minusBtn.addEventListener("click", () => {
+   let newValue = parseInt(inputQuanityDetail1.value) - parseInt(inputQuanityDetail1.step)
+   if (newValue >= parseInt(inputQuanityDetail1.min)) {
+     inputQuanityDetail1.value = newValue;
+
+   }
+})
+
+//slide carousel
+
+
+const sliderImg = document.querySelector(".slider-content");
+const sliderSelectItemWidth = sliderImg.querySelector(".slider-item").offsetWidth;
+const sliderChilds=[...sliderImg.children]
+let cardPerview=Math.round(sliderImg.offsetWidth/sliderSelectItemWidth)
+
+sliderChilds.slice(-cardPerview).reverse().forEach(child=>{
+  sliderImg.insertAdjacentElement("afterbegin", child.cloneNode(true))
+})
+sliderChilds.slice(0,cardPerview).forEach(child => {
+  sliderImg.insertAdjacentElement("beforeend", child.cloneNode(true))
+})
+
+let isDragging=false,startX,startScrollLeft;
+const dragStart=(e)=>{
+  isDragging=true;
+  sliderImg.classList.add("dragging");
+  startX = e.pageX - sliderImg.offsetLeft;
+  startScrollLeft=sliderImg.scrollLeft;
+
+
 }
+const dragging=(e)=>{
+  e.preventDefault();
+  if(!isDragging) return;
+  const x = e.pageX - sliderImg.offsetLeft;
+  const walk = (x - startX) * 2
+  sliderImg.scrollLeft = startScrollLeft - walk;
+}
+const dragStop=()=>{
+  isDragging=false;
+    sliderImg.classList.remove("dragging")
+}
+const infiniteScroll=()=>{
+  if(sliderImg.scrollLeft===0){
+    sliderImg.classList.add("no-smooth")
+    sliderImg.scrollLeft=sliderImg.scrollWidth-(sliderImg.offsetWidth+1)
+    sliderImg.classList.remove("no-smooth")
 
-// seclect size
+  }
+  else if(Math.floor(sliderImg.scrollLeft)===sliderImg.scrollWidth-sliderImg.offsetWidth){
+    sliderImg.classList.add("no-smooth")
+
+    sliderImg.scrollLeft =1
+    sliderImg.classList.remove("no-smooth")
+  }
+}
+sliderImg.addEventListener("mousedown",dragStart)
+sliderImg.addEventListener("mousemove", dragging)
+document.addEventListener("mouseup", dragStop)
+sliderImg.addEventListener("scroll",infiniteScroll)
+
+
+
+
+const nextIcon = document.querySelector(".next-icon");
+nextIcon.addEventListener("click",()=>{
+    sliderImg.scrollLeft += sliderSelectItemWidth
+})
+const prevIcon = document.querySelector(".prev-icon");
+prevIcon.addEventListener("click", () => {
+  sliderImg.scrollLeft -= sliderSelectItemWidth
+})
+//change the image
+const sliderItems=document.querySelectorAll(".slider-item")
+sliderItems.forEach((item)=>{
+  item.addEventListener("click",()=>{
+    const value=item.getAttribute("index-image")
+    const sliderItemActive=document.querySelector(".slider-item.active")
+    if(item!=sliderItemActive){
+    document.querySelector(`.img-showing.active`).classList.remove("active")
+    document.querySelector(`img.img-showing[index-image='${value}']`).classList.add("active")
+      sliderItemActive.classList.remove("active")
+      item.classList.add("active")
+
+    }
+  })
+})
+//select select
 const btnSize = document.querySelectorAll(".size-item");
 let sizeSelected = btnSize[0];
-sizeSelected.style.border = "3px solid red";
+sizeSelected.classList.toggle("active");;
 const size_input = document.querySelector("#size_input_detail");
 size_input.value = parseInt(sizeSelected.innerHTML);
-const stock = document.querySelector(".product-stock p");
-stock.innerHTML = "Stock: " + sizeSelected.getAttribute("stock");
+const stock = document.querySelector(".product-stock-text span");
+stock.innerHTML = sizeSelected.getAttribute("stock") + " left in stock";
 
 btnSize.forEach((item) => {
   item.addEventListener("click", (e) => {
     e.preventDefault();
     if (sizeSelected) {
-      sizeSelected.style.border = "3px solid rgb(36, 34, 34)";
+      sizeSelected.classList.toggle("active");
     }
 
     sizeSelected = item;
-    sizeSelected.style.border = "3px solid red";
-    stock.innerHTML = "Stock: " + sizeSelected.getAttribute("stock");
+    sizeSelected.classList.toggle("active");
+    stock.innerHTML = sizeSelected.getAttribute("stock") + " left in stock";
     size_input.value = parseInt(sizeSelected.innerHTML);
 
   });

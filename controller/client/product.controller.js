@@ -1,6 +1,42 @@
-const product = require("../../model/product.model");
+const productModel = require("../../model/product.model");
+const categoryModel = require("../../model/category.model");
+const brandModel = require("../../model/brand.model");
+const mongoose = require('mongoose');
 const getPagination = require("../../helpers/getPagination");
+// getProductQuickView
+module.exports.getProductQuickView = async (req, res) => {
+  try {
+    const id = req.body.id;
 
+    const product =await productModel.findOne({
+      _id: id
+    });
+    if(product){
+      let newProduct={};
+      newProduct.price = product.priceAfterDiscountFormatted;
+      newProduct.thumbnail = product.thumbnail;
+      newProduct.title = product.title;
+      res.status(200).json({
+        product: newProduct,
+        size:product.size
+      });
+    }
+    else{
+      res.status(404).json({
+        success: false,
+        message: "This email is already registered!"
+      });
+    }
+  } catch (error) {
+    console.log(error)
+
+    res.status(404).json({
+      success: false,
+      message: "This email is already registered!"
+    });
+  }
+   
+}
 // [GET] /products
 module.exports.index = async (req, res) => {
   // const listOption = listOption1(req.query);
@@ -39,9 +75,9 @@ module.exports.index = async (req, res) => {
     find.price = { $gte: listRange[0], $lte: listRange[1] };
   }
   console.log(find)
-  const numberDocument = await product.countDocuments(find);
+  const numberDocument = await productModel.countDocuments(find);
   const pagination = getPagination(req.query, 8, numberDocument);
-  const listproduct = await product
+  const listproduct = await productModel
     .find(find)
     .limit(pagination.numberOfProduct)
     .skip(pagination.positionProduct);
@@ -53,9 +89,9 @@ module.exports.index = async (req, res) => {
   ];
 
   // const
-  res.render("client/page/product/index", {
+  res.render("client/page/productModel/index", {
     title: "Trang Chủ > Products >",
-    message: "This is product page!",
+    message: "This is productModel page!", 
     products: listproduct,
     listRoute: listRouter,
     pagination: pagination,
@@ -65,44 +101,53 @@ module.exports.index = async (req, res) => {
 };
 // [GET] /products/detail/:id
 module.exports.detailProduct = async (req, res) => {
-  const id = req.params.id;
-  const listproduct = await product.find({ _id: id });
-  let listRouter;
-  let newProducts;
-  if (listproduct) {
-    listRouter = [
-      { title: "Trang Chủ > ", route: "/" },
-      { title: "products >", route: "/products" },
-      {
-        title: listproduct[0].title,
-        route: `/products/detail/${listproduct[0]._id}`,
-      },
-    ];
-    newProducts = listproduct.map((item) => {
-      item.priceNew = (
-        (item.price * (100 - item.discountPercentage)) /
-        100
-      ).toFixed(0);
-      return item;
-    });
-  }
-
-  const listproduct2 = await product.find().limit(6);
-  let newProducts2;
-  if (listproduct2) {
-    newProducts2 = listproduct2.map((item) => {
-      item.priceNew = (
-        (item.price * (100 - item.discountPercentage)) /
-        100
-      ).toFixed(0);
-      return item;
-    });
-  }
-  res.render("client/page/product/detailProduct", {
-    title: "Detail",
-    message: "This is product detail page !",
-    listRoute: listRouter,
-    listproduct: newProducts[0],
-    product: newProducts2,
+  try{
+  const identifier = req.params.identifier;
+  console.log(identifier)
+  const isObjectId = mongoose.Types.ObjectId.isValid(identifier);
+  const productDetail = isObjectId 
+      ?await productModel.findById(identifier) 
+      :await productModel.findOne({
+        slug: identifier
+      });
+  console.log(productDetail)
+  const category = await categoryModel.findOne({
+    _id: productDetail.category
   });
+    const brand = await brandModel.findOne({
+      _id: productDetail.brand
+    }).select("title");
+  if(category){
+    productDetail.categoryTitle=category.title
+  }
+  if (brand) {
+    productDetail.brandTitle = brand.title
+  }
+  // let listRouter;
+  let newProducts;
+  // if (productDetail) {
+  //   listRouter = [
+  //     { title: "Trang Chủ > ", route: "/" },
+  //     { title: "products >", route: "/products" },
+  //     {
+  //       title: productDetail.title,
+  //       route: `/products/detail/${productDetail._id}`,
+  //     },
+  //   ];
+  // }
+
+  const listproduct = await productModel.find({category:productDetail.category}).limit(6);
+res.render("client/page/productModel/detailProduct", {
+    title: "Detail",
+    message: "This is productModel detail page !",
+    listproduct: listproduct,
+    product:productDetail,
+  });
+   }
+   catch(err){
+    console.log(err)
+    return res.status(404).json({
+      message: 'Product not found'
+    });
+   }
 };

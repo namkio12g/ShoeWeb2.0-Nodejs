@@ -3,12 +3,14 @@ const getPagination = require("../../helpers/getPagination");
 const product = require("../../model/product.model");
 const { ObjectID } = require("mongodb");
 const categoryModel = require("../../model/category.model")
+const brandModel = require("../../model/brand.model")
 const createTree = require("../../helpers/categoryTree");
-const category = require("../../model/category.model");
 // const product = require("../../models/product.model");
 // multi delete 
 module.exports.deleteMulti = async (req, res) => {
   try {
+    console.log(error)
+    
     let multiItems = req.body.multiItems.split(',');
     for (let i = 0; i < multiItems.length - 1; i++) {
       let id = multiItems[i]
@@ -16,12 +18,17 @@ module.exports.deleteMulti = async (req, res) => {
       await product.updateOne({
         _id: id
       }, {
-        delete: "true"
+        delete: "true", $set: {
+          'editedInfo.editedBy': req.session.staff._id,
+          'editedInfo.editedAt': Date.now()
+        }
       });
         req.flash("success", "Tạo mới thành công");
         res.redirect("back")
     }
   } catch (error) {
+    console.log(error)
+
         req.flash("error", "Thao tác không thành công!");
   }
 
@@ -39,7 +46,10 @@ module.exports.changeMultiStatus=async(req,res)=>{
      await product.updateOne({
        _id: id
      }, {
-       status: status
+       status: status, $set: {
+         'editedInfo.editedBy': req.session.staff._id,
+         'editedInfo.editedAt': Date.now()
+       }
      });
      
     
@@ -80,6 +90,7 @@ module.exports.addNewProductPatch = async (req, res) => {
      }
      req.body.images=images;
      const newProduct = new product(req.body);
+     newProduct.createdInfo.createdBy = req.session.staff._id;
      await newProduct.save();
       req.flash("success", "Tạo mới thành công");
      res.redirect("back")
@@ -94,8 +105,14 @@ module.exports.index = async (req, res) => {
   try {
     
    const categories = await categoryModel.find({
-     delete: "false"
+     delete: "false",
+       status: "active"
+
    }).select('_id title parentId');;
+     const brands = await brandModel.find({
+       delete: "false",
+       status:"active"
+     }).select('_id title');;
    const tree = createTree(categories)
   const listOption = status1.statusProduct(req.query);
   let find = {
@@ -111,7 +128,9 @@ module.exports.index = async (req, res) => {
   if(req.query.category){
     find.category=req.query.category
   }
-
+  if (req.query.brand) {
+    find.brand = req.query.brand
+  }
   if(req.query.maxValue && req.query.minValue ){
     find.price = {
       $lte: parseInt(req.query.maxValue),
@@ -137,6 +156,16 @@ module.exports.index = async (req, res) => {
    if (category) {
      item.categoryName = category.title
    }
+   
+      const brand = await brandModel.findOne({
+        _id: item.brand
+      })
+      if (brand) {
+        item.brandName = brand.title;
+      }
+      else{
+        item.brandName="";
+      }
   }
   // Detail
   let detailProduct;
@@ -156,9 +185,11 @@ module.exports.index = async (req, res) => {
     minValue:req.query.minValue,
     maxValue:req.query.maxValue,
     categorySelected: req.query.category,
+    brandSelected:req.query.brand,
     pagination: pagination,
     detailProduct1: detailProduct,
-    tree:tree
+    tree:tree,
+    brands:brands
   });
   } catch (error) {
     console.log(error)
@@ -168,7 +199,15 @@ module.exports.index = async (req, res) => {
 module.exports.changeStatus = async (req, res) => {
   const id = req.params.id;
   const status = req.params.status;
-  await product.updateOne({ _id: id }, { status: status });
+  await product.updateOne({
+    _id: id
+  }, {
+    status: status,
+    $set: {
+      'editedInfo.editedBy': req.session.staff._id,
+      'editedInfo.editedAt': Date.now()
+    }
+  });
   req.flash("success", "Thao tác thành công");
   res.redirect("back");
   
@@ -176,7 +215,15 @@ module.exports.changeStatus = async (req, res) => {
 // [DELETE] /admin/products/delete/:id
 module.exports.delete = async (req, res) => {
   const id = req.params.id;
-  await product.updateOne({ _id: id }, { delete: "true" });
+  await product.updateOne({
+    _id: id
+  }, {
+    delete: "true",
+    $set: {
+      'editedInfo.editedBy': req.session.staff._id,
+      'editedInfo.editedAt': Date.now()
+    }
+  });
   res.redirect("back");
 };
 
@@ -185,12 +232,15 @@ module.exports.editGet = async (req, res) => {
     const categories = await categoryModel.find({
       delete: "false"
     }).select('_id title parentId');;
+   const brands = await brandModel.find({
+     delete: "false"
+   }).select('_id title');;
     const tree = createTree(categories)
     const productId = req.params.id;
     const productItem = await product.findOne({
       _id: productId
     })
-    res.render("admin/pages/products/product-edit",{productItem:productItem,tree:tree});
+    res.render("admin/pages/products/product-edit",{productItem:productItem,tree:tree,brands:brands});
   } catch (error) {
   req.flash("error", "Truy cập không thành công");
     res.redirect("back");
@@ -237,7 +287,10 @@ module.exports.update = async (req, res) => {
     }
    
 
-    await product.updateOne({ _id: req.params.id }, { $set: newproduct });
+    await product.updateOne({ _id: req.params.id }, { $set: newproduct, 
+                'editedInfo.editedBy': req.session.staff._id,
+                'editedInfo.editedAt': Date.now()
+             });
       req.flash("success", "Cập nhật thành công");
     res.redirect("/admin/products");
   } catch (err) {
@@ -246,9 +299,12 @@ module.exports.update = async (req, res) => {
   }
 };
 module.exports.addNewProduct = async (req, res) => {
-       const categories = await categoryModel.find({delete:"false"}).select('_id title parentId');;
-       const tree = createTree(categories)
+       const categories = await categoryModel.find({delete:"false"}).select('_id title parentId');
+         const brands = await brandModel.find({
+           delete: "false"
+         }).select('_id title');;
+       const tree = createTree(categories);
   res.render("admin/pages/products/product-add", {
-    tree: tree
+    tree: tree,brands:brands
   });
 };

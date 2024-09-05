@@ -1,6 +1,48 @@
 const productsInCart = document.querySelectorAll(".product-cart-hover")
 const Swal = require('sweetalert2')
 const headerBot = document.querySelector(".header-bottom")
+//-- hedaer expand in small size 
+//------show the header expand and hide expand
+
+const hedaerExpand = document.querySelector(".header-bottom-expand")
+const overlayHeader = document.querySelector(".overlay-header-expand")
+const menuBarsIcon = document.querySelector(".menu-bars")
+menuBarsIcon.addEventListener("click",()=>{
+    hedaerExpand.classList.add("active");
+    overlayHeader.classList.add("overlay-active")
+})
+        //hide
+const iconX = document.querySelector(".fa-x")
+iconX.addEventListener("click", () => {
+    hedaerExpand.classList.remove("active");
+    overlayHeader.classList.remove("overlay-active")
+
+})
+
+overlayHeader.addEventListener("click", () => {
+    hedaerExpand.classList.remove("active");
+    overlayHeader.classList.remove("overlay-active")
+
+})
+//------collapse for item in header expand
+const items = document.querySelector(".header-bottom-expand").querySelectorAll(".item")
+items.forEach((item)=>{
+    const itemIcon = item.querySelector(".item-title-icon")
+    const collapse = item.querySelector(".item-collapse")
+    if(collapse){
+    itemIcon.addEventListener("click", () => {
+        const itemsActive = document.querySelectorAll(".item-active")
+        if (itemsActive[itemsActive.length-1]) {
+            if (!itemsActive[itemsActive.length - 1].contains(item)){
+                   itemsActive.forEach((itemactive)=>{
+                       itemactive.classList.toggle("item-active")
+                   }) 
+            }
+        }
+        item.classList.toggle("item-active")
+    })
+}
+})
 //header sticky transform
 window.addEventListener("scroll",function(e){
  if (window.pageYOffset > 500) {

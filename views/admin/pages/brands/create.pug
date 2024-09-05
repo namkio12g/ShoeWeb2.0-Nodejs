@@ -1,0 +1,112 @@
+extends ../../layout/default.pug
+include ../../mixins/alerts/successAlert.pug
+include ../../mixins/alerts/errorAlert.pug
+
+include ../../mixins/categorySelItem.pug
+
+
+block main
+    +success_alert(messages.success)
+    +error_alert(messages.error)
+    .container-fluid.pd-none
+    form.wrapper-add-product.mg-5.pd-none(method='POST' action=`/admin/brands/add-new-brand?_method=PATCH` enctype="multipart/form-data" add-product-form)
+        section.add-product-header.bg.d-flex
+            div
+                h2 Tạo mới Nhãn hiệu
+            button.btn.btn-primary.save.btnSaveFormAddProduct(type='submit') Tạo mới
+
+        section.add-product-body
+            .row
+                .col-7.bg
+                    div.item.basic-information
+                        .modal-header
+                            h4.modal-title Basic Information : 
+                        .modal-body
+                            // product title
+                            .row
+                                .col-md-12
+                                    .form-group
+                                        label(for='prodcuct_title') Tiêu đề
+                                        input#prodcuct_title.form-control(type='text' name='title' placeholder='Tiêu đề danh mục' required)
+                                        span#productError.text-danger
+                          
+                        
+                            .row 
+                                .col-md-6
+                                    .form-group
+                                        label(for='discountPercentage' ) Vị trí
+                                        span: i(class="fa-solid fa-circle-check")
+                                        input#discountPercentage.form-control(name='position' type='Number' placeholder=' Nếu không nhập tự tăng')
+                                        span#discountPercentageError.text-danger
+            
+                                            
+                            .row   
+                                .col-md-12
+                                    .form-group
+                                        label(for='long_description') Miêu tả
+                                        span: i(class="fa-solid fa-circle-check")
+
+                                        textarea#long_description.form-control(name='description' rows='10' placeholder='Long Description' )
+                                        span#long_description_error.text-danger
+                .col-3.bg
+                    div.item.visibility
+                        .row
+                            .modal-header
+                                h4#exampleModalLabel.modal-title Trạng thái hoạt động : 
+                            .modal-body
+                                .row   
+                                    .col-md-12
+                                        .form-group
+                                            label Trạng thái
+                                        .form-group.statusProduct
+                                            input#active(type='radio' name='status' value="active" checked)
+                                            label.form-check-label(for='active')
+                                                | Active
+                                            input#inactive(type='radio' name='status' value="inactive")
+                                                
+                                            label.form-check-label(for='inactive')
+                                                | Inactive
+                                //- .row
+                                //-     .col-md-12
+                                //-         .form-group
+                                //-             label(for='category_name') Publish Date
+                                //-             input#updateAt.form-control(name='updateAt' type='text' required )
+                                //-             span#categoryError.text-danger
+                        .row
+                            .modal-header
+                                h4#exampleModalLabel.modal-title Image : 
+                            .modal-body
+                                .row
+                                    .col-12
+                                        .form-group
+                                            label(for='product_thumbnail') Upload Product Thumbnail
+                                            input#product_thumbnail.form-control(type='file' name='thumbnail' required thumbnail-input)
+                                            span#thumbnail_error.text-danger
+                .col-2.bg
+                    .form-group
+                        .modal-header
+                            h4#exampleModalLabel.modal-title Preview Image
+                        .modal-body
+                            .preview-thumbnail
+                                img(src="", alt="", srcset="" thumbnail-image)
+                                //- .row
+                                //-     .col-md-12
+                                //-         label Add More Thumbnails
+                                //-     .col-md-12
+                                //-         input.form-control.add-more-thumbnail(type='file',  name='thumbnail', multiple)
+                                //- .row
+                                //-     .col-md-12
+                                //-         .form-group
+                                //-             label(for='product_thumbnail') More thumbnails
+                                //-             .row.form-add-more-thumbnail
+                                                //- .col-4
+                                                //-     .preview-thumbnail-more.preview-thumbnail
+                                                //-         img(src="", alt="", srcset="")
+    //-------------product edit----------------
+
+
+
+
+
+
+

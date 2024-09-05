@@ -35,3 +35,14 @@ icon.addEventListener('click', function () {
   Alert.classList.add('alert-box-hidden');
   
 });}
+// sign out button
+const signOutBtn = document.querySelector("[signOut-button]")
+signOutBtn.addEventListener("click",()=>{
+  fetch("/admin/login/signOut",{
+    headers:{"Content-Type":"application/json"}
+    ,method:"PATCH",
+  }).then(res=>{
+    if(res.ok)
+    window.location.href="/admin/login/"
+  })
+})

@@ -1,25 +1,16 @@
 mixin order_item(order,user)
     .order-item.d-flex.flex-column.mb-4
-                        .d-flex.flex-row.justify-content-between.mx-5.my-2    
-                            div.d-flex.flex-column
-                                span.fs-4 Order Id
-                                span.fs-4.fw-bold ##{order._id}
-                            
-                            div.d-flex.flex-row.align-items-center
-                                .me-5
-                                    i.fa-regular.fs-4.fa-calendar-days
-                                    span.fs-4.ms-2 #{order.formattedDate}
-                                if order.status===1
-                                    span.order-status.fs-4.px-2.py-2 Đang xử lý
-
-                                else if order.status===2
-                                    span.order-status.fs-4.px-2.py-2 Đã xác nhận
-
-                                else if order.status===3
-                                    span.order-status.fs-4.px-2.py-2 Đang vận chuyển
-
-                                else
-                                    span.order-status.fs-4.px-2.py-2 Hủy bỏ
+                        .row.d-flex.flex-row.mx-5.my-2    
+                            .col-lg-6.col-md-12
+                                div.d-flex.flex-column
+                                    span.fs-4 Order Id
+                                    span.fs-4.fw-bold ##{order._id}
+                            .my-3.col-lg-6.col-md-12.d-flex.justify-content-start.align-items-center
+                                div.d-flex.flex-row.align-items-center
+                                    .me-5
+                                        i.fa-regular.fs-4.fa-calendar-days
+                                        span.fs-4.me-5 #{order.formattedDate}
+                                        span.order-status.fs-4.px-2.py-2( style=`color:${order.status===1?"#05BC04":order.status===2?"#40D6DE":order.status===4?"#D7152C":order.status===3?"#6E09BC":"#92B8C1"};border-color:${order.status===1?"#05BC04":order.status===2?"#40D6DE":order.status===4?"#D7152C":order.status===3?"#6E09BC":"#92B8C1"};border-radius:20px`) #{order.status===1?"Chưa xác nhận":order.status===2?"Đã xác nhận":order.status===4?"Giao hàng thành công":order.status===3?"Đang giao hàng":"Đã hủy"}
                         .d-flex.flex-column.orderContent-section.px-2.mx-4 
                             .d-flex.flex-row.justify-content-between.ps-3.my-2
                                 
@@ -53,6 +44,8 @@ mixin order_item(order,user)
                            
                         .button-section.d-flex.flex-row.justify-content-between.align-items-center.px-5
                             span.fs-3.total-text Total:
-                                span #{order.priceTotal-order.coupponTotal}
+                                span #{order.totalFormatted}
                             .ms-2
-                                a(href=`/order/detail/${order._id}`).fs-4.px-5.py-2 Detail 
+                                if order.status<3
+                                    a.mx-3.cancel-button(href=`/order/detail/${order._id}`).fs-4.px-5.py-2 Cancel
+                                a.detail-button(href=`/order/detail/${order._id}`).fs-4.px-5.py-2 Detail 

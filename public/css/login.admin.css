@@ -59,5 +59,27 @@ body {
   border-radius: 10px;
   transition: background-color 0.3s;
 }
+@media only screen and (max-width: 999px) {
+  .box-area img {
+    height: 100%;
+    
+  }
+  .main-page{
+  margin: 10px 10px 10px 5px;
+}
 
+ 
+}
+@media only screen and (max-width: 767px) {
+  .box-area {
+    margin: 0 10px;
+    
+  }
+  .left-box img {
+    display: none;
+  }
+  .signIn-btn{
+    width: 100%;
+  }
+}
 /*# sourceMappingURL=login.css.map */

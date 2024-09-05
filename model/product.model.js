@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 var slug = require('mongoose-slug-generator');
-const type = require("mongoose/lib/schema/operators/type");
 mongoose.plugin(slug);
 const productSchema = new mongoose.Schema(
   {
@@ -94,32 +93,28 @@ const productSchema = new mongoose.Schema(
     },
     slug:{
       type:String,
-      slug:"title",unique:true
+      slug: "title", unique: true,
+        slugOn: true
     },
-    createAt:{
-      type:{
-        createBy:{
-          type:String,
-          default:""
+    createdInfo: {
+        createdBy: {
+          type: String,
+          default: ""
         },
-        createTime:{
-          type:Date,
-          default:Date.now()
+        createdAt: {
+          type: Date,
+          default: Date.now()
         }
-      }
-    },
-    updateAt: {
-     type: {
-       updateBy: {
-         type: String,
-         default: ""
-       },
-       updateTime: {
-         type: Date,
-         default: Date.now()
-       }
-     }
-    },
+      },
+      editedInfo: {
+        editedBy: {
+          type: String,
+          default: ""
+        },
+        editedAt: {
+          type: Date,
+        }
+      },
   },
   { versionKey: false }
 );
@@ -135,6 +130,7 @@ productSchema.virtual('priceAfterDiscountFormatted').get(function () {
     currency: 'VND'
   }).format(this.price*(100-this.discountPercentage)/100);
 });
+
 const product = mongoose.model("product", productSchema, "products");
 
 module.exports = product;

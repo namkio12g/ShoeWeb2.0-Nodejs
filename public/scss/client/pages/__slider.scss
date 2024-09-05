@@ -45,3 +45,86 @@
 .range-values {
   margin-top: 10px;
 }
+.range-button:hover{
+  color: white;
+  background-color: #309ee2
+  ;
+}
+
+//slider card
+
+.slider-carousel{
+  overflow-x: auto;
+      position: relative;
+         transition: all 1s ease;
+
+
+  .arrow{
+        position: absolute;
+        top: 40%;
+        color: rgb(15, 15, 16);
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 25px;
+        background-color: white;
+        border: 1px solid rgb(218, 218, 218);
+          z-index: 3;
+          cursor: pointer;
+       }
+       .arrow:hover{
+         color: rgb(255, 255, 255);
+    
+        background-color: rgb(10, 120, 237);
+       }
+       .prev-icon{
+        left: 0px;
+       }
+       .next-icon{
+        right: 0px;
+       }
+  .slider-content.no-smooth{
+    scroll-behavior: auto !important;
+
+  }
+  .slider-content.dragging .slider-item{
+    cursor:grab;
+    user-select: none;
+  }
+  .slider-content.dragging{
+    scroll-snap-type: none;
+    cursor:grab;
+    scroll-behavior: auto;
+  }
+  .slider-content{
+      
+      overflow: hidden; 
+        transition: all 1s ease;
+      
+      .slider-item {
+        height: fit-content;
+        width: fit-content;
+        border-radius: 15px;
+        margin: 0.5rem;
+        margin-top: 1rem;
+        border: 1px solid rgb(232, 230, 230);
+       
+    }
+        .slider-item.active{
+        border: 1px solid rgb(9, 162, 208);
+
+    }
+}
+
+}
+.product-slider{
+  
+  margin: 0 100px;
+  img{
+    width: 230px;
+    height: 200px;
+  }
+  .slider-carousel{
+         padding: 0 30px;
+    
+  }
+}

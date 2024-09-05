@@ -1,10 +1,35 @@
 const staffModel = require("../../model/staff.model")
 const status1 = require("../../helpers/filterStatus");
 const system = require("../../config/system.js");
-
+const jwt = require('jsonwebtoken');
 const getPagination = require("../../helpers/getPagination");
 const bcrypt = require("bcrypt")
+module.exports.signOut=async(req,res)=>{
+    try{
+   res.cookie('token', '', {
+       httpOnly: true,
+       expires: new Date(0) // Set expiration to a past date
+   });
 
+   req.session.destroy(err => {
+       if (err) {
+           return res.send('Error logging out.');
+                       return res.status(500).json({ message: 'Failed to sign out.' });
+
+       }
+   })
+    }
+    catch(err){
+                    return res.status(500).json({
+                        message: 'Failed to sign out.'
+                    });
+
+    }
+    return res.status(200).json({
+        message: 'success to sign out.'
+    });
+
+}
 module.exports.signIn = async (req, res) => {
     try {
         
@@ -32,15 +57,23 @@ module.exports.signIn = async (req, res) => {
                 })
                 return;
             }
-            req.session.token=staff.token
+            // req.session.token=staff.token
             req.session.staff = {
                 _id: staff._id,
                 role:staff.role,
-                name:staff.name,
             };
+            const token = jwt.sign({
+                _id: staff._id,
+                role: staff.role,
+                name: staff.name,
+            },process.env.JWTSECRETKEY,{expiresIn:'1h'});
+            res.cookie("token", token, {
+                maxAge: 3600000,
+                httpOnly: true
+            });
             res.json({
                 success: true,
-                message: "Đăng nhập thành công!"
+                message: "Đăng nhập thành công!",
             })
     } catch (error) {
         console.log(error)

@@ -5,7 +5,7 @@ mixin product_infor(products,listOption,keyword,detailProduct1)
     nav.navbar.navbar_menu-title
         .nameTitle Product List
     .row.searchAndStatus
-        .col-md-6
+        .col-md-5
             form
                 .row
                     .col-6
@@ -22,11 +22,11 @@ mixin product_infor(products,listOption,keyword,detailProduct1)
                                     input.form-control.range-price(type="Number" value=minValue name="minValue" placeholder="Min price" min="0")
                                 .col-6
                                     input.form-control.range-price(type="Number"  value=maxValue name="maxValue" placeholder="Max price" min="0")
-        .col-md-2
+        .col-md-1
             .form-group.navbar
                 lable Trạng Thái
                 select.fs-4.form-select.filterSearchProduct#comboboxChangeStatus(aria-label='Default select example')
-                                option(value="") -- status --
+                                option(value="") - status -
 
                                 each item in listOption
                                     if item.class=="active"
@@ -40,6 +40,19 @@ mixin product_infor(products,listOption,keyword,detailProduct1)
                     option(value="") ---- Danh mục ----
 
                     +category_option(tree,categorySelected)
+        .col-md-2
+            .form-group.navbar
+                lable Nhãn hiệu
+                select.fs-4.form-select.filterSearchProduct#comboboxChangeCategory(aria-label='Default select example'  name="category")
+                    option(value="") ---- nhãn hiệu ----
+
+                    for brand in brands 
+                        if(brand._id===brandSelected)
+                            option.ps-3(value=item._id selected)  #{item.title}
+                        else 
+                            option.ps-3(value=brand._id) #{brand.title}
+
+
 
         .col-md-2
             //- button.btn.btn-success.add_Product.btn_addProduct(type='button') Add new product
@@ -60,6 +73,7 @@ mixin product_infor(products,listOption,keyword,detailProduct1)
                     th(scope='col',style='width: 20%') Product
                     th(scope='col',style='width: 10%') Category
                         i(class="fa-solid fa-arrow-up arrow")
+                    th(scope='col',style='width: 10%') Brand
                     th(scope='col',style='width: 10%') Price
                     th(cope='col',style='width: 10%') Trạng Thái 
                     th(scope='col') Detail
@@ -82,9 +96,11 @@ mixin product_infor_item(item,index)
                             .col-7
                                 div.d-flex.flex-column.name-id-products
                                     p1 #{item.title}
-                                    p1 SP00001
+                                    p1 #{item.slug?item.slug:" "}
                         //- img(src=`${item.thumbnail}`, alt="", srcset="")
                     td(class="_tableProduct") #{item.categoryName}
+                    td(class="_tableProduct") #{item.brandName}
+
                     td(class="_tableProduct") #{item.price}
 
                     td(class="text-wrap") 

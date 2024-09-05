@@ -40,8 +40,12 @@ block main
                                         label(for='category_name') Brand Name
                                         span: i(class="fa-solid fa-circle-check")
 
-                                        input#brand_name.form-control(value=`${productItem.brand}` name='brand' type='text' placeholder='Product brand' required )
-                                        span#categoryError.text-danger
+                                        select#brand_name.form-control(name='brand' type='text' placeholder='Product brand' required )
+                                            for brand in brands 
+                                                if(brand._id==productItem.brand)
+                                                    option.ps-3(value=brand._id selected)  #{brand.title}
+                                                else 
+                                                    option.ps-3(value=brand._id) #{brand.title}
                             .row
                                 .col-md-12
                                     .form-group

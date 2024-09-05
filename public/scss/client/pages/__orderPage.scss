@@ -40,10 +40,13 @@
 }
 .button-section a{
     border: 1px solid #9477b0 ;
-    background-color: #F78C9B;
     color:white;
     text-decoration: none;
     border-radius: 10px;
+}
+.button-section .detail-button{
+    background-color: #F78C9B;
+    
 }
 .total-text{
     color: #ffffff;
@@ -185,4 +188,6 @@
 #progressbar li.state:before{
     background: #4bb8a9;
 }
-
+.cancel-button{
+    background-color: #6f1de9;
+}
