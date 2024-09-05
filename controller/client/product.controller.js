@@ -89,9 +89,9 @@ module.exports.index = async (req, res) => {
   ];
 
   // const
-  res.render("client/page/productModel/index", {
+  res.render("client/page/product/index", {
     title: "Trang Chủ > Products >",
-    message: "This is productModel page!", 
+    message: "This is product page!", 
     products: listproduct,
     listRoute: listRouter,
     pagination: pagination,
@@ -137,9 +137,9 @@ module.exports.detailProduct = async (req, res) => {
   // }
 
   const listproduct = await productModel.find({category:productDetail.category}).limit(6);
-res.render("client/page/productModel/detailProduct", {
+res.render("client/page/product/detailProduct", {
     title: "Detail",
-    message: "This is productModel detail page !",
+    message: "This is productdetail page !",
     listproduct: listproduct,
     product:productDetail,
   });
