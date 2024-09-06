@@ -105,15 +105,16 @@ module.exports.index = async (req, res) => {
   try {
     
    const categories = await categoryModel.find({
-     delete: "false",
+     delete: false,
        status: "active"
 
    }).select('_id title parentId');;
+   
      const brands = await brandModel.find({
-       delete: "false",
+       delete: false,
        status:"active"
      }).select('_id title');;
-   const tree = createTree(categories)
+   const tree = createTree.createTree(categories)
   const listOption = status1.statusProduct(req.query);
   let find = {
     delete: "false",
@@ -230,12 +231,12 @@ module.exports.delete = async (req, res) => {
 module.exports.editGet = async (req, res) => {
   try {
     const categories = await categoryModel.find({
-      delete: "false"
+      delete: false
     }).select('_id title parentId');;
    const brands = await brandModel.find({
-     delete: "false"
+     delete: false
    }).select('_id title');;
-    const tree = createTree(categories)
+    const tree = createTree.createTree(categories)
     const productId = req.params.id;
     const productItem = await product.findOne({
       _id: productId
@@ -299,11 +300,11 @@ module.exports.update = async (req, res) => {
   }
 };
 module.exports.addNewProduct = async (req, res) => {
-       const categories = await categoryModel.find({delete:"false"}).select('_id title parentId');
+       const categories = await categoryModel.find({delete:false}).select('_id title parentId');
          const brands = await brandModel.find({
-           delete: "false"
+           delete: false
          }).select('_id title');;
-       const tree = createTree(categories);
+       const tree = createTree.createTree(categories);
   res.render("admin/pages/products/product-add", {
     tree: tree,brands:brands
   });

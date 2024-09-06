@@ -1,5 +1,5 @@
 // import "../../components/rangePrice";
-// import "../../common/pagination.client";
+import "../../common/pagination.client";
 //++++++++++++++++++++++Product-Detail++++++++++++++++++++++++++++=
 const filterBlock = document.querySelectorAll(".filter-block-collapse");
 filterBlock.forEach((element) => {

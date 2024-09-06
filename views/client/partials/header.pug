@@ -18,20 +18,22 @@ header.main-header-wrapper
                     ul.align-items-center.nav__list
                         li.nav__item
                             a.nav-title(href='/')  Home 
+                        li.nav__item
+                            a.nav-title(href='/products/')  Giày    
                         for category1 in categoriesTree
                             li.nav__item
-                                a(href='/products').nav-title #{category1.title}
+                                a(href=`/products/?category=${category1.slug}`).nav-title #{category1.title}
                                 if category1.child && category1.child.length>0
                                     .li-collapse.rounded-5.d-flex.d-row.shadow-lg
                                         for category2 in category1.child
                                             .collapse-item.mx-2.d-flex.flex-column.me-5
                                                 .item-title
-                                                    a(href="#") #{category2.title}
+                                                    a(href=`/products/?category=${category2.slug}`) #{category2.title}
                                                 hr.mb-4
                                                 if category2.child && category2.child.length>0
                                                     .item-content.d-flex.flex-column
                                                         for category3 in category2.child
-                                                            a.fw-normal.my-3 #{category3.title}
+                                                            a(href=`/products/?category=${category3.slug}`).fw-normal.my-3 #{category3.title}
                         li.nav__item
                             a.nav-title(href='#') Brands
                             .li-collapse.rounded-5.d-flex.d-row.shadow-lg
@@ -39,7 +41,7 @@ header.main-header-wrapper
                                     .item-content.d-flex.flex-column
                                         a(href="") 
                                         for brand in brands
-                                            a.fw-normal.my-3 #{brand.title}
+                                            a(href=`/products/?brand=${brand.slug}`) .fw-normal.my-3 #{brand.title}
                         li.nav__item
                             a.nav-title(href='#') Contact
                             .li-collapse.rounded-5.d-flex.d-row.shadow-lg
@@ -87,21 +89,21 @@ header.main-header-wrapper
                     for category1 in categoriesTree
                         .item.d-flex.flex-column 
                             .item-title.d-flex.flex-row.justify-content-between.align-items-center   
-                                a(href="#") #{category1.title}
+                                a(href=`/products/?category=${category1.slug}`) #{category1.title}
                                 .item-title-icon 
                             if category1.child && category1.child.length>0
                                 .item-collapse.overflow-hidden
                                     for category2 in category1.child
                                         .item.ms-4.d-flex.flex-column 
                                             .item-title.d-flex.flex-row.justify-content-between.align-items-center   
-                                                a(href="#") #{category2.title}
+                                                a(href=`/products/?category=${category2.slug}`) #{category2.title}
                                                 .item-title-icon 
                                             if category2.child && category2.child.length>0
                                                 .item-collapse.overflow-hidden
                                                     for category3 in category2.child
                                                         .item.ms-4.d-flex.flex-column 
                                                             .item-title.d-flex.flex-row.justify-content-between.align-items-center   
-                                                                a(href="#") Products
+                                                                a(href=`/products/?category=${category3.slug}`) Products
                                                                 .item-title-icon 
                     .item.d-flex.flex-column 
                         .item-title.d-flex.flex-row.justify-content-between.align-items-center   
@@ -111,7 +113,7 @@ header.main-header-wrapper
                             for brand in brands
                                 .item.ms-4.d-flex.flex-column 
                                     .item-title.d-flex.flex-row.justify-content-between.align-items-center   
-                                        a(href="#") #{brand.title}
+                                        a(href=`/products/?brand=${brand.slug}`) #{brand.title}
                                         .item-title-icon 
                     .item.d-flex.flex-column 
                         .item-title.d-flex.flex-row.justify-content-between.align-items-center   

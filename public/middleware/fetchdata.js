@@ -53,7 +53,6 @@ module.exports.getStaff = async (req, res, next) => {
 }
 module.exports.getRole = async (req, res, next) => {
     try {
-        console.log(req.session.staff)
         if (req.session.staff.role) {
 
             const role = await roleModel.findOne({

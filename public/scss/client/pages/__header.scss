@@ -50,6 +50,7 @@
       
     }
     .li-collapse{
+      
         position: absolute;
         z-index: 5;
         top: 158%;
@@ -67,11 +68,18 @@
         a{
           cursor: pointer;
         }
+        
         .collapse-item{
         height: fit-content;
         width: max-content;
           
-
+             a:hover{
+            color: rgb(33, 135, 183);
+            
+        }
+        a{
+          cursor: pointer;
+        }
         }
         .item-content{
         height: fit-content;
@@ -97,10 +105,7 @@
             text-decoration: none;
             cursor: pointer;
         }
-        .item-content a:hover{
-            color: rgb(33, 135, 183);
-            
-        }
+     
     }
   }
   .nav__item:hover .li-collapse{

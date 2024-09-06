@@ -1,7 +1,9 @@
 mixin pagination(pagination) 
-    nav.pagination_product(aria-label='...')
-        ul.pagination
-            if pagination.numberOfPage > 1
+    if pagination.numberOfPage > 1
+        hr.mx-auto.mb-5(style="width:80%")
+
+        nav.pagination_product(aria-label='...')
+            ul.pagination
                 li.page-item
                     a.fs-4.page-link(class=`${1 == pagination.pageCurrent ?"disabled":""}`, value = pagination.pageCurrent-1) Previous
                 - for (var x = 1; x <= pagination.numberOfPage ; x++)
@@ -9,4 +11,3 @@ mixin pagination(pagination)
                             a.fs-4.page-link.page_link-number(value = x) #{x}
                 li.page-item
                     a.fs-4.page-link(class=`${pagination.numberOfPage == pagination.pageCurrent ?"disabled":""}` value = pagination.pageCurrent+1) Next
-            else 

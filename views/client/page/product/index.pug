@@ -5,20 +5,33 @@ include ../../mixins/cart-menu.pug
 
 block main_content
   main.main-content
-    .row
-    .row.title-filter
-      .product-all-banner.d-flex.flex-column.justify-content-center.align-items-center.py-5.mb-5
-        span.big-text.mb-3   Products
-        ul.breadcrumbs.d-flex.flex-row
-          li.fs-1.fw-bold.breadcrumbs-item
-            a.breadcrumbs-link(href="") Home
-          li.fs-1.fw-bold.breadcrumbs-item
-            a.breadcrumbs-link(href="") yhs
-          li.fs-1.fw-bold.breadcrumbs-item
-            a.breadcrumbs-link(href="") sss
-          li.fs-1.fw-bold.breadcrumbs-item
-            a.breadcrumbs-link(href="") sss1
-    .product-content.container.custom-container.mt-5.pt-5
+    hr.mb-5(style="color:gray")
+    if(!filter.category)
+      .row.title-filter.mb-5.pb-5
+        .product-all-banner.d-flex.flex-column.justify-content-center.align-items-center.py-5.mb-5
+          span.big-text.mb-3   Products
+          ul.breadcrumbs.d-flex.flex-row
+            li.fs-1.fw-bold.breadcrumbs-item
+              a.breadcrumbs-link(href="/") Home
+            li.fs-1.fw-bold.breadcrumbs-item
+              a.breadcrumbs-link(href="") All Products
+    .product-content.container.custom-container
+      if(filter.category)
+        .row.title-filte.p-0
+          .product-all-banner.mb-5.rounded-5
+            .row.p-5
+              .col-xl-8.col-12.d-flex.justify-content-start.flex-column.pb-5
+                span.big-text.mb-3  #{filter.category.title}
+                ul.breadcrumbs.d-flex.flex-row.px-0
+                  li.fs-1.fw-bold.breadcrumbs-item
+                    a.breadcrumbs-link(href="/") Home
+                  li.fs-1.fw-bold.breadcrumbs-item
+                    a.breadcrumbs-link(href="") #{filter.category.title}
+                p.description-p.mt-3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque praesentium velit assumenda nulla expedita repellat fuga alias doloribus molestias reprehenderit accusantium commodi, error nobis, dolores, optio quo officia perspiciatis molestiae!
+              .col-1
+              .col-xl-3.col-12 
+                img.img-fluid.rounded-4(src=filter.category.thumbnail, alt="" style="height:278px")
+   
       .row 
         button.filter-button.py-3.rounded-4
           i.fa-solid.fa-sliders.mx-4
@@ -32,15 +45,26 @@ block main_content
               .filter-collapse.my-5.overflow-y-scroll.filter-collapse-active 
                 for category in categoriesTree
                   .item.my-5
-                    a(href="") #{category.title}
+                    if(filter.category && category._id==filter.category.id)
+                      a.active(href=`/products/?category=${category.slug}`) #{category.title}
+                    else 
+                      a(href=`/products/?category=${category.slug}`) #{category.title}
                   if category.child && category.child.length>0
                     for category1 in category.child 
                       .item.my-5
-                        a(href="") #{category1.title}
+                        if(filter.category && category1._id==filter.category.id)
+                          a.active(href=`/products/?category=${category1.slug}`)  #{category1.title}
+                        else 
+                          a(href=`/products/?category=${category1.slug}`)  #{category1.title}
+
                       if category1.child && category1.child.length>0
                         for category2 in category1.child 
                           .item.my-5
-                            a(href="") #{category2.title}
+                            if(filter.category && category2._id==filter.category.id)
+                              a.active(href=`/products/?category=${category1.slug}`)  #{category2.title}
+                            else 
+                              a(href=`/products/?category=${category2.slug}`)  #{category2.title}
+
                 
                 
             .filter-block-collapse  
@@ -49,31 +73,46 @@ block main_content
               .filter-collapse.my-5.overflow-y-scroll.filter-collapse-active 
                 for brand in brands
                   .item.my-5
-                    a(href="") #{brand.title}
+                    input.form-check-input.me-3(type="checkbox")
+                    span(href="") #{brand.title}
               hr
             .filter-block-collapse  
               a.filter-title.d-flex.flex-row.justify-content-between.align-items-center 
                 span Sizes
               .filter-collapse.my-5.overflow-y-scroll 
                 .item.my-4
-                  input.form-check-input.me-2(type="checkbox")
+                  input.form-check-input.me-3(type="checkbox")
                   span(href="") <39
                 .item.my-4
-                  input.form-check-input.me-2(type="checkbox")
+                  input.form-check-input.me-3(type="checkbox")
                   span(href="") 39
                 .item.my-4
-                  input.form-check-input.me-2(type="checkbox")
+                  input.form-check-input.me-3(type="checkbox")
                   span(href="") 40
                 .item.my-4
-                  input.form-check-input.me-2(type="checkbox")
+                  input.form-check-input.me-3(type="checkbox")
                   span(href="") 41
                 .item.my-4
-                  input.form-check-input.me-2(type="checkbox")
+                  input.form-check-input.me-3(type="checkbox")
                   span(href="") 42
                 .item.my-4
-                  input.form-check-input.me-2(type="checkbox")
+                  input.form-check-input.me-3(type="checkbox")
                   span(href="") >42
               hr
+            .filter-block-collapse  
+              a.filter-title.d-flex.flex-row.justify-content-between.align-items-center 
+                span Gender
+              .filter-collapse.my-5.overflow-y-scroll 
+                .item.my-4
+                  input.form-check-input.me-3(type="checkbox")
+                  span(href="") Boy
+                .item.my-4
+                  input.form-check-input.me-3(type="checkbox")
+                  span(href="") Girl
+                .item.my-4
+                  input.form-check-input.me-3(type="checkbox")
+                  span(href="") Unisex
+
             .filter-block-collapse 
               a.filter-title.d-flex.flex-row.justify-content-between.align-items-center 
                 span Prices
@@ -95,69 +134,28 @@ block main_content
             each product of products 
               .col-6.col-xxl-4.col-xl-6.px-4.mt-3
                   +product_item(product)
+          +pagination(pagination)
                   
 
-#exampleModal.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
-.modal-dialog
-    .modal-content
-    .modal-header
-        h1#exampleModalLabel.modal-title.fs-5 Modal title
-        button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
-    .modal-body
-        | ...
-    .modal-footer
-        button.btn.btn-secondary(type='button', data-bs-dismiss='modal') Close
-        button.btn.btn-primary(type='button') Save changes
-  //- section.breadcrumb-product
-  //-   +product_title(listRoute)
-  //- section.products.container
-  //-   .filter
-  //-     .row.filter__item
-  //-       .col-12.topCategoriesProduct
-  //-         nav 
-  //-           p1 Top Categories 
-  //-           ul
-  //-             li Nike Air
-  //-             li Puma
-  //-             li a
-  //-             li b
-  //-             li c
+  #quickViewModal.rounded-3.modal.fade(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden='true')
+        .modal-dialog.modal-dialog-centered.modal-xl.rounded-3
+          .modal-content.rounded-3
+              .modal-body.rounded-3
+                  form
+                      .row.p-5
+                          .col-lg-6
+                              img.rounded-5(src="https://minimalin-demo.myshopify.com/cdn/shop/files/gallery-2_770x.jpg?v=1691167477") 
+                          .col-lg-6.ps-5
+                              h1.mb-4.title Air fox 111
+                              h1.mb-4.price 2.000.000 d
+                              p.mb-4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque recusandae, ex velit ullam sint facilis exercitationem corrupti suscipit, possimus eum enim dicta distinctio quas ut, odit quidem quia rerum consequuntur?
+                              .d-flex.flex-row.align-items-center
+                                  p.me-5 Size:
+                                  select.ms-5.form-control.mb-4#selectSize(name="size")
+                                      option(value="39") 39
+                                      option(value="40") 40
+                              .cart-insert.d-flex.justify-content-start    
+                                  input.form-control.me-5(type="Number")   
+                                  button.px-4.py-4.rounded-2(type='button', data-bs-dismiss='modal') Add to cart
 
-  //-     .row.filter__item
-  //-       .col-12.rangePriceProduct
-  //-         nav
-  //-           div.titleRange
-  //-             p1 Price Range
-  //-           .double-slider-box
-  //-             .range-slider
-  //-               span.slider-track
-  //-               input.min-val(type='range' name='min_val' min='0' max='1200000' value='0' )
-  //-               input.max-val(type='range' name='max_val' min='0' max='1200000' value='1200000')
-  //-               .tooltip1.min-tooltip
-  //-               .tooltip1.max-tooltip
-  //-     .row.filter__item
-  //-       .col-12.size-option
-  //-         nav 
-  //-           p1 Size
-  //-           ul
-  //-             li
-  //-               .inner-size-option 37
-  //-             li
-  //-               .inner-size-option 38
-  //-             li
-  //-               .inner-size-option 39
-  //-             li
-  //-               .inner-size-option 40
-  //-             li
-  //-               .inner-size-option 41            
-  //-   section.listProducts
-  //-       nav.row.flex-wrap
-  //-         each item in product
-  //-           +product_item(item.thumbnail,item.title,item.price,item.priceNew,item.discountPercentage,item._id)
-        +pagination(pagination)
   script(src="/build/product_client.bundle.js") 
-
-
-        
-
-

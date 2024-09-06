@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 body {
   margin: 0;
@@ -240,7 +241,7 @@ background-color: rgb(231, 231, 231);
 }
 /*quick view modal*/
 #quickViewModal{
-   font-family: "Poppin",sans-serif;
+   font-family: "Poppins",sans-serif;
   img{
     height: 450px;
     width: 100%
@@ -324,7 +325,7 @@ transform: rotate(10deg);
   font-family: sans-serif;
 }
 .product-item2 img{
-  height: 340px;
+  height: 300px;
   width: 100%;
 
 } 
@@ -558,8 +559,13 @@ cursor: pointer;
   background-color:  rgb(231, 231, 231);
   .big-text{
   font-size: 40px;
-  font-weight: 500;
-  font-family: "Poppins",sans-serif;
+  font-weight: 600;
+   }
+   .description-p{
+    font-size: 16px;
+    font-family: "Poppins",sans-serif;
+    font-weight: 400;
+    color: rgb(102, 102, 102);
    }
   .breadcrumbs{
     li{
@@ -585,6 +591,7 @@ cursor: pointer;
 }
 }
 .product-content {
+  padding: 0 50px;
   .filter-button{
     font-weight: 500;
     font-size: 25px;
@@ -610,7 +617,7 @@ cursor: pointer;
     }
     .filter-title span{
       width: 100%;
-      font-size: 25px;
+      font-size: 20px;
       font-weight: 500;
 
 
@@ -626,7 +633,7 @@ cursor: pointer;
     }
     
     .filter-collapse{
-      font-size: 20px;
+      font-size: 17px;
       font-family: "Poppins",sans-serif;
       transition: all 0.5s ease;
 
@@ -647,6 +654,9 @@ cursor: pointer;
         text-decoration: none;
         color:black ;
       }
+      a.active{
+        color: #0879f1;
+      }
       
 
     }
@@ -659,6 +669,7 @@ cursor: pointer;
      .filter-collapse a:hover{
         color: #0879f1;
       }
+      
 
   }
   .product-main{
@@ -963,6 +974,7 @@ footer{
 @import "./pages/__userPage";
 @import "./pages/__orderPage";
 @import "./pages/__slider";
+@import "./pages/__error";
 
 @media screen and (max-width: 1050px) {
    .header-bottom__logo{
@@ -973,7 +985,9 @@ footer{
 }
 
 @media screen and (max-width: 990px) {
-
+  .product-content{
+    padding: 0 5px;
+  }
   .sticky-div{
     position:static;
   }

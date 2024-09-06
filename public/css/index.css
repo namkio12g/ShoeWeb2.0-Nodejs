@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 body {
   margin: 0;
   top: 0;
@@ -239,7 +240,7 @@ footer {
 
 /*quick view modal*/
 #quickViewModal {
-  font-family: "Poppin", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 #quickViewModal img {
   height: 450px;
@@ -317,7 +318,7 @@ footer {
 }
 
 .product-item2 img {
-  height: 340px;
+  height: 300px;
   width: 100%;
 }
 
@@ -547,8 +548,13 @@ footer {
 }
 .product-all-banner .big-text {
   font-size: 40px;
-  font-weight: 500;
+  font-weight: 600;
+}
+.product-all-banner .description-p {
+  font-size: 16px;
   font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  color: rgb(102, 102, 102);
 }
 .product-all-banner .breadcrumbs li {
   list-style: none;
@@ -569,6 +575,9 @@ footer {
   color: rgb(13, 144, 231);
 }
 
+.product-content {
+  padding: 0 50px;
+}
 .product-content .filter-button {
   font-weight: 500;
   font-size: 25px;
@@ -591,7 +600,7 @@ footer {
 }
 .product-content .filter-menu .filter-title span {
   width: 100%;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 500;
 }
 .product-content .filter-menu .filter-title.filter-title-active::after {
@@ -603,7 +612,7 @@ footer {
   font-size: 20px;
 }
 .product-content .filter-menu .filter-collapse {
-  font-size: 20px;
+  font-size: 17px;
   font-family: "Poppins", sans-serif;
   transition: all 0.5s ease;
   max-height: 0;
@@ -620,6 +629,9 @@ footer {
 .product-content .filter-menu .filter-collapse a {
   text-decoration: none;
   color: black;
+}
+.product-content .filter-menu .filter-collapse a.active {
+  color: #0879f1;
 }
 .product-content .filter-menu .filter-collapse-active {
   max-height: 350px;
@@ -989,6 +1001,12 @@ footer {
   height: fit-content;
   width: max-content;
 }
+.header-bottom .nav__item .li-collapse .collapse-item a:hover {
+  color: rgb(33, 135, 183);
+}
+.header-bottom .nav__item .li-collapse .collapse-item a {
+  cursor: pointer;
+}
 .header-bottom .nav__item .li-collapse .item-content {
   height: fit-content;
   width: max-content;
@@ -1009,9 +1027,6 @@ footer {
   color: black;
   text-decoration: none;
   cursor: pointer;
-}
-.header-bottom .nav__item .li-collapse .item-content a:hover {
-  color: rgb(33, 135, 183);
 }
 .header-bottom .nav__item:hover .li-collapse {
   top: 80%;
@@ -1697,6 +1712,49 @@ footer {
   padding: 0 30px;
 }
 
+.page_404 {
+  padding: 40px 0;
+  background: #fff;
+  font-family: "Arvo", serif;
+}
+
+.page_404 img {
+  width: 100%;
+}
+
+.four_zero_four_bg {
+  background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+  height: 400px;
+  background-position: center;
+}
+
+.four_zero_four_bg h1 {
+  font-size: 80px;
+}
+
+.four_zero_four_bg h3 {
+  font-size: 80px;
+}
+
+.link_404 {
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: #0d88e6;
+  margin: 20px 0;
+  display: inline-block;
+}
+
+.contant_box_404 {
+  margin-top: -50px;
+}
+
+.link_404:hover {
+  color: #1160e9 !important;
+  background: #ffffff;
+  border: 1px solid black;
+}
+
 @media screen and (max-width: 1050px) {
   .header-bottom__logo {
     width: 0;
@@ -1704,6 +1762,9 @@ footer {
   }
 }
 @media screen and (max-width: 990px) {
+  .product-content {
+    padding: 0 5px;
+  }
   .sticky-div {
     position: static;
   }

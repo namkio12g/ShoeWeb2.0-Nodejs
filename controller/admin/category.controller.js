@@ -127,7 +127,7 @@ module.exports.index=async(req,res)=>{
  
         // .limit(pagination.numberOfProduct)
         // .skip(pagination.positionProduct);
-    const tree = createTree(list)
+    const tree = createTree.createTree(list)
     let detailCategory;
     if (req.query.idDetail) {
         detailCategory = list.find(
@@ -157,7 +157,7 @@ module.exports.createGet = async (req, res) => {
          delete: "false",
      };
      const categories = await categoryModel.find(find).select('_id title parentId');;
-     const tree=createTree(categories)
+     const tree=createTree.createTree(categories)
     res.render("admin/pages/categories/create.pug",{ 
         tree:tree
     })
@@ -172,7 +172,7 @@ module.exports.editGet = async (req, res) => {
             _id: req.params.id
         })
         console.log(item)
-        const tree = createTree(categories)
+        const tree = createTree.createTree(categories)
         res.render("admin/pages/categories/edit.pug", {
             tree: tree,
             item:item

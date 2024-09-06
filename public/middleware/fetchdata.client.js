@@ -9,7 +9,7 @@ module.exports.getBrands = async (req, res, next) => {
                 "position": "asc"
             })
 
-    res.locals.categoriesTree = createTree(list)
+    res.locals.categoriesTree = createTree.createTree(list)
     next()
 
 }

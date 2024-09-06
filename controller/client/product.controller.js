@@ -3,6 +3,9 @@ const categoryModel = require("../../model/category.model");
 const brandModel = require("../../model/brand.model");
 const mongoose = require('mongoose');
 const getPagination = require("../../helpers/getPagination");
+const createTree = require("../../helpers/categoryTree");
+
+
 // getProductQuickView
 module.exports.getProductQuickView = async (req, res) => {
   try {
@@ -40,43 +43,32 @@ module.exports.getProductQuickView = async (req, res) => {
 // [GET] /products
 module.exports.index = async (req, res) => {
   // const listOption = listOption1(req.query);
+  try{
+  
   let find = {
     delete: "false",
   };
-  let listRangePrice = [
-    {
-      text: "0-500000",
-      value: "0-500000",
-      id: "rangePrice1",
-    },
-    {
-      text: "500000-1000000",
-      value: "500000-1000000",
-      id: "rangePrice2",
-    },
-    {
-      text: "1000000-5000000",
-      value: "1000000-5000000",
-      id: "rangePrice3",
-    },
-    {
-      text: "6000000",
-      value: "6000000",
-      id: "rangePrice4",
-    },
-  ];
-  var listRange;
-
-  if (req.query.range) {
-    listRange = req.query.range.split("-");
-    const listRangeInt = listRange.map((item) => {
-      return parseInt(item);
+  let category;
+  if(req.query.category){
+    category = await categoryModel.findOne({
+      slug: req.query.category
     });
-    find.price = { $gte: listRange[0], $lte: listRange[1] };
-  }
-  console.log(find)
+
+     const categories = await categoryModel.find({
+       delete: false,
+       status: "active"
+     }).select('_id title parentId thumbnail');;
+     const tree = 
+     createTree.createTree(categories)
+     const categoryFindId = createTree.getSubCategories(tree, category._id)
+     console.log(categoryFindId)
+    find.category = {
+      $in: categoryFindId
+    }
+   }
+   
   const numberDocument = await productModel.countDocuments(find);
-  const pagination = getPagination(req.query, 8, numberDocument);
+  const pagination = getPagination(req.query, 9, numberDocument);
   const listproduct = await productModel
     .find(find)
     .limit(pagination.numberOfProduct)
@@ -95,22 +87,27 @@ module.exports.index = async (req, res) => {
     products: listproduct,
     listRoute: listRouter,
     pagination: pagination,
-    listRangePrice: listRangePrice,
     rangePrice: req.query.range,
+      filter: {
+        category: category
+      }
   });
+}
+  catch(err){
+    console.log(err)
+res.render("client/page/error/404Error", {})
+  }
 };
 // [GET] /products/detail/:id
 module.exports.detailProduct = async (req, res) => {
   try{
   const identifier = req.params.identifier;
-  console.log(identifier)
   const isObjectId = mongoose.Types.ObjectId.isValid(identifier);
   const productDetail = isObjectId 
       ?await productModel.findById(identifier) 
       :await productModel.findOne({
         slug: identifier
       });
-  console.log(productDetail)
   const category = await categoryModel.findOne({
     _id: productDetail.category
   });
@@ -142,6 +139,7 @@ res.render("client/page/product/detailProduct", {
     message: "This is productdetail page !",
     listproduct: listproduct,
     product:productDetail,
+  
   });
    }
    catch(err){
