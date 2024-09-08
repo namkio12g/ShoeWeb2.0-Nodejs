@@ -45,7 +45,11 @@ mixin order_item(order,user)
                         .button-section.d-flex.flex-row.justify-content-between.align-items-center.px-5
                             span.fs-3.total-text Total:
                                 span #{order.totalFormatted}
-                            .ms-2
+                            .ms-2.d-flex.flex-row.justify-content-center.align-items-center
                                 if order.status<3
-                                    a.mx-3.cancel-button(href=`/order/detail/${order._id}`).fs-4.px-5.py-2 Cancel
+                                    form.mx-3(action=`/order/cancel/${order._id}` method="POST") 
+                                        button.cancel-button.fs-4.px-5.py-2.border.rounded-4(style="color:white") Cancel
+                                if order.status==5
+                                    form.mx-3(action=`/order/OrderAgain/${order._id}` method="POST") 
+                                        button.cancel-button.fs-4.px-5.py-2.border.rounded-4(style="background-color:yellow;color:gray") Order again
                                 a.detail-button(href=`/order/detail/${order._id}`).fs-4.px-5.py-2 Detail 

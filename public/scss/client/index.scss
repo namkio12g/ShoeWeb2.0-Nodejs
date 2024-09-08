@@ -148,6 +148,10 @@ footer{
         box-shadow: 0px 2px 2px rgb(141, 139, 139);
         cursor: pointer;
         transition: all 0.4s ease;
+        button{
+          border: none;
+          background-color: transparent;
+        }
       }
       .icon-cancel:hover{
         background-color: red;

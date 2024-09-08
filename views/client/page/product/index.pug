@@ -4,6 +4,7 @@ include ../../mixins/product-item.pug
 include ../../mixins/cart-menu.pug
 
 block main_content
+  +cart-menu(cart )
   main.main-content
     hr.mb-5(style="color:gray")
     if(!filter.category)

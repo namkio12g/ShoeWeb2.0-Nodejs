@@ -10,30 +10,24 @@ mixin cart-menu(cart)
                 span.fs-2 Your cart is empty
         else
             .row.list-section.product-list-loop.px-3 
-                .product-cart-item2.d-flex.flex-row 
-                    .img-section
-                        a(href="/") 
-                            img.rounded-3(src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")
-                        span.icon-cancel.py-2.px-3
-                            i.fs-3.fa-solid.fa-x
-                    .product-cart-info.d-flex.flex-column.ms-5 
-                        a.fs-3.title-text Tb. Dark Lipstick - red
-                        span.fs-3 1 x 985.000d
-                hr.my-4
-                .product-cart-item2.d-flex.flex-row 
-                    .img-section
-                        a(href="/") 
-                            img.rounded-3(src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp")
-                        span.icon-cancel.py-2.px-3
-                            i.fs-3.fa-solid.fa-x
-                    .product-cart-info.d-flex.flex-column.ms-5 
-                        a.fs-3.title-text Tb. Dark Lipstick - red
-                        span.fs-3 1 x 985.000d
+                for product in cart.products
+                    .product-cart-item2.d-flex.flex-row 
+                        .img-section
+                            a(href=`/products/detail/${product.slug}`) 
+                                img.rounded-3(src=product.thumbnail)
+                            form(method="POST" action="/cart/delete").icon-cancel.py-2.px-2
+                                input(type="hidden" name="productId" value=product.id)
+                                input(type="hidden" name="size" value=product.size)
+                                button.fs-3.fa-solid.fa-x
+                        .product-cart-info.d-flex.flex-column.ms-5 
+                            a.fs-3.title-text(href=`/products/detail/${product.slug}`) #{product.title} - #{product.size}
+                            span.fs-3 #{product.quantity} x #{product.price}
+                    hr.my-4
         hr
         .subtotal-text.d-flex.flex-row.justify-content-between.align-items-center.py-4
             .span.fs-2.fw-bold Subtotal:
             if cart.products
-                .span.fs-2.fw-bold.price-text 6.000.
+                .span.fs-2.fw-bold.price-text #{cart.total} 
             else 
                 .span.fs-2.fw-bold.price-text 0
         hr

@@ -7,5 +7,7 @@ router.patch("/update", controller.update);
 router.get("/index",controller.index);
 router.post("/add", controller.add);
 router.delete("/delete", controller.delete);
+router.post("/delete", controller.delete);
+
 
 module.exports = router;

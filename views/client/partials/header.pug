@@ -39,9 +39,8 @@ header.main-header-wrapper
                             .li-collapse.rounded-5.d-flex.d-row.shadow-lg
                                 .collapse-item.mx-2.d-flex.flex-column.mx-3
                                     .item-content.d-flex.flex-column
-                                        a(href="") 
                                         for brand in brands
-                                            a(href=`/products/?brand=${brand.slug}`) .fw-normal.my-3 #{brand.title}
+                                            a.fw-normal.my-3(href=`/products/?brand=${brand.slug}`) #{brand.title}
                         li.nav__item
                             a.nav-title(href='#') Contact
                             .li-collapse.rounded-5.d-flex.d-row.shadow-lg

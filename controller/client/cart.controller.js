@@ -17,17 +17,26 @@ if (req.session.user) {
             const product = await productModel.findOne({
                     _id: item.productId
                 });
-                total = parseInt(total) + (item.quantity * product.price)
+                let price = ((100 - parseInt(product.discountPercentage)) * parseInt(product.price)) / 100
+                total = parseInt(total) + parseInt(price)
                 products.push({
                     title: product.title,
                     thumbnail: product.thumbnail,
                     size: item.size,
                     quantity: item.quantity,
-                    price:((100-parseInt(product.discountPercentage)) * parseInt(product.price)) / 100,
-                    id:item.productId
+                    price: product.priceAfterDiscountFormatted,
+                    id:item.productId,
+                    slug:product.slug
                 });
            }
-        res.locals.cart = {_id:cart._id,products:products,total:total};
+        res.locals.cart = {
+            _id: cart._id,
+            products: products,
+            total: new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(total)
+        };
     } catch (err) {
         console.error(err);
         res.locals.cart = {_id:"null"}; 
@@ -189,10 +198,11 @@ module.exports.delete = async (req, res) => {
             }
         })
         .then(updatedCart => {
-       
+       res.redirect("back")
+
         })
         .catch(error => {
-        
+       res.redirect("back")
         });
 }
 

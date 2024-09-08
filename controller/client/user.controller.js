@@ -12,7 +12,7 @@ module.exports.orders=async(req,res)=>{
 
     }
     else{
-        res.render("client/page/home/index.pug")
+        res.redirect("/")
     }
 }
 module.exports.setDefault=async (req,res)=>{
@@ -47,10 +47,12 @@ module.exports.setDefault=async (req,res)=>{
             res.render("client/page/user/address.pug", {})
         }
          else
-         res.render("client/page/home/index.pug", {})
+                 res.redirect("/")
+
     }
 else
-    res.render("client/page/home/index.pug", {})
+            res.redirect("/")
+
 }
 module.exports.updateAddress = async (req, res) => {
     if (req.session.user) {
@@ -73,9 +75,11 @@ module.exports.updateAddress = async (req, res) => {
                       })
             res.redirect("back")
         } else
-            res.render("client/page/home/index.pug", {})
+                    res.redirect("/")
+
     } else
-        res.render("client/page/home/index.pug", {})
+                res.redirect("/")
+
 }
 module.exports.addAddress = async (req, res) => {
     if(req.session.user){
@@ -109,7 +113,8 @@ module.exports.addAddress = async (req, res) => {
      res.redirect("back")
     }
     else {
-        res.render("client/page/home/index.pug", {})
+                res.redirect("/")
+
     }
 }
 module.exports.index=async(req,res)=>{
@@ -131,8 +136,8 @@ module.exports.index=async(req,res)=>{
     })
     }
     else{
-         res.render("client/page/home/index.pug", {
-         })
+               res.redirect("/")
+
     }
 }
 module.exports.address = async (req, res) => {
@@ -148,6 +153,7 @@ module.exports.address = async (req, res) => {
   
         })
     } else {
-        res.render("client/page/home/index.pug", {})
+                res.redirect("/")
+
     }
 }

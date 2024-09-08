@@ -1,7 +1,8 @@
 extends ../../layout/default.pug
 
-
+include ../../mixins/cart-menu.pug
 block main_content
+    +cart-menu(cart )
     .container
         .row.mt-5.justify-content-center.d-flex
             .col-lg-3.col-md-12.px-0.pb-5.me-3.border(style="background-color:white;height:fit-content;border-radius:15px")

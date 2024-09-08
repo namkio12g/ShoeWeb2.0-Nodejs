@@ -4,13 +4,40 @@ const customerModel = require("../../model/customer.model")
 const accountModel = require("../../model/account.model")
 const cartModel = require("../../model/cart.model")
 const productModel=require("../../model/product.model")
+module.exports.cancel = async (req, res) => {
+       try {
+           const orderId = req.params.id;
+           await orderModel.findOneAndUpdate({_id:orderId},{status:5})
+           res.redirect("back")
+       } catch (error) {
+
+       }
+}
+module.exports.orderAgain = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+        await orderModel.findOneAndUpdate({
+            _id: orderId
+        }, {
+            status: 1
+        })
+        res.redirect("back")
+    } catch (error) {
+
+    }
+}
 module.exports.orderDetail = async (req, res) => {
-    const orderId = req.params.id;
-    const order = await orderModel.findById(orderId)
-    res.render("client/page/user/orderDetail.pug", {
-        order:order
+    try {
+         const orderId = req.params.id;
+         const order = await orderModel.findById(orderId)
+         res.render("client/page/user/orderDetail.pug", {
+             order: order
+
+         })
+    } catch (error) {
+        
+    }
    
-    })
 }
 module.exports.createOrder=async (req,res)=>{
     if(req.session.user){

@@ -148,6 +148,10 @@ footer {
   cursor: pointer;
   transition: all 0.4s ease;
 }
+.cart-menu .list-section .img-section .icon-cancel button {
+  border: none;
+  background-color: transparent;
+}
 .cart-menu .list-section .img-section .icon-cancel:hover {
   background-color: red;
 }

@@ -61,7 +61,6 @@ module.exports.index = async (req, res) => {
      const tree = 
      createTree.createTree(categories)
      const categoryFindId = createTree.getSubCategories(tree, category._id)
-     console.log(categoryFindId)
     find.category = {
       $in: categoryFindId
     }
