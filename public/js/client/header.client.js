@@ -1,7 +1,68 @@
 const productsInCart = document.querySelectorAll(".product-cart-hover")
 const Swal = require('sweetalert2')
 const headerBot = document.querySelector(".header-bottom")
-//-- hedaer expand in small size 
+//-----search expand-----///
+const btnSearch=document.querySelector(".btn-search")
+const btnCancel = document.querySelector(".btn-cancel")
+const MenuExpand= document.querySelector(".menu-expand")
+const MenusearchExpand = document.querySelector(".menu-search-expand")
+
+const inputSearch=MenuExpand.querySelector(".input-search");
+
+btnSearch.addEventListener("click",()=>{
+    btnCancel.classList.toggle("active");
+    btnSearch.classList.toggle("active");
+    MenuExpand.classList.toggle("active");
+})
+btnCancel.addEventListener("click",()=>{
+     btnCancel.classList.toggle("active");
+     btnSearch.classList.toggle("active");
+     MenuExpand.classList.toggle("active");
+})
+inputSearch.addEventListener("keydown", async () => {
+    if (inputSearch.value == "" || inputSearch.value === "") {
+        MenusearchExpand.classList.remove("active")
+        MenusearchExpand.innerHTML=""
+    }
+    else{
+        
+        MenusearchExpand.classList.add("active");
+        const keyword = inputSearch.value;
+        let response = await fetch("/products/searching", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                keyword
+            })
+        });
+        if (response.ok) {
+            const res = await response.json()
+            MenusearchExpand.innerHTML = ""
+            res.products.forEach((product)=>{
+                MenusearchExpand.innerHTML += ` 
+                <a href = "/products/detail/${product.slug}" class = "row">
+                    <div class = "col-3"> 
+                    <img class = "rounded-3" src = "${product.thumbnail}"
+                    alt = ""/> 
+                    </div> 
+                    <div class = "col-8 d-flex justify-content-center flex-column"> 
+                        <span class = "product-title">${product.title}</span>
+                        <span class="product-price">${product.price}₫<span> 
+                    </div>
+                </a>
+                <hr>`
+
+            })
+        }
+        MenusearchExpand.innerHTML += `
+        <span style = 'color:rgb(147, 146, 146)'> Search
+        for "${inputSearch.value}" </span>
+        `
+    }
+})
+//-- header expand in small size 
 //------show the header expand and hide expand
 
 const hedaerExpand = document.querySelector(".header-bottom-expand")

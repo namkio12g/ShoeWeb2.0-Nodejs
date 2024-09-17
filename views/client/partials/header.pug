@@ -10,6 +10,9 @@ header.main-header-wrapper
                         i(class="fa-solid fa-envelope")
                     |   example@example.com
                 .header-top-infor.d-flex
+                    if(user)
+                        span Welcome #{user.email}
+                          
 
 
     nav.header-bottom.container-fluid.align-items-center.mb-2.py-3
@@ -67,8 +70,42 @@ header.main-header-wrapper
                         li.menu-cart.nav__item.menu-bars 
                             i.fa-solid.fa-bars
                         li.menu-search.nav__item
-                            input.input-search(type='text' placeholder='Bạn tìm kiếm gì?')
-                            i.fa-solid.fa-magnifying-glass.btn-search
+                            i.fa-solid.fa-x.btn-cancel
+                            i.fa-solid.fa-magnifying-glass.btn-search.active
+                            .menu-expand.border.shadow-lg
+                                input.input-search(type='text' placeholder='Bạn tìm kiếm gì?')
+                                i.fa-solid.fa-magnifying-glass.btn-search.mx-3.active.mt-2
+                                .menu-search-expand.border.shadow-lg.rounded-2.px-3.py-4
+                                    a.row 
+                                        .col-3
+                                            img.rounded-3(src="https://img.ltwebstatic.com/images3_spmp/2024/06/19/d4/171876705416c45de7fd776a1d35a2360a1cd1f235.webp", alt="")
+                                        .col-8.d-flex.justify-content-center.flex-column  
+                                            span.product-title S. Mokmol Jacket
+                                            span.product-price 825.000₫
+                                    hr
+                                    a.row 
+                                        .col-3
+                                            img.rounded-3(src="https://img.ltwebstatic.com/images3_spmp/2024/06/19/d4/171876705416c45de7fd776a1d35a2360a1cd1f235.webp", alt="")
+                                        .col-8.d-flex.justify-content-center.flex-column  
+                                            span.product-title S. Mokmol Jacket
+                                            span.product-price 825.000₫
+                                    hr
+                                    a.row 
+                                        .col-3
+                                            img.rounded-3(src="https://img.ltwebstatic.com/images3_spmp/2024/06/19/d4/171876705416c45de7fd776a1d35a2360a1cd1f235.webp", alt="")
+                                        .col-8.d-flex.justify-content-center.flex-column  
+                                            span.product-title S. Mokmol Jacket
+                                            span.product-price 825.000₫
+                                    hr
+                                    a.row 
+                                        .col-3
+                                            img.rounded-3(src="https://img.ltwebstatic.com/images3_spmp/2024/06/19/d4/171876705416c45de7fd776a1d35a2360a1cd1f235.webp", alt="")
+                                        .col-8.d-flex.justify-content-center.flex-column  
+                                            span.product-title S. Mokmol Jacket
+                                            span.product-price 825.000₫
+                                    hr
+                                    span(style="color:rgb(147, 146, 146)")  Search for "ddd"
+                            
                         li.menu-cart.nav__item.mx-2
                             if(user)
                                 a.fs-1(href="/user" style="text-decoration:none;color:black")

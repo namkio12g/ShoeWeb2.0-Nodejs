@@ -1005,7 +1005,23 @@ footer{
 }
 
 @media screen and (max-width: 990px) {
- 
+  .header-bottom{
+    .home-cart{
+
+    
+    margin-top:20px;
+    }
+   .menu-search{
+    padding: 4px;
+    color: #0879f1;
+
+
+  }
+  .input-search {
+    padding:5px 10px;
+
+  }
+}
   .product-content{
     padding: 0 5px;
   }
@@ -1046,6 +1062,7 @@ footer{
     display: none;
   }
     .menu-bars{
+      padding-top: 10px;
     visibility: visible;
   }
    .header-bottom__logo{
@@ -1061,6 +1078,7 @@ footer{
   }
 }
 @media only screen and (max-width: 768px) {
+
   .carousel-section {
     margin: 0px;
  

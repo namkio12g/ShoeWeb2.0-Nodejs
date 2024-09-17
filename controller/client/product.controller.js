@@ -4,7 +4,37 @@ const brandModel = require("../../model/brand.model");
 const mongoose = require('mongoose');
 const getPagination = require("../../helpers/getPagination");
 const createTree = require("../../helpers/categoryTree");
+// searching
+module.exports.getSearching =async (req,res)=>{
+  try{
+    const products=await productModel.find({
+      title: {
+      $regex: req.body.keyword,
+      $options: 'i'
+      }
+      }).limit(4).select("slug title price thumbnail")
+      if(products){
+        products.forEach((product)=>{
+          product.price = product.priceAfterDiscountFormatted;
+        })
+          res.status(200).json({
+            products: products,
+          });
+      }else{
+          res.status(200).json({
+            products: [],
+          });
+      }
+    
+  }
+  catch(err){
+    res.status(404).json({
+      success: false,
+      message: "fail to find products"
+    });
 
+  }
+}
 
 // getProductQuickView
 module.exports.getProductQuickView = async (req, res) => {

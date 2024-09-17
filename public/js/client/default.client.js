@@ -39,7 +39,6 @@ if(quickViewBtn){
                 })
             });
             if(response.ok){
-                console.log("123123")
                 const res = await response.json()
                 quickView.querySelector("img").src=res.product.thumbnail;
                 quickView.querySelector(".price").innerHTML = res.product.price;

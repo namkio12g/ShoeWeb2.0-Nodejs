@@ -4,6 +4,7 @@ const controller = require("../../controller/client/product.controller");
 
 router.get("/", controller.index);
 router.post("/getProductQuickView", controller.getProductQuickView);
+router.post("/searching", controller.getSearching);
 
 router.get("/detail/:identifier", controller.detailProduct);
 

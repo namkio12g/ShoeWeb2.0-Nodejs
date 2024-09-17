@@ -7,6 +7,13 @@
   width: 100%;
   background-color: var(--base-bg-color);
 }
+ .header-top-infor{
+  span{
+    color: white;
+    font-size: 1.5rem;
+    
+  }
+ }
 .header-bottom {
   width: 100%;
 
@@ -120,25 +127,96 @@
   }
 
   .menu-search {
+    width: 100px;
+    height: 30px;
     position: relative;
+    border-radius: 5px;
+      z-index: 3;
+      color: black;
+   .btn-cancel{
+    top: 29%;
+    right: 10px;
+    position: absolute;
+    font-size: 2rem;
+    display: none;
+    cursor: pointer;
+   }
+    .btn-cancel.active{
+    display: block;
+  }
+    .menu-expand{
+      background-color: #ffffff;
     margin-right: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+      position: absolute;
+      right:-80%;
+      top: 200%;
+      height: fit-content;
+      display: none;
+
+    }
+    .menu-expand.active{
+      display: block;
+
+    }
+    .menu-search-expand{
+
+      position: absolute;
+      left:0;
+      top: 100%;
+      width: 100%;
+      background-color: white;
+      z-index: 3;
+      height: fit-content;
+      display: none;
+      .row{
+        text-decoration: none;
+        cursor: pointer;
+      }
+     span{
+      font-family: sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: rgb(26, 26, 26);
+      text-decoration: none;
+     }
+     .product-price{
+      color: rgb(60, 218, 250);
+      
+     }
+    }
+    .menu-search-expand.active{
+      display: block;
+    }
+
+
   }
   .input-search {
-    max-width: 30rem;
-    width: auto;
-    border: 1px solid #ffffff;
-    background-color: #e8e8e8;
-    border-radius: 2.5rem;
-    height: 4rem;
-    padding-left: 0.5rem;
+    max-width: 35rem;
+    width: 300px;
+    border-radius: 5px;
+    padding:19px 15px;
     font-weight: bold;
+    outline: none;
+    border: 1px solid rgb(220, 221, 221);
+    cursor: pointer;
+
+  }
+  .input-search:focus{
+    border: 1px solid rgb(57, 166, 228);
   }
   .btn-search {
     top: 29%;
     right: 10px;
     position: absolute;
-    color: brown;
     font-size: 2rem;
+    display: none;
+    cursor: pointer;
+
+  }
+  .btn-search.active{
+    display: block;
   }
   .menu-cart {
     font-size: 3rem;
