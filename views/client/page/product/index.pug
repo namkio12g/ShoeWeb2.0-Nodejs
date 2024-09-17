@@ -40,6 +40,8 @@ block main_content
       .row
         .col-xxl-3.col-sm-12.col-lg-4.col-lg-4.pe-5.mt-3
           .col-12.filter-menu
+            .text-center.d-flex
+              a.clear-button(href="/products/") Clear
             .filter-block-collapse
               a.filter-title.d-flex.flex-row.justify-content-between.align-items-center.filter-title-active
                 span Categories
@@ -74,60 +76,73 @@ block main_content
               .filter-collapse.my-5.overflow-y-scroll.filter-collapse-active 
                 for brand in brands
                   .item.my-5
-                    input.form-check-input.me-3(type="checkbox")
+                    input.form-check-input.me-3(type="checkbox" filter-name="brand" filter-data=brand.slug checked=(filter.brand&&filter.brand.includes(brand.slug)))
                     span(href="") #{brand.title}
               hr
-            .filter-block-collapse  
-              a.filter-title.d-flex.flex-row.justify-content-between.align-items-center 
-                span Sizes
-              .filter-collapse.my-5.overflow-y-scroll 
-                .item.my-4
-                  input.form-check-input.me-3(type="checkbox")
-                  span(href="") <39
-                .item.my-4
-                  input.form-check-input.me-3(type="checkbox")
-                  span(href="") 39
-                .item.my-4
-                  input.form-check-input.me-3(type="checkbox")
-                  span(href="") 40
-                .item.my-4
-                  input.form-check-input.me-3(type="checkbox")
-                  span(href="") 41
-                .item.my-4
-                  input.form-check-input.me-3(type="checkbox")
-                  span(href="") 42
-                .item.my-4
-                  input.form-check-input.me-3(type="checkbox")
-                  span(href="") >42
+            .filter-block-collapse 
+              if(filter.size) 
+                a.filter-title.d-flex.flex-row.justify-content-between.align-items-center.filter-title-active  
+                  span Sizes
+                .filter-collapse.my-5.overflow-y-scroll.filter-collapse-active 
+                  each size in sizes
+                    .item.my-4
+                      if(filter.size.includes(size))
+                        input.form-check-input.me-3(type="checkbox" filter-name="size" filter-data=size checked)
+                        span(href="") #{size}
+                      else 
+                        input.form-check-input.me-3(type="checkbox" filter-name="size" filter-data=size)
+                        span(href="") #{size}
+                 
+              else 
+                a.filter-title.d-flex.flex-row.justify-content-between.align-items-center 
+                    span Sizes
+                .filter-collapse.my-5.overflow-y-scroll
+                  each size in sizes
+                    .item.my-4
+                      input.form-check-input.me-3(type="checkbox" filter-name="size" filter-data=size)
+                      span(href="") #{size}
+                  
               hr
             .filter-block-collapse  
-              a.filter-title.d-flex.flex-row.justify-content-between.align-items-center 
+              a.filter-title.d-flex.flex-row.justify-content-between.align-items-center(class=filter.gender ? 'filter-title-active' : '') 
                 span Gender
-              .filter-collapse.my-5.overflow-y-scroll 
+              .filter-collapse.my-5.overflow-y-scroll(class=filter.gender ? 'filter-collapse-active' : '')  
                 .item.my-4
-                  input.form-check-input.me-3(type="checkbox")
-                  span(href="") Boy
+                  input.form-check-input.me-3(type="checkbox" filter-name="gender" filter-data="female" checked=(filter.gender&&filter.gender.includes("female")))
+                  span(href="") Female
                 .item.my-4
-                  input.form-check-input.me-3(type="checkbox")
-                  span(href="") Girl
+                  input.form-check-input.me-3(type="checkbox" filter-name="gender" filter-data="male" checked=(filter.gender&&filter.gender.includes("male")))
+                  span(href="") Male
                 .item.my-4
-                  input.form-check-input.me-3(type="checkbox")
+                  input.form-check-input.me-3(type="checkbox" filter-name="gender" filter-data="unisex" checked=(filter.gender&&filter.gender.includes("unisex")))
                   span(href="") Unisex
 
             .filter-block-collapse 
-              a.filter-title.d-flex.flex-row.justify-content-between.align-items-center 
+              a.filter-title.d-flex.flex-row.justify-content-between.align-items-center(class=filter.prices ? 'filter-title-active' : '')  
                 span Prices
-              .filter-collapse.my-5.overflow-scroll
+              .filter-collapse.my-5.overflow-scroll(class=filter.prices ? 'filter-collapse-active' : '')  
                 .col11.py-5
                   .range-slider
-                    input#minRange.slider(type='range', min='0', max='100', value='25')
-                    input#maxRange.slider(type='range', min='0', max='100', value='75')
+                    if(filter.prices)
+                      input#minRange.slider(type='range', min='0', max='100', value=parseInt(filter.prices[1])/10000000*100)
+                      input#maxRange.slider(type='range', min='0', max='100', value=parseInt(filter.prices[0])/10000000*100)
+                    else 
+                      input#minRange.slider(type='range', min='0', max='100', value='25')
+                      input#maxRange.slider(type='range', min='0', max='100', value='75')
                   .range-values.d-flex.flex-row.justify-content-between.align-items-center.my-4
-                    .range-text.me-3.px-4.py-2
-                      span.fs-3#minValue #{(parseInt("25")*10000000/100).toLocaleString()}
-                    .range-text.px-4.py-2
-                      span.fs-3#maxValue #{(parseInt("75")*10000000/100).toLocaleString()}
+                    if(filter.prices)
+                      .range-text.me-3.px-4.py-2
+                        span.fs-3#minValue #{parseInt(filter.prices[1]).toLocaleString()}
+                      .range-text.px-4.py-2
+                        span.fs-3#maxValue #{parseInt(filter.prices[0]).toLocaleString()}
+                    else 
+                      .range-text.me-3.px-4.py-2
+                        span.fs-3#minValue #{(25*10000000/100).toLocaleString()}
+                      .range-text.px-4.py-2
+                        span.fs-3#maxValue #{(75*10000000/100).toLocaleString()}
                   button.range-button.w-100.border.rounded-2 Search
+        
+                
               
               
         .col-xxl-9.col-lg-8.col-xl-8.col-sm-12.px-2.mt-3.product-main

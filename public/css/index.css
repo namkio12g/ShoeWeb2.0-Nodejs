@@ -597,6 +597,23 @@ footer {
   color: black;
   background-color: white;
 }
+.product-content .filter-menu .clear-button {
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  background-color: rgb(51, 119, 235);
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease;
+}
+.product-content .filter-menu .clear-button:hover {
+  color: white;
+  background-color: rgb(36, 80, 156);
+}
 .product-content .filter-menu .filter-title {
   text-decoration: none;
   color: black;
@@ -951,6 +968,9 @@ footer {
 .header-bottom div {
   height: 7rem;
 }
+.header-bottom .fa-user:hover {
+  color: aqua;
+}
 .header-bottom__logo {
   height: 90%;
   width: 70%;
@@ -1006,7 +1026,7 @@ footer {
   width: max-content;
 }
 .header-bottom .nav__item .li-collapse .collapse-item a:hover {
-  color: rgb(33, 135, 183);
+  color: rgb(12, 170, 219);
 }
 .header-bottom .nav__item .li-collapse .collapse-item a {
   cursor: pointer;
@@ -1783,11 +1803,6 @@ footer {
   .filter-menu-active {
     max-height: 1000px;
   }
-  .header-bottom__logo {
-    padding: 0;
-    height: 50%;
-    width: 50%;
-  }
   .header-bottom div {
     height: auto;
   }
@@ -1811,6 +1826,11 @@ footer {
   }
   .menu-bars {
     visibility: visible;
+  }
+  .header-bottom__logo {
+    padding: 0;
+    height: 100%;
+    width: 100%;
   }
 }
 @media only screen and (max-width: 600px) {

@@ -5,7 +5,10 @@ header.main-header-wrapper
                 .header-top__address
                     span 
                         i(class="fa-solid fa-location-dot")
-                    | ------Vinh Xuan, Phu Vang, TT Hue------
+                    |   City, State, ZIP Code
+                    span 
+                        i(class="fa-solid fa-envelope")
+                    |   example@example.com
                 .header-top-infor.d-flex
 
 
@@ -13,27 +16,33 @@ header.main-header-wrapper
         .row
             .col-12.header-bottom-infor.d-flex.justify-content-around
                 .header-bottom-infor__item.d-flex.justify-content-center
-                    img.header-bottom__logo.align-content-center(src='/images/Logo2.png' alt='' srcset='')
+                    a(href="/" style="cursor:pointer") 
+                        img.header-bottom__logo.align-content-center(src='/images/Logo2.png' alt='' srcset='')
                 nav.header-bottom-infor__item.home-menu
                     ul.align-items-center.nav__list
                         li.nav__item
                             a.nav-title(href='/')  Home 
                         li.nav__item
                             a.nav-title(href='/products/')  Giày    
-                        for category1 in categoriesTree
+                        for category in categoriesTree
                             li.nav__item
-                                a(href=`/products/?category=${category1.slug}`).nav-title #{category1.title}
-                                if category1.child && category1.child.length>0
-                                    .li-collapse.rounded-5.d-flex.d-row.shadow-lg
-                                        for category2 in category1.child
-                                            .collapse-item.mx-2.d-flex.flex-column.me-5
-                                                .item-title
-                                                    a(href=`/products/?category=${category2.slug}`) #{category2.title}
-                                                hr.mb-4
-                                                if category2.child && category2.child.length>0
-                                                    .item-content.d-flex.flex-column
-                                                        for category3 in category2.child
-                                                            a(href=`/products/?category=${category3.slug}`).fw-normal.my-3 #{category3.title}
+                                a(href=`/products/?category=${category.slug}`).nav-title #{category.title}
+                                .li-collapse.rounded-5.d-flex.d-row.shadow-lg
+                                    if category.child && category.child.length>0
+                                        .collapse-item.mx-2.d-flex.flex-column.mx-3
+                                            .item-content.d-flex.flex-column
+                                                for category1 in category.child
+                                                    a.fw-normal.my-3(href=`/products/?brand=${category1.slug}`) #{category1.title}
+                                    //- .li-collapse.rounded-5.d-flex.d-row.shadow-lg
+                                    //-     for category2 in category1.child
+                                    //-         .collapse-item.mx-2.d-flex.flex-column.me-5
+                                    //-             .item-title
+                                    //-                 a(href=`/products/?category=${category2.slug}`) #{category2.title}
+                                    //-             hr.mb-4
+                                    //-             if category2.child && category2.child.length>0
+                                    //-                 .item-content.d-flex.flex-column
+                                    //-                     for category3 in category2.child
+                                    //-                         a(href=`/products/?category=${category3.slug}`).fw-normal.my-3 #{category3.title}
                         li.nav__item
                             a.nav-title(href='#') Brands
                             .li-collapse.rounded-5.d-flex.d-row.shadow-lg
@@ -62,10 +71,10 @@ header.main-header-wrapper
                             i.fa-solid.fa-magnifying-glass.btn-search
                         li.menu-cart.nav__item.mx-2
                             if(user)
-                                a.fs-1(href="/user" style="text-decoration:none")
+                                a.fs-1(href="/user" style="text-decoration:none;color:black")
                                     i.fa-solid.fa-user
                             else
-                                a.fs-1(href="/login" style="text-decoration:none")
+                                a.fs-1(href="/login" style="text-decoration:none;color:black")
                                     i.fa-solid.fa-user
                                 
                         if(!indexCartFlag)
@@ -78,7 +87,8 @@ header.main-header-wrapper
         .row.overflow-y-scroll.pe-3
             .col-12
                 .title.d-flex.flex-row.justify-content-between.align-items-center
-                    img(src='/images/Logo2.png' alt='' srcset='')
+                    a(href="/") 
+                        img(src='/images/Logo2.png' alt='' srcset='' )
                     i.me-1.fs-3.fa-solid.fa-x
                 .header-expand-collapse.mt-5
                     .item.d-flex.flex-column 

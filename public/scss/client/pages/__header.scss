@@ -16,6 +16,9 @@
   div {
     height: 7rem;
   }
+  .fa-user:hover{
+    color: aqua;
+  }
   &__logo {
     height: 90%;
     width: 70%;
@@ -74,7 +77,7 @@
         width: max-content;
           
              a:hover{
-            color: rgb(33, 135, 183);
+            color: rgb(12, 170, 219)
             
         }
         a{

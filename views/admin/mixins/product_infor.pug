@@ -6,10 +6,10 @@ mixin product_infor(products,listOption,keyword,detailProduct1)
         .nameTitle Product List
     .row.searchAndStatus
         .col-md-5
-            form
+            form.form_search 
                 .row
                     .col-6
-                        .form-group.navbar.navbar_search.form_search 
+                        .form-group.navbar.navbar_search 
                             lable Tìm kiếm
                             input(type="text" value=keyword name="keyword" class="form-control",id="seach" placeholder="----------Bạn tìm kiếm gì----------" aria-label="Recipient's username" aria-describedby="button-addon2")
                             button(type='submit')

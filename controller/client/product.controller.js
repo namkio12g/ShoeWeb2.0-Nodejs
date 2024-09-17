@@ -44,10 +44,11 @@ module.exports.getProductQuickView = async (req, res) => {
 module.exports.index = async (req, res) => {
   // const listOption = listOption1(req.query);
   try{
-  
+  let sizes = ["35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45"];
   let find = {
     delete: "false",
   };
+  
   let category;
   if(req.query.category){
     category = await categoryModel.findOne({
@@ -65,7 +66,97 @@ module.exports.index = async (req, res) => {
       $in: categoryFindId
     }
    }
+   //brands filter
+  if (req.query.brand) {
+    let brands=[]
+    if (Array.isArray(req.query.brand)) {
+            let brandSlugs = req.query.brand;
+
+            brands = await Promise.all(
+              brandSlugs.map(async (brandSlug) => {
+                let brand = await brandModel.findOne({
+                  slug: brandSlug
+                }).select('_id title');
+                return brand ? brand._id : null;
+              })
+            );
+
+            brands = brands.filter(id => id);
+    }
+    else {
+      brand = await brandModel.findOne({
+        slug: req.query.brand
+      }).select('_id title');
+
+      brands.push(brand._id)
+    req.query.brand = [req.query.brand]
+
+    }
+  find.brand = {
+    $in: brands
+  }
+  }
+////Gender filter
+if (req.query.gender) {
+  let brands = []
+  if (Array.isArray(req.query.gender)) {
+    find.gender = {
+      $in: req.query.gender
+    }
+  } else {
+  find.gender = req.query.gender
+  }
+  
+}
+
+////Gender filter
+if (req.query.gender) {
+  if (Array.isArray(req.query.gender)) {
+    find.gender = {
+      $in: req.query.gender
+    }
+  } else {
+    req.query.gender = [req.query.gender]
+    find.gender = req.query.gender
+  }
+
+}
+//size filter
+if (req.query.size) {
+  if (Array.isArray(req.query.size)) {
+    let arraySizes=[]
+    req.query.size.forEach(element => {
+      arraySizes.push(parseInt(element))
+    });
+    find.size = {
+      $elemMatch: {
+              Value: {
+                $in: arraySizes
+              }
+      }
+    }
+  } else {
+    req.query.size = [req.query.size]
+
+    find.size = {
+      $elemMatch: {
+        Value: parseInt(req.query.size)
+        
+      }
+    }
+  }
+}
+//price filter
+if (req.query.prices) {
+  
+    find.price = {
+      $lte: parseInt(req.query.prices[0]),
+      $gte: parseInt(req.query.prices[1])
+    }
+
    
+}
+///
   const numberDocument = await productModel.countDocuments(find);
   const pagination = getPagination(req.query, 9, numberDocument);
   const listproduct = await productModel
@@ -86,10 +177,8 @@ module.exports.index = async (req, res) => {
     products: listproduct,
     listRoute: listRouter,
     pagination: pagination,
-    rangePrice: req.query.range,
-      filter: {
-        category: category
-      }
+    sizes:sizes,
+    filter: req.query
   });
 }
   catch(err){
