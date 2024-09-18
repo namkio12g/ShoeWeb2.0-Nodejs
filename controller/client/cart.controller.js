@@ -130,6 +130,41 @@ module.exports.index= async(req,res)=>{
         res.redirect("back")
 
 }
+module.exports.quickAdd = async (req, res) => {
+    let flag = true;
+    console.log(req.body)
+    if (req.session.user) {
+        const cart = await cartModel.findOne({
+            customerId: req.session.user._id,
+
+        });
+        if (cart) {
+            const item = cart.products.find(item => (item.productId === req.body.id && item.size === parseInt(req.body.size)));
+            if (item) {
+                flag = false;
+                item.quantity = (parseInt(item.quantity) + parseInt(req.body.quantity));
+                await cart.save();
+            }
+        }
+        if (flag) {
+            await cartModel.findOneAndUpdate({
+                    customerId: req.session.user._id,
+                }, {
+                    $push: {
+                        products: {
+                            productId: req.body.id,
+                            size: req.body.size,
+                            quantity: req.body.quantity,
+                        }
+                    }
+                })
+        res.redirect("back");
+    } else {
+        res.redirect("back");
+    }
+
+}
+}
 module.exports.add = async(req,res)=>{
         let flag=true;
         console.log(req.body)
@@ -161,18 +196,16 @@ module.exports.add = async(req,res)=>{
                 }
             }
         ).then(updatedCart => {
-               ;
             })
             .catch(error => {
-               
             });
             
   
 }
- res.json({
-     success: true,
-     message: "Add success!"
- });
+            res.json({
+                success: true,
+                message: "Add success!"
+            });
         }
         else{
             res.json({
@@ -183,6 +216,7 @@ module.exports.add = async(req,res)=>{
 
 }
 module.exports.delete = async (req, res) => {
+    try{
        const {
            productId,
             size
@@ -204,5 +238,9 @@ module.exports.delete = async (req, res) => {
         .catch(error => {
        res.redirect("back")
         });
+    }
+    catch(err){
+        console.log(err)
+    }
 }
 

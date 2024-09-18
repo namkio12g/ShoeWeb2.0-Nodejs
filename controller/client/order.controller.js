@@ -78,14 +78,14 @@ module.exports.createOrder=async (req,res)=>{
         const cart = await cartModel.findOne({customerId:req.session.user._id});
         let total=0
         let quantityTotal=0
-        let products=[]
-
+        let products=[] 
+        if(cart.products.length>0){
         for (let item of cart.products) {
             const product= await productModel.findOne({_id:item.productId})
-            let totalTheProduct = parseInt(item.quantity) * (parseInt(item.discountPercentage) * parseInt(product.price))/100
+            let totalTheProduct = parseInt(item.quantity) * (parseInt(product.discountPercentage) * parseInt(product.price))/100
             total += parseInt(totalTheProduct)
             quantityTotal+=parseInt(item.quantity)
-            products.push({
+            products.push({ 
                 productId:item.productId,
                 size:item.size,
                 price: ((100-parseInt(item.discountPercentage)) * parseInt(product.price)) / 100,
@@ -95,9 +95,9 @@ module.exports.createOrder=async (req,res)=>{
                 total: totalTheProduct
             })
         }
+        console.log(products)
         cart.products=[];
         await cart.save();
-        console.log(req.session.user._id)
         const newOrder={
             customerId: `${req.session.user._id}`,
             priceTotal:total,
@@ -116,6 +116,14 @@ module.exports.createOrder=async (req,res)=>{
           })
         }
         else{
+                res.json({
+                    success: false,
+                    message: "Your cart is empty"
+                })
+        }
+    }
+            
+        else{
             res.json({
                 success:false,
                 message:"Add more an address"
@@ -124,7 +132,11 @@ module.exports.createOrder=async (req,res)=>{
 
     }
     catch(error){
-
+        console.log(error)
+         res.json({
+             success: false,
+             message: "Something are wrong"
+         })
     } }
     else{
 

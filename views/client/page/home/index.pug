@@ -70,11 +70,12 @@ block main_content
       .modal-dialog.modal-dialog-centered.modal-xl.rounded-3
         .modal-content.rounded-3
             .modal-body.rounded-3
-                form
+                form#add-form(method="POST" action="/cart/add?_method=PATCH")
                     .row.p-5
                         .col-lg-6
                             img.rounded-5(src="https://minimalin-demo.myshopify.com/cdn/shop/files/gallery-2_770x.jpg?v=1691167477") 
                         .col-lg-6.ps-5
+                            input.form-control.me-5(type="hidden" name="id" id)   
                             h1.mb-4.title Air fox 111
                             h1.mb-4.price 2.000.000 d
                             p.mb-4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque recusandae, ex velit ullam sint facilis exercitationem corrupti suscipit, possimus eum enim dicta distinctio quas ut, odit quidem quia rerum consequuntur?
@@ -84,7 +85,7 @@ block main_content
                                     option(value="39") 39
                                     option(value="40") 40
                             .cart-insert.d-flex.justify-content-start    
-                                input.form-control.me-5(type="Number")   
-                                button.px-4.py-4.rounded-2(type='button', data-bs-dismiss='modal') Add to cart
+                                input.form-control.me-5(type="Number" name="quantity" value=1)   
+                                button.px-4.py-4.rounded-2(type='submit', data-bs-dismiss='modal') Add to cart
     script(src="/build/home_client.bundle.js")
             

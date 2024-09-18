@@ -44,6 +44,7 @@ if(quickViewBtn){
                 quickView.querySelector(".price").innerHTML = res.product.price;
                 quickView.querySelector(".title").innerHTML = res.product.title;
                 quickView.querySelector("input").value=1;
+                quickView.querySelector("input[id]").value = res.product._id;
                 const select=quickView.querySelector("select");
                 select.innerHTML=""
                 for (let i = 0; i < res.size.length; i++) {

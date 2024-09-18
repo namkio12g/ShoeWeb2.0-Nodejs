@@ -63,3 +63,54 @@ prevIcon.addEventListener("click", () => {
     slidercontent.scrollLeft -= sliderSelectItemWidth
 })
 }
+//const addForm = document.querySelector("#add-form")
+const addForm = document.querySelectorAll("#add-form")
+if (addForm) {
+    addForm.forEach((item) => {
+        item.addEventListener('submit', async (e) => {
+
+            e.preventDefault();
+
+            const formData = new FormData(item);
+            const data = new URLSearchParams(formData);
+
+            var response;
+
+            response = await fetch('/cart/add', {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Content-type': 'application/x-www-form-urlencoded'
+                }
+            })
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            const res = await response.json(); // Parse JSON response
+
+
+
+            if (res.success) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: res.message,
+                    timer: 1000,
+                    showConfirmButton: false
+                }).then(function () {
+                    location.reload();
+                })
+
+            } else {
+
+                Swal.fire({
+                    icon: "error",
+                    title: "Failed",
+                    text: res.message,
+                    timer: 1000,
+                    showConfirmButton: false
+                })
+            }
+        })
+    })
+}

@@ -72,9 +72,11 @@ block user_content
                             .d-flex.flex-row.justify-content-between.mb-2.order-total-text
                                 span.fs-4.fw-bold Total
                                 span.fs-3.fw-bold #{order.priceTotal-order.coupponTotal}$ 
-                        if order.status===1
-                            a(data-order-id=order._id).mx-auto.fs-3.p-2.mt-3.text-center.cancel-button Cancel order
-                        else if order.status===4
-                            a.mx-auto.fs-3.p-2.mt-3.text-center Create order again 
+                        .section.px-3.text-center
+                            .row
+                                if order.status===1
+                                    a(data-order-id=order._id).mx-auto.fs-3.p-2.mt-2    .text-center.cancel-button Cancel order
+                                else if order.status===4
+                                    a.mx-auto.fs-3.p-2.mt-3.text-center Create order again 
 
 

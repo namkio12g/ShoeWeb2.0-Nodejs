@@ -16,10 +16,10 @@ const paymentSelect=document.querySelector(".payment-selection")
 
 var totalApplyCoup = 0
 var totalGlobal=(parseInt(totalText.textContent.replace("$","")))
-createOrderBtn.addEventListener("click", (e) => {
+createOrderBtn.addEventListener("click", async (e) => {
     let paymentValue=paymentSelect.value
     const coupponId = hidCpId.value;
-    fetch("/order/createOrder", {
+    await fetch("/order/createOrder", {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -46,7 +46,7 @@ createOrderBtn.addEventListener("click", (e) => {
             else{
                 Swal.fire({
                     icon: "error",
-                    title: "Address missing",
+                    title: res.message,
                     text: res.massage,
                     timer: 1500,
                     showConfirmButton: false

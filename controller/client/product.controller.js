@@ -49,6 +49,8 @@ module.exports.getProductQuickView = async (req, res) => {
       newProduct.price = product.priceAfterDiscountFormatted;
       newProduct.thumbnail = product.thumbnail;
       newProduct.title = product.title;
+      newProduct._id = product._id;
+
       res.status(200).json({
         product: newProduct,
         size:product.size
@@ -117,6 +119,7 @@ module.exports.index = async (req, res) => {
       brand = await brandModel.findOne({
         slug: req.query.brand
       }).select('_id title');
+      console.log(req.query.brand)
 
       brands.push(brand._id)
     req.query.brand = [req.query.brand]
@@ -201,6 +204,7 @@ if (req.query.prices) {
   ];
 
   // const
+  req.query.category=category;
   res.render("client/page/product/index", {
     title: "Trang Chủ > Products >",
     message: "This is product page!", 
